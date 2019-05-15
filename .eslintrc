@@ -1,0 +1,28 @@
+{
+	"env": {
+		"commonjs": true,
+		"es6": true,
+		"node": true,
+		"jest": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:unicorn/recommended",
+		"prettier",
+		"prettier/unicorn",
+		"plugin:node/recommended"
+	],
+	"globals": {
+		"Atomics": "readonly",
+		"SharedArrayBuffer": "readonly"
+	},
+	"plugins": ["node", "unicorn", "prettier", "node"],
+	"parserOptions": {
+		"ecmaVersion": 2018
+	},
+	"rules": {
+		"unicorn/filename-case": ["error", { "case": "camelCase" }],
+		"prettier/prettier": "error",
+		"indent": ["error", "tabs"]
+	}
+}
