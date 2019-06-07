@@ -1,7 +1,7 @@
 workflow "Release" {
   on = "push"
   resolves = [
-    "Trigger GitHub release",
+    #"Trigger GitHub release",
    ]
 }
 
