@@ -1,7 +1,7 @@
 jobs: 
-  - job: {{ parameters.jobName }}
+  - job: ${{ parameters.jobName }}
     pool:
-      vmImage: {{ parameters.vmImage }}
+      vmImage: ${{ parameters.vmImage }}
     strategy:
       matrix:
         node_8_x:
@@ -28,5 +28,5 @@ jobs:
       displayName: 'Publishing Test Results'
       inputs:
         testResultsFiles: '**junit*.xml'
-        testRunTitle: TestRun for {{ parameters.jobName }} $(node_version)
+        testRunTitle: TestRun for ${{ parameters.jobName }} $(node_version)
         
