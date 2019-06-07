@@ -223,7 +223,7 @@ function generateTerraformConfiguration(write = false) {
 	if (write) {
 		fs.writeFileSync(
 			process.cwd() + "/gateway.terraform.json",
-			prettier.format(JSON.stringify(result), {
+			prettier.format(JSON.stringify(terraformConfiguration), {
 				parser: "json",
 				endOfLine: "lf"
 			})

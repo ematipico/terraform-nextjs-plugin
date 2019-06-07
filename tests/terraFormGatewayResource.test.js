@@ -10,13 +10,13 @@ describe("Gateway integration", () => {
 			gatewayKey: "CustomKey"
 		});
 
-		const res = generateGatewayResource({
+		const result = generateGatewayResource({
 			id: "myId",
 			pathname: "personal-page"
 		});
 
-		expect(res.uniqueId).toBe("CustomKey-myId");
-		expect(res.resource).toStrictEqual({
+		expect(result.uniqueId).toBe("CustomKey-myId");
+		expect(result.resource).toStrictEqual({
 			rest_api_id: "${aws_api_gateway_rest_api.CustomKey.id}",
 			parent_id: "${aws_api_gateway_rest_api.CustomKey.root_resource_id}",
 			path_part: "personal-page"
@@ -28,14 +28,14 @@ describe("Gateway integration", () => {
 			gatewayKey: "CustomKey"
 		});
 
-		const res = generateGatewayResource({
+		const result = generateGatewayResource({
 			id: "mySecondId",
 			pathname: "personal-page",
 			parentId: "CustomKey-myId"
 		});
 
-		expect(res.uniqueId).toBe("CustomKey-mySecondId");
-		expect(res.resource).toStrictEqual({
+		expect(result.uniqueId).toBe("CustomKey-mySecondId");
+		expect(result.resource).toStrictEqual({
 			rest_api_id: "${aws_api_gateway_rest_api.CustomKey.id}",
 			parent_id: "${aws_api_gateway_resource.CustomKey-myId.id}",
 			path_part: "personal-page"

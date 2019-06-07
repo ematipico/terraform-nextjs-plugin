@@ -23,6 +23,8 @@
 	"rules": {
 		"unicorn/filename-case": ["error", { "case": "camelCase" }],
 		"prettier/prettier": "error",
-		"indent": ["error", "tabs"]
+		"indent": ["error", "tab"],
+		"unicorn/no-process-exit": "off",
+		"no-process-exit": "off"
 	}
 }

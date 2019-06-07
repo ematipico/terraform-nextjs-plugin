@@ -1,3 +1,7 @@
+/**
+ * Credits to https://github.com/danielcondemarin
+ * https://github.com/danielcondemarin/serverless-nextjs-plugin/blob/master/packages/next-aws-lambda/lib/compatLayer.js
+ */
 const Stream = require("stream");
 const queryString = require("querystring");
 

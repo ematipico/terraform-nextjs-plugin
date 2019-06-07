@@ -12,6 +12,7 @@ describe("terraFormZip", () => {
 		expect(result.resource).toStrictEqual({
 			output_path: "files/${local.groupname}-index.zip",
 			type: "zip",
+			// eslint-disable-next-line unicorn/prevent-abbreviations
 			source_dir: path.join("../../fake/path", "index")
 		});
 	});
