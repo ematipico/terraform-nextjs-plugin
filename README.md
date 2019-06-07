@@ -1,5 +1,10 @@
 # Terraform nextjs plugin
 
+<p align="center">
+	<img height=200 src="https://www.ongraph.com/wp-content/uploads/2018/02/nextjs_icon.png" width=200 />
+	<img height=200 src="https://avatars0.githubusercontent.com/u/11051457?v=3&s=280" width=200 />
+</p>
+
 A plugin to generate terraform configuration from nextjs pages
 
 [![Build Status](https://myburning.visualstudio.com/terraform-nextjs-plugin/_apis/build/status/ematipico.terraform-nextjs-plugin?branchName=master)](https://myburning.visualstudio.com/terraform-nextjs-plugin/_build/latest?definitionId=1&branchName=master)
@@ -25,8 +30,8 @@ const configuration = {
         {
           page: "/content", // physical name of the nextjs page
           route: "/beautiful-content" // the url of the page
-				},
-				{
+        },
+        {
           page: "/content?queryParam", // physical name of the nextjs page
           route: "/beautiful-content" // the url of the page
         }
@@ -48,5 +53,49 @@ const configuration = {
   ]
 };
 
-const resources = generateResources(configuration) // inside resources you have the terraform json configuration
+const resources = generateResources(configuration); // inside resources you have the terraform json configuration
+```
+
+## Configuration
+
+| Name         | Type                     | Description                                                                                                                                                                 |
+| ------------ | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `gatewayKey` | `string`                 | A name that will be prefixed to your resources. Usually it's the project name.                                                                                              |
+| `lambdaPath` | `string`                 | This is the path where the lambdas really are. Usually you will run `terraform` CLI from a different project/folder. So you need to tell `terraform` where these files are. |
+| `routes`     | `Array<Mapping>|Mapping` | This is the structure of the routes that describe your pages.                                                                                                               |
+
+### Mapping explained
+
+Let's say we want to describe the following URLs:
+
+- `/about-us/contacts`
+- `/about-us/the-company`
+- `/blog/first-blog-post`
+- `/blog/second-blog-post`
+
+```js
+const routes = [
+  {
+    prefix: "/about-us",
+    mappings: [
+      {
+        route: "/contacts", // the URL
+        page: "/companyContacts" // the nextjs file, inside pages folder, that is responsible to render this page
+      },
+      {
+        route: "/the-company",
+        page: "/aboutTheCompany"
+      }
+    ]
+  },
+  {
+    prefix: "",
+    mappings: [
+      {
+        route: "/blog/:url",
+        page: "/blogPost"
+      }
+    ]
+  }
+];
 ```

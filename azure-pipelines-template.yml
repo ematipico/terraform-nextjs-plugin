@@ -12,7 +12,7 @@ jobs:
           node_version: 10.x
 
     steps:
-    - task: NodeTool@0 
+    - task: NodeTool@0
       inputs:
         versionSpec: $(node_version)
 
@@ -22,10 +22,12 @@ jobs:
     - script: |
         npm install
       displayName: "Installing dependencies"
+    - script: npm run lint
+      displayName: "Linting the code"
     - script: npm run test:ci
-      displayName: "Running tests"
+      displayName: "Running the tests"
     - task: PublishTestResults@2
-      displayName: 'Publishing Test Results'
+      displayName: 'Publishing test results'
       inputs:
         testResultsFiles: '**junit*.xml'
         testRunTitle: TestRun for ${{ parameters.jobName }} $(node_version)
