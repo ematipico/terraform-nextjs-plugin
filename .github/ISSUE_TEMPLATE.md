@@ -1,17 +1,14 @@
-## Expected Behavior
+# Issue
 
+## Expected Behavior
 
 ## Actual Behavior
 
-
 ## Steps to Reproduce the Problem
 
-  1.
-  1.
-  1.
-
+<!-- List here how to reproduce the issue -->
 ## Specifications
 
-  - Version:
-  - Platform:
-  - Subsystem:
+- Version:
+- Platform:
+- Subsystem:
