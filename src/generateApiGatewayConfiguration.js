@@ -31,19 +31,13 @@ const getParamsFromPath = pathname => {
 		.filter(Boolean);
 };
 
-const getQueryStringParamsFromPath = pathname => {
-	return pathname
-		.split("/")
-		.map(pathPart => {
-			if (pathPart.includes("?")) {
-				return {
-					name: pathPart.substring(pathPart.indexOf("?") + 1),
-					mandatory: false
-				};
-			}
-			return undefined;
-		})
-		.filter(Boolean);
+const parseParams = params => {
+	return Object.keys(params).map(paramKey => {
+		return {
+			name: paramKey,
+			mandatory: params[paramKey]
+		};
+	});
 };
 
 let gatewayResourceId;
@@ -67,128 +61,95 @@ const generateUniqueName = pathParts => {
  * @param {string[]} parts
  * @param {string} pathname
  * @param {string} lambdaName
+ * @param {string} params
  */
-const handleResource = (pathPart, index, parts, pathname, lambdaName) => {
+const handleResource = ({
+	pathPart,
+	index,
+	parts,
+	pathname,
+	lambdaName,
+	params
+}) => {
 	const isUrlParam = pathPart.includes(":");
-	const isQueryStringParam = pathPart.includes("?");
 	const currentPathName = pathPart.replace(":", "").replace("?", "");
 	// Generation of the gateway resource
 	// we don't generate a gateway resource if the path part is a query string
-	if (isQueryStringParam === false) {
-		uniqueName = generateUniqueName(parts.slice(0, index + 1));
+	uniqueName = generateUniqueName(parts.slice(0, index + 1));
 
-		// has a parent, generate Id of the parent
-		if (index > 0) {
-			// get the parent Id (generate it, actually)
-			const parentId = generateUniqueId(
-				generateUniqueName(parts.slice(0, index))
-			);
-			const { uniqueId, resource } = generateGatewayResource({
-				id: uniqueName,
-				pathname: currentPathName,
-				parentId,
-				isUrlParam
-			});
-			gatewayResourceId = uniqueId;
-			apiGatewayResource[uniqueId] = resource;
-		} else {
-			const { uniqueId, resource } = generateGatewayResource({
-				id: uniqueName,
-				pathname: uniqueName,
-				isUrlParam
-			});
-			gatewayResourceId = uniqueId;
-			apiGatewayResource[uniqueId] = resource;
-		}
-	}
-
-	// last part of the url, here we generate the method and the integration resources
-	// also, we have to enter when we have a query string parameter.
-	// In this last case, the gateway resource will belong to the father because hasn't been set
-	if (index === parts.length - 1 || isQueryStringParam === true) {
-		let params = [];
-		let queryStringParams = [];
-		if (isUrlParam) {
-			params = getParamsFromPath(pathname);
-		}
-		if (isQueryStringParam) {
-			queryStringParams = getQueryStringParamsFromPath(pathname);
-		}
-		const method = generateGatewayMethod({
-			uniqueName,
-			gatewayResourceId: gatewayResourceId,
-			params,
-			queryStringParams
-		});
-
-		apiGatewayMethod[method.uniqueId] = method.resource;
-
-		const integration = generateGatewayIntegration({
+	// has a parent, generate Id of the parent
+	if (index > 0) {
+		// get the parent Id (generate it, actually)
+		const parentId = generateUniqueId(
+			generateUniqueName(parts.slice(0, index))
+		);
+		const { uniqueId, resource } = generateGatewayResource({
 			id: uniqueName,
-			gatewayResourceId: gatewayResourceId,
-			lambdaName,
-			params,
-			queryStringParams
+			pathname: currentPathName,
+			parentId,
+			isUrlParam
 		});
-		apiGatewayIntegration[integration.uniqueId] = integration.resource;
-	}
-
-	// last part of the url, here we generate the method and the integration resources
-	// also, we have to enter when we have a query string parameter.
-	// In this last case, the gateway resource will belong to the father because hasn't been set
-	if (index === parts.length - 1 || isQueryStringParam === true) {
-		let params = [];
-		let queryStringParams = [];
-		if (isUrlParam) {
-			params = getParamsFromPath(pathname);
-		}
-		if (isQueryStringParam) {
-			queryStringParams = getQueryStringParamsFromPath(pathname);
-		}
-		const method = generateGatewayMethod({
-			uniqueName,
-			gatewayResourceId: gatewayResourceId,
-			params,
-			queryStringParams
-		});
-
-		apiGatewayMethod[method.uniqueId] = method.resource;
-
-		const integration = generateGatewayIntegration({
-			id: uniqueName,
-			gatewayResourceId: gatewayResourceId,
-			lambdaName,
-			params,
-			queryStringParams
-		});
-		apiGatewayIntegration[integration.uniqueId] = integration.resource;
-	}
-};
-
-const transformQueryString = (result, pathname) => {
-	// if the pathname has a "?", we remove split it and we add it to the array
-	// When we will support multiple query string params,
-	// this function will have to be re implemented
-	if (pathname.includes("?")) {
-		// order is important here
-		result.push(pathname.substring(0, pathname.indexOf("?")));
-		result.push(pathname.substring(pathname.indexOf("?")));
+		gatewayResourceId = uniqueId;
+		apiGatewayResource[uniqueId] = resource;
 	} else {
-		result.push(pathname);
+		const { uniqueId, resource } = generateGatewayResource({
+			id: uniqueName,
+			pathname: uniqueName,
+			isUrlParam
+		});
+		gatewayResourceId = uniqueId;
+		apiGatewayResource[uniqueId] = resource;
 	}
-	return result;
+
+	// last part of the url, here we generate the method and the integration resources
+	// also, we have to enter when we have a query string parameter.
+	// In this last case, the gateway resource will belong to the father because hasn't been set
+	if (index === parts.length - 1) {
+		let urlParams = [];
+		let queryStringParams = [];
+		if (isUrlParam) {
+			urlParams = getParamsFromPath(pathname);
+		}
+		if (params) {
+			queryStringParams = parseParams(params);
+		}
+		const method = generateGatewayMethod({
+			uniqueName,
+			gatewayResourceId: gatewayResourceId,
+			params: urlParams,
+			queryStringParams
+		});
+
+		apiGatewayMethod[method.uniqueId] = method.resource;
+
+		const integration = generateGatewayIntegration({
+			id: uniqueName,
+			gatewayResourceId: gatewayResourceId,
+			lambdaName,
+			params: urlParams,
+			queryStringParams
+		});
+		apiGatewayIntegration[integration.uniqueId] = integration.resource;
+	}
 };
 
 const generateResources = routesObject => {
-	routesObject.mappings.forEach(route => {
-		const pathname = routesObject.prefix + route.route;
-		const lambdaName = route.page ? route.page.replace("/", "") : "content";
+	routesObject.mappings.forEach(currentRoute => {
+		const { params, page, route } = currentRoute;
+		const pathname = routesObject.prefix + route;
+		const lambdaName = page.replace("/", "");
 		pathname
 			.split("/")
 			.filter(Boolean)
-			.reduce(transformQueryString, [])
-			.forEach((...rest) => {
-				handleResource(...rest, pathname, lambdaName);
+			.forEach((pathPart, index, parts) => {
+				handleResource({
+					pathPart,
+					index,
+					parts,
+					pathname,
+					lambdaName,
+					params
+				});
 			});
 	});
 };

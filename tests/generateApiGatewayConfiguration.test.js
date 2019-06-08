@@ -17,6 +17,14 @@ describe("generateTerraformConfiguration", () => {
 					{
 						page: "/singleBlogPost",
 						route: "/blog/:url"
+					},
+					{
+						page: "/blogPost",
+						route: "/blog/detail/:url",
+						params: {
+							page: true,
+							hideComments: false
+						}
 					}
 				]
 			}

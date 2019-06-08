@@ -4,6 +4,19 @@ exports[`generateTerraformConfiguration should generate the correct configuratio
 Object {
   "resource": Object {
     "aws_api_gateway_integration": Object {
+      "CustomKey-blog-detail-url": Object {
+        "http_method": "GET",
+        "integration_http_method": "POST",
+        "request_parameters": Object {
+          "integration.request.path.url": "method.request.path.url",
+          "integration.request.querystring.hideComments": "method.request.querystring.hideComments",
+          "integration.request.querystring.page": "method.request.querystring.page",
+        },
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-CustomKey-blog-detail-url.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+        "type": "AWS_PROXY",
+        "uri": "arn:aws:apigateway:\${local.aws_region}:lambda:path/2015-03-31/functions/\${aws_lambda_function.lambdaForCustomKey-blogPost.arn}/invocations",
+      },
       "CustomKey-blog-url": Object {
         "http_method": "GET",
         "integration_http_method": "POST",
@@ -25,6 +38,17 @@ Object {
       },
     },
     "aws_api_gateway_method": Object {
+      "CustomKey-blog-detail-url": Object {
+        "authorization": "NONE",
+        "http_method": "GET",
+        "request_parameters": Object {
+          "method.request.path.url": true,
+          "method.request.querystring.hideComments": false,
+          "method.request.querystring.page": true,
+        },
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-blog-detail-url.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
       "CustomKey-blog-url": Object {
         "authorization": "NONE",
         "http_method": "GET",
@@ -47,6 +71,16 @@ Object {
         "path_part": "blog",
         "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
       },
+      "CustomKey-blog-detail": Object {
+        "parent_id": "\${aws_api_gateway_resource.CustomKey-blog.id}",
+        "path_part": "detail",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-blog-detail-url": Object {
+        "parent_id": "\${aws_api_gateway_resource.CustomKey-blog-detail.id}",
+        "path_part": "{url}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
       "CustomKey-blog-url": Object {
         "parent_id": "\${aws_api_gateway_resource.CustomKey-blog.id}",
         "path_part": "{url}",
@@ -64,6 +98,7 @@ Object {
       "default": Array [
         "aws_api_gateway_integration.CustomKey-new-blog-post-amazing",
         "aws_api_gateway_integration.CustomKey-blog-url",
+        "aws_api_gateway_integration.CustomKey-blog-detail-url",
       ],
     },
   },

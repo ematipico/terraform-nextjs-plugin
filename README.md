@@ -32,8 +32,11 @@ const configuration = {
           route: "/beautiful-content" // the url of the page
         },
         {
-          page: "/content?queryParam", // physical name of the nextjs page
-          route: "/beautiful-content" // the url of the page
+          page: "/content", // physical name of the nextjs page
+          route: "/beautiful-content", // the url of the page
+          params: {
+            myParam: false // it is not mandatory
+          }
         }
       ]
     },
@@ -60,7 +63,7 @@ const resources = generateResources(configuration); // inside resources you have
 
 | Name         | Type                     | Description                                                                                                                                                                 |
 | ------------ | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `gatewayKey` | `string`                 | A name that will be prefixed to your resources. Usually it's the project name.                                                                                              |
+| `gatewayKey` | `string`                 | A name that will be prefixed to your resources. Usually it's the project name. Default value is `Terranext`.                                                                |
 | `lambdaPath` | `string`                 | This is the path where the lambdas really are. Usually you will run `terraform` CLI from a different project/folder. So you need to tell `terraform` where these files are. |
 | `routes`     | `Array<Mapping>|Mapping` | This is the structure of the routes that describe your pages.                                                                                                               |
 
@@ -72,6 +75,7 @@ Let's say we want to describe the following URLs:
 - `/about-us/the-company`
 - `/blog/first-blog-post`
 - `/blog/second-blog-post`
+- `/credits?hideComments`: here, `hideComments` is not mandatory. If it is mandatory, it will be marked `true` in the configuration
 
 ```js
 const routes = [
@@ -94,6 +98,13 @@ const routes = [
       {
         route: "/blog/:url",
         page: "/blogPost"
+      },
+      {
+        route: "/credits",
+        page: "/credits",
+        params: {
+          hideComments: false
+        }
       }
     ]
   }
