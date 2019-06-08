@@ -2,13 +2,15 @@
   "name": "@ematipico/terraform-nextjs-plugin",
   "version": "0.1.0",
   "description": "A nextjs plugin to generate lambas and configurations for Terraform",
-  "main": "index.js",
+  "main": "src/index.js",
+  "bin": "bin/terranext.js",
   "types": "commonjs",
   "scripts": {
     "test": "jest --watch",
     "test:ci": "jest --maxWorkers=4 --reporters=default --reporters=jest-junit",
     "release": "standard-version",
-    "lint": "eslint --ext js ./src ./bin ./tests"
+    "lint": "eslint --ext js ./src ./bin ./tests",
+    "lint:fix": "eslint --ext js ./src ./bin ./tests --fix"
   },
   "repository": {
     "type": "git",
