@@ -1,6 +1,6 @@
 {
   "name": "@ematipico/terraform-nextjs-plugin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A nextjs plugin to generate lambas and configurations for Terraform",
   "main": "src/index.js",
   "bin": "bin/terranext.js",
