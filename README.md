@@ -15,6 +15,18 @@ A plugin to generate terraform configuration from nextjs pages
 Nextjs supports serverless pages, where it creates files that can be used by some lambdas to render the pages.
 Unfortunately, here you are left alone. So here a solution for your troubles.
 
+## Installation
+
+```bash
+npm i --save-dev @ematipico/terraform-nextjs-plugin
+```
+
+Or
+
+```bash
+yarn add --dev @ematipico/terraform-nextjs-plugin
+```
+
 ## Usage
 
 ```js
