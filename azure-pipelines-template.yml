@@ -31,6 +31,9 @@ jobs:
     - script: |
         npm run integration:build
       displayName: "Build example app"  
+    - script: |
+        cp ./integration/app/**.tf.json ./integration/aws;
+        displayName: "Copy resource files"
     - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
       displayName: 'Terraform init'
       inputs:

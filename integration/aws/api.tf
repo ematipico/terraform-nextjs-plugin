@@ -29,7 +29,7 @@ resource "aws_api_gateway_deployment" "CustomKey" {
 
   stage_description = "Deployment md5: ${md5(
     format("%s%s",
-      file("../app/gateway.terraform.tf.json"),
-      file("../app/lambdas.terraform.tf.json"),
+      file("gateway.terraform.tf.json"),
+      file("lambdas.terraform.tf.json"),
     ))}"
 }
