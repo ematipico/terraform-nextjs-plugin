@@ -20,22 +20,26 @@ jobs:
         npm install -g npm@latest
       displayName: "Installing npm"
     - script: |
-        npm install
+        npm install --loglevel=warn
       displayName: "Installing dependencies"
     - script: npm run lint
       displayName: "Linting the code"
     - script: npm run test:ci
       displayName: "Running the tests"
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+      displayName: 'Use Terraform 0.11.11'
     - script: |
-        cd integration/app
-        npm install
-        npm run build
-        cd ../
-        terraform init ./aws && terraform validate ./aws
-      displayName: "Integration"
+        npm run integration
+      displayName: "Build example app"  
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+      displayName: 'terraform validate '
+      inputs:
+        workingDirectory: integration/aws
+
     - task: PublishTestResults@2
       displayName: 'Publishing test results'
       inputs:
         testResultsFiles: '**junit*.xml'
         testRunTitle: TestRun for ${{ parameters.jobName }} $(node_version)
+        
         
