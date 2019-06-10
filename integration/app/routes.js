@@ -6,7 +6,7 @@ module.exports = {
 			route: "/blog/:url"
 		},
 		{
-			page: "/contacts",
+			page: "/contact",
 			route: "/contact-us"
 		}
 	]

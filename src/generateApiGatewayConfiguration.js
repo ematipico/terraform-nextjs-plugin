@@ -72,7 +72,7 @@ const handleResource = ({
 	params
 }) => {
 	const isUrlParam = pathPart.includes(":");
-	const currentPathName = pathPart.replace(":", "").replace("?", "");
+	const currentPathName = pathPart.replace(":", "");
 	// Generation of the gateway resource
 	// we don't generate a gateway resource if the path part is a query string
 	uniqueName = generateUniqueName(parts.slice(0, index + 1));
@@ -124,7 +124,7 @@ const handleResource = ({
 
 		const integration = generateGatewayIntegration({
 			id: uniqueName,
-			gatewayResourceId: currentPathName,
+			gatewayResourceId: gatewayResourceId,
 			lambdaName,
 			params: urlParams,
 			queryStringParams
