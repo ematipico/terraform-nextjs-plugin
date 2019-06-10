@@ -1,5 +1,5 @@
 "use strict";
-const { getRoutes } = require("./configuration");
+const { getRoutes, getGatewayKey } = require("./configuration");
 const fs = require("fs");
 const prettier = require("prettier");
 
@@ -124,7 +124,7 @@ const handleResource = ({
 
 		const integration = generateGatewayIntegration({
 			id: uniqueName,
-			gatewayResourceId: gatewayResourceId,
+			gatewayResourceId: currentPathName,
 			lambdaName,
 			params: urlParams,
 			queryStringParams
@@ -170,7 +170,14 @@ function generateTerraformConfiguration(write = false) {
 		resource: {
 			aws_api_gateway_resource: apiGatewayResource,
 			aws_api_gateway_method: apiGatewayMethod,
-			aws_api_gateway_integration: apiGatewayIntegration
+			aws_api_gateway_integration: apiGatewayIntegration,
+			aws_api_gateway_stage: {
+				[getGatewayKey()]: {
+					rest_api_id: "${aws_api_gateway_rest_api." + getGatewayKey() + ".id}",
+					deployment_id:
+						"${aws_api_gateway_deployment." + getGatewayKey() + ".id}"
+				}
+			}
 		},
 		variable: {
 			integrationList: {
@@ -183,7 +190,7 @@ function generateTerraformConfiguration(write = false) {
 
 	if (write) {
 		fs.writeFileSync(
-			process.cwd() + "/gateway.terraform.json",
+			process.cwd() + "/gateway.terraform.tf.json",
 			prettier.format(JSON.stringify(terraformConfiguration), {
 				parser: "json",
 				endOfLine: "lf"
