@@ -11,7 +11,7 @@
     "release": "standard-version",
     "lint": "eslint --ext js ./src ./bin ./tests",
     "lint:fix": "eslint --ext js ./src ./bin ./tests --fix",
-    "integration:build":"cd ./integration/app; npm run build"
+    "integration:build":"cd ./integration/app; next build"
   },
   "repository": {
     "type": "git",
