@@ -7,8 +7,10 @@
 
 A plugin to generate terraform configuration from nextjs pages
 
-[![Build Status](https://myburning.visualstudio.com/terraform-nextjs-plugin/_apis/build/status/ematipico.terraform-nextjs-plugin?branchName=master)](https://myburning.visualstudio.com/terraform-nextjs-plugin/_build/latest?definitionId=1&branchName=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f77ac77e550449ffb821cd6e7cc4fd72)](https://www.codacy.com/app/ematipico/terraform-nextjs-plugin?utm_source=github.com&utm_medium=referral&utm_content=ematipico/terraform-nextjs-plugin&utm_campaign=Badge_Grade)
+[![Build Status][build-status-azure]][build-status-azure-url]
+[![Codacy Badge][code-quality]][code-quality-url]
+[![npm][npm]][npm-url]
+
 
 ## The reason
 
@@ -161,3 +163,10 @@ locals {
 ```
 
 Please check the [integration](/integration/aws/api.tf) testing to see how to consume the configuration.
+
+[build-status-azure]: https://myburning.visualstudio.com/terraform-nextjs-plugin/_apis/build/status/ematipico.terraform-nextjs-plugin?branchName=master
+[build-status-azure-url]: https://myburning.visualstudio.com/terraform-nextjs-plugin/_build/latest?definitionId=1&branchName=master
+[npm]: https://img.shields.io/npm/v/@ematipico/terraform-nextjs-plugin.svg
+[npm-url]: https://www.npmjs.com/package/@ematipico/terraform-nextjs-plugin
+[code-quality]: https://api.codacy.com/project/badge/Grade/f77ac77e550449ffb821cd6e7cc4fd72
+[code-quality-url]: https://www.codacy.com/app/ematipico/terraform-nextjs-plugin?utm_source=github.com&utm_medium=referral&utm_content=ematipico/terraform-nextjs-plugin&utm_campaign=Badge_Grade
