@@ -2,11 +2,11 @@
 const fs = require("fs");
 const path = require("path");
 const prettier = require("prettier");
-const { BUILD_PATH, NEXT_SERVERLESS_PATH } = require("./constants");
 const { generateLambdaResource } = require("./resources/terraFormLambda");
 const { generateZipResource } = require("./resources/terraFormZip.js");
+const { getBuildPath, getServerlessBuildPath } = require("./configuration");
 
-function generateLambda(filename) {
+function generateLambda(filename, thePath) {
 	const lambdaTemplate = `
 
 const compatLayer = require('./compatLayer.js');
@@ -21,7 +21,7 @@ exports.render = (event, context, callback) => {
 `;
 
 	fs.writeFileSync(
-		path.resolve(BUILD_PATH, "lambdas", filename, filename + ".js"),
+		path.resolve(thePath, "lambdas", filename, filename + ".js"),
 		prettier.format(lambdaTemplate, {
 			parser: "babel",
 			endOfLine: "lf"
@@ -39,13 +39,16 @@ const zipResources = {};
 let lambdaResources;
 
 function generateLambdas(write = false) {
-	if (fs.existsSync(BUILD_PATH + "/lambdas")) {
-		fs.rmdirSync(BUILD_PATH + "/lambdas");
+	const buildPath = getBuildPath();
+	const serverlessBuildPath = getServerlessBuildPath();
+
+	if (fs.existsSync(buildPath + "/lambdas")) {
+		fs.rmdirSync(buildPath + "/lambdas");
 	}
 	// it creates the folder that will contain the lambdas
-	fs.mkdirSync(BUILD_PATH + "/lambdas");
+	fs.mkdirSync(buildPath + "/lambdas");
 	// it gets files that are inside the serverless folder created by next
-	fs.readdirSync(NEXT_SERVERLESS_PATH).forEach(file => {
+	fs.readdirSync(serverlessBuildPath).forEach(file => {
 		/**
 		 * 1. create a folder with name of the file
 		 * 2. copy the next file with a suffix .original.js
@@ -56,21 +59,21 @@ function generateLambdas(write = false) {
 		 */
 		// 1.
 		const lambdaName = file.replace(".js", "");
-		const lambdaPath = path.resolve(BUILD_PATH, "lambdas") + "/" + lambdaName;
+		const lambdaPath = path.resolve(buildPath, "lambdas") + "/" + lambdaName;
 		fs.mkdirSync(lambdaPath);
 
 		// 2.
 		const newFilename = file.replace(".js", ".original.js");
 		fs.copyFileSync(
-			path.resolve(NEXT_SERVERLESS_PATH, file),
-			path.resolve(BUILD_PATH, "lambdas", lambdaName, newFilename)
+			path.resolve(serverlessBuildPath, file),
+			path.resolve(buildPath, "lambdas", lambdaName, newFilename)
 		);
 		// 3.
-		generateLambda(lambdaName);
+		generateLambda(lambdaName, buildPath);
 		// 4.
 		fs.copyFileSync(
 			path.resolve(__dirname, "./compatLayer.js"),
-			path.resolve(BUILD_PATH, "lambdas", lambdaName, "compatLayer.js")
+			path.resolve(buildPath, "lambdas", lambdaName, "compatLayer.js")
 		);
 
 		// 5.
@@ -99,7 +102,7 @@ function generateLambdas(write = false) {
 
 	if (write === true) {
 		fs.writeFileSync(
-			process.cwd() + "/lambdas.terraform.json",
+			process.cwd() + "/lambdas.terraform.tf.json",
 			prettier.format(JSON.stringify(lambdaResources), {
 				parser: "json",
 				endOfLine: "lf"
