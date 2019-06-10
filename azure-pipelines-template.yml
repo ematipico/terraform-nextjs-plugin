@@ -30,7 +30,7 @@ jobs:
         cd integration/app
         npm install
         npm run build
-        cd ../terraform
+        cd ../
         terraform init ./aws && terraform validate ./aws
       displayName: "Integration"
     - task: PublishTestResults@2
