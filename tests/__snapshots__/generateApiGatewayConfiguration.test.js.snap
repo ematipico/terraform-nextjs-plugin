@@ -12,7 +12,7 @@ Object {
           "integration.request.querystring.hideComments": "method.request.querystring.hideComments",
           "integration.request.querystring.page": "method.request.querystring.page",
         },
-        "resource_id": "\${aws_api_gateway_resource.CustomKey-CustomKey-blog-detail-url.id}",
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-blog-detail-url.id}",
         "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
         "type": "AWS_PROXY",
         "uri": "arn:aws:apigateway:\${local.aws_region}:lambda:path/2015-03-31/functions/\${aws_lambda_function.lambdaForCustomKey-blogPost.arn}/invocations",
@@ -23,7 +23,7 @@ Object {
         "request_parameters": Object {
           "integration.request.path.url": "method.request.path.url",
         },
-        "resource_id": "\${aws_api_gateway_resource.CustomKey-CustomKey-blog-url.id}",
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-blog-url.id}",
         "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
         "type": "AWS_PROXY",
         "uri": "arn:aws:apigateway:\${local.aws_region}:lambda:path/2015-03-31/functions/\${aws_lambda_function.lambdaForCustomKey-singleBlogPost.arn}/invocations",
@@ -31,7 +31,7 @@ Object {
       "CustomKey-new-blog-post-amazing": Object {
         "http_method": "GET",
         "integration_http_method": "POST",
-        "resource_id": "\${aws_api_gateway_resource.CustomKey-CustomKey-new-blog-post-amazing.id}",
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-new-blog-post-amazing.id}",
         "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
         "type": "AWS_PROXY",
         "uri": "arn:aws:apigateway:\${local.aws_region}:lambda:path/2015-03-31/functions/\${aws_lambda_function.lambdaForCustomKey-blog-post.arn}/invocations",

@@ -1,0 +1,27 @@
+jobs: 
+  - job: ${{ parameters.jobName }}
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    strategy:
+      matrix:
+        node_8_x:
+          node_version: 8.x
+        node_10_x:
+          node_version: 10.x
+        node_12_x:
+          node_version: 10.x
+
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: $(node_version)
+    - script: |
+        npm install -g npm@latest
+      displayName: "Installing npm"
+    - script: |
+        npm install --loglevel=warn
+      displayName: "Installing dependencies"
+    - script: npm run lint
+      displayName: "Linting the code"
+    - script: npm run test:ci
+      displayName: "Running the tests"

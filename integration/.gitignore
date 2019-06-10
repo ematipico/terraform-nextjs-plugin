@@ -1,0 +1,4 @@
+.next/
+.terraform/
+gateway.terraform.tf.json
+lambdas.terraform.tf.json

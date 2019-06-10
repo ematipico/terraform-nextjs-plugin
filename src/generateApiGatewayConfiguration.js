@@ -72,7 +72,7 @@ const handleResource = ({
 	params
 }) => {
 	const isUrlParam = pathPart.includes(":");
-	const currentPathName = pathPart.replace(":", "").replace("?", "");
+	const currentPathName = pathPart.replace(":", "");
 	// Generation of the gateway resource
 	// we don't generate a gateway resource if the path part is a query string
 	uniqueName = generateUniqueName(parts.slice(0, index + 1));
@@ -182,8 +182,10 @@ function generateTerraformConfiguration(write = false) {
 	};
 
 	if (write) {
+		// eslint-disable-next-line no-console
+		console.log("Generating file gateway.terraform.tf.json");
 		fs.writeFileSync(
-			process.cwd() + "/gateway.terraform.json",
+			process.cwd() + "/gateway.terraform.tf.json",
 			prettier.format(JSON.stringify(terraformConfiguration), {
 				parser: "json",
 				endOfLine: "lf"

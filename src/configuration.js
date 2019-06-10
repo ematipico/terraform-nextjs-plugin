@@ -1,5 +1,7 @@
 const { MissingKeyError } = require("./errors/missingKeyError");
 const { IncorrectRoutesError } = require("./errors/incorretRoutesError");
+const path = require("path");
+
 let configuration;
 
 /**
@@ -13,6 +15,7 @@ function setConfiguration({ gatewayKey, lambdaPath, routes }) {
 		{},
 		{
 			gatewayKey: gatewayKey || "Terranext",
+			buildPath: ".next",
 			lambdaPath,
 			routes
 		}
@@ -72,7 +75,12 @@ function getLambdaPrefix() {
 }
 
 function getLambdaPath() {
-	return configuration.lambdaPath;
+	return (
+		configuration.lambdaPath +
+		"/" +
+		configuration.buildPath +
+		"/serverless/pages"
+	);
 }
 
 function getGatewayKey() {
@@ -81,6 +89,18 @@ function getGatewayKey() {
 
 function getRoutes() {
 	return configuration.routes;
+}
+
+function getBuildPath() {
+	return path.resolve(process.cwd(), configuration.buildPath);
+}
+
+function getServerlessBuildPath() {
+	return path.resolve(
+		process.cwd(),
+		configuration.buildPath,
+		"serverless/pages"
+	);
 }
 
 module.exports = {
@@ -92,5 +112,7 @@ module.exports = {
 	getGatewayKey,
 	getLambdaPrefix,
 	getRootResource,
-	getLambdaPath
+	getLambdaPath,
+	getBuildPath,
+	getServerlessBuildPath
 };

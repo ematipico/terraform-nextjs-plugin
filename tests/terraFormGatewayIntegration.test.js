@@ -12,7 +12,7 @@ describe("Gateway integration", () => {
 
 		const resource = generateGatewayIntegration({
 			id: "index",
-			gatewayResourceId: "index",
+			gatewayResourceId: "CustomKey-index",
 			lambdaName: "index"
 		});
 
