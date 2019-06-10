@@ -25,10 +25,3 @@ jobs:
       displayName: "Linting the code"
     - script: npm run test:ci
       displayName: "Running the tests"
-    - task: PublishTestResults@2
-      displayName: 'Publishing test results'
-      inputs:
-        testResultsFiles: '**junit*.xml'
-        testRunTitle: TestRun for ${{ parameters.jobName }} $(node_version)
-        
-        

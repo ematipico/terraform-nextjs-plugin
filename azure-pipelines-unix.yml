@@ -21,6 +21,10 @@ jobs:
     - script: |
         npm install --loglevel=warn
       displayName: "Installing dependencies"
+    - script: npm run lint
+      displayName: "Linting the code"
+    - script: npm run test:ci
+      displayName: "Running the tests"
     - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
       displayName: 'Use Terraform 0.11.11'
     - script: |
@@ -40,3 +44,10 @@ jobs:
       inputs:
         command: validate
         workingDirectory: integration/aws      
+    - task: PublishTestResults@2
+      displayName: 'Publishing test results'
+      inputs:
+        testResultsFiles: '**junit*.xml'
+        testRunTitle: TestRun for ${{ parameters.jobName }} $(node_version)
+        
+        
