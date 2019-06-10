@@ -101,6 +101,8 @@ function generateLambdas(write = false) {
 	};
 
 	if (write === true) {
+		// eslint-disable-next-line no-console
+		console.log("Generating file lambdas.terraform.tf.json");
 		fs.writeFileSync(
 			process.cwd() + "/lambdas.terraform.tf.json",
 			prettier.format(JSON.stringify(lambdaResources), {

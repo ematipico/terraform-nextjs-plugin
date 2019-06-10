@@ -182,6 +182,8 @@ function generateTerraformConfiguration(write = false) {
 	};
 
 	if (write) {
+		// eslint-disable-next-line no-console
+		console.log("Generating file gateway.terraform.tf.json");
 		fs.writeFileSync(
 			process.cwd() + "/gateway.terraform.tf.json",
 			prettier.format(JSON.stringify(terraformConfiguration), {

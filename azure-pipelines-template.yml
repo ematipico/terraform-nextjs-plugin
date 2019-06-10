@@ -34,7 +34,7 @@ jobs:
     - script: |
         cp ./integration/app/gateway.terraform.tf.json ./integration/aws;
         cp ./integration/app/lambdas.terraform.tf.json ./integration/aws;
-        displayName: "Copy resource files"
+      displayName: "Copy resource files"
     - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
       displayName: 'Terraform init'
       inputs:
