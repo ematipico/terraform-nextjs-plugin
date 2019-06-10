@@ -32,8 +32,15 @@ jobs:
         npm run integration:build
       displayName: "Build example app"  
     - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+      displayName: 'Terraform init'
+      inputs:
+        command: init
+        workingDirectory: integration/aws
+    
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
       displayName: 'terraform validate '
       inputs:
+        command: validate
         workingDirectory: integration/aws
 
     - task: PublishTestResults@2
