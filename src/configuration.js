@@ -75,7 +75,12 @@ function getLambdaPrefix() {
 }
 
 function getLambdaPath() {
-	return configuration.lambdaPath + "/" + 		configuration.buildPath + "/serverless/pages";
+	return (
+		configuration.lambdaPath +
+		"/" +
+		configuration.buildPath +
+		"/serverless/pages"
+	);
 }
 
 function getGatewayKey() {

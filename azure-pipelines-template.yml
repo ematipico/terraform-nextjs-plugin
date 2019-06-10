@@ -26,6 +26,13 @@ jobs:
       displayName: "Linting the code"
     - script: npm run test:ci
       displayName: "Running the tests"
+    - script: |
+        cd integration/app
+        npm install
+        npm run build
+        cd ../terraform
+        terraform init ./aws && terraform validate ./aws
+      displayName: "Integration"
     - task: PublishTestResults@2
       displayName: 'Publishing test results'
       inputs:

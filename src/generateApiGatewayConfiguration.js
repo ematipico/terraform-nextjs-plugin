@@ -1,5 +1,5 @@
 "use strict";
-const { getRoutes, getGatewayKey } = require("./configuration");
+const { getRoutes } = require("./configuration");
 const fs = require("fs");
 const prettier = require("prettier");
 
@@ -170,14 +170,7 @@ function generateTerraformConfiguration(write = false) {
 		resource: {
 			aws_api_gateway_resource: apiGatewayResource,
 			aws_api_gateway_method: apiGatewayMethod,
-			aws_api_gateway_integration: apiGatewayIntegration,
-			aws_api_gateway_stage: {
-				[getGatewayKey()]: {
-					rest_api_id: "${aws_api_gateway_rest_api." + getGatewayKey() + ".id}",
-					deployment_id:
-						"${aws_api_gateway_deployment." + getGatewayKey() + ".id}"
-				}
-			}
+			aws_api_gateway_integration: apiGatewayIntegration
 		},
 		variable: {
 			integrationList: {
