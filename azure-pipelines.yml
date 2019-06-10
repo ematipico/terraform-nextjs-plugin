@@ -13,3 +13,13 @@ jobs:
   parameters:
     jobName: Windows
     vmImage: vs2017-win2016
+
+- template: azure-pipelines-integration.yml
+  parameters:
+    jobName: macOS
+    vmImage: macOS-10.13
+
+- template: azure-pipelines-integration.yml
+  parameters:
+    jobName: Linux
+    vmImage: ubuntu-16.04

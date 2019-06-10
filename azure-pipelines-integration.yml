@@ -1,0 +1,42 @@
+jobs: 
+  - job: ${{ parameters.jobName }}
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    strategy:
+      matrix:
+        node_8_x:
+          node_version: 8.x
+        node_10_x:
+          node_version: 10.x
+        node_12_x:
+          node_version: 10.x
+
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: $(node_version)
+    - script: |
+        npm install -g npm@latest
+      displayName: "Installing npm"
+    - script: |
+        npm install --loglevel=warn
+      displayName: "Installing dependencies"
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+      displayName: 'Use Terraform 0.11.11'
+    - script: |
+        npm run integration:build
+      displayName: "Build example app"  
+    - script: |
+        cp ./integration/app/gateway.terraform.tf.json ./integration/aws;
+        cp ./integration/app/lambdas.terraform.tf.json ./integration/aws;
+      displayName: "Copy resource files"
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+      displayName: 'Terraform init'
+      inputs:
+        command: init
+        workingDirectory: integration/aws
+    - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-cli.TerraformCLI@0
+      displayName: 'terraform validate '
+      inputs:
+        command: validate
+        workingDirectory: integration/aws      
