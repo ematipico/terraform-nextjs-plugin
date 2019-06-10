@@ -15,6 +15,13 @@ A plugin to generate terraform configuration from nextjs pages
 Nextjs supports serverless pages, where it creates files that can be used by some lambdas to render the pages.
 Unfortunately, here you are left alone. So here a solution for your troubles.
 
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+  - [Mapping explained](#mapping-explained)
+- [Providers](#providers)
+  - [AWS](#aws)
+
 ## Installation
 
 ```bash
@@ -69,7 +76,16 @@ const configuration = {
 };
 
 const resources = generateResources(configuration); // inside resources you have the terraform json configuration
+generateResources(configuration, true) // it creates two files
 ```
+
+If the second argument is a boolean and it's `true`, the library will create two files:
+
+- `gateway.terraform.tf.json`
+- `lambdas.terraform.tf.json`
+
+Having a suffix with `.tf.` will tell automatically to `terraform` that should be validated and planned.
+It will be up to you to consume them in a proper way.
 
 ## Configuration
 
@@ -77,7 +93,7 @@ const resources = generateResources(configuration); // inside resources you have
 | ------------ | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `gatewayKey` | `string`                 | A name that will be prefixed to your resources. Usually it's the project name. Default value is `Terranext`.                                                                |
 | `lambdaPath` | `string`                 | This is the path where the lambdas really are. Usually you will run `terraform` CLI from a different project/folder. So you need to tell `terraform` where these files are. |
-| `routes`     | `Array<Mapping>|Mapping` | This is the structure of the routes that describe your pages.                                                                                                               |
+| `routes`     | `Array<Mapping>`, `Mapping` | This is the structure of the routes that describe your pages.                                                                                                               |
 
 ### Mapping explained
 
@@ -122,3 +138,26 @@ const routes = [
   }
 ];
 ```
+
+## Providers
+
+At the moment the project supports only AWS but it's up to support more providers in the future.
+
+### AWS
+
+Once you generate the resource files, you will need to consume them. Also, you will need to create the following resource:
+
+```hcl
+resource "aws_api_gateway_rest_api" "CustomKey" {
+  name        = "WebApi"
+  description = "Web API"
+}
+
+locals {
+  groupname = "WebApi"
+  lambda_iam_role = "arn:aws:iam::202020202020:role/lambda_execution_role"
+  aws_region = "${data.aws_region.current.name}"
+}
+```
+
+Please check the [integration](/integration/aws/api.tf) testing to see how to consume the configuration.
