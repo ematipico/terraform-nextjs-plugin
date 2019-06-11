@@ -10,6 +10,8 @@ A plugin to generate terraform configuration from nextjs pages
 [![Build Status][build-status-azure]][build-status-azure-url]
 [![Codacy Badge][code-quality]][code-quality-url]
 [![npm][npm]][npm-url]
+[![Conventional Commits][conventional]][conventional-url]
+
 
 
 ## The reason
@@ -170,3 +172,5 @@ Please check the [integration](/integration/aws/api.tf) testing to see how to co
 [npm-url]: https://www.npmjs.com/package/@ematipico/terraform-nextjs-plugin
 [code-quality]: https://api.codacy.com/project/badge/Grade/f77ac77e550449ffb821cd6e7cc4fd72
 [code-quality-url]: https://www.codacy.com/app/ematipico/terraform-nextjs-plugin?utm_source=github.com&utm_medium=referral&utm_content=ematipico/terraform-nextjs-plugin&utm_campaign=Badge_Grade
+[conventional]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-green.svg
+[conventional-url]: https://conventionalcommits.org
