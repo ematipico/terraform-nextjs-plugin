@@ -19,6 +19,8 @@ Unfortunately, here you are left alone. So here a solution for your troubles.
 
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Via CLI](#via-cli)
+  - [Via API](#via-api)
 - [Configuration](#configuration)
   - [Mapping explained](#mapping-explained)
 - [Providers](#providers)
