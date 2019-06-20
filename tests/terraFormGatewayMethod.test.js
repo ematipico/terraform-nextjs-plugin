@@ -1,7 +1,5 @@
 const { setConfiguration } = require("../src/configuration");
-const {
-	generateGatewayMethod
-} = require("../src/resources/terraFormGatewayMethod");
+const { generateGatewayMethod } = require("../src/resources/terraFormGatewayMethod");
 describe("terraFormGatewayMethod", () => {
 	it("should create a correct resource", () => {
 		setConfiguration({

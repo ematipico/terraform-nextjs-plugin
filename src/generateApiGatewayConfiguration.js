@@ -3,14 +3,9 @@ const { getRoutes } = require("./configuration");
 const fs = require("fs");
 const prettier = require("prettier");
 
-const {
-	generateGatewayResource,
-	generateUniqueId
-} = require("./resources/terraFormGatewayResource");
+const { generateGatewayResource, generateUniqueId } = require("./resources/terraFormGatewayResource");
 const { generateGatewayMethod } = require("./resources/terraFormGatewayMethod");
-const {
-	generateGatewayIntegration
-} = require("./resources/terraFormGatewayIntegration");
+const { generateGatewayIntegration } = require("./resources/terraFormGatewayIntegration");
 
 const apiGatewayResource = {};
 const apiGatewayMethod = {};
@@ -63,14 +58,7 @@ const generateUniqueName = pathParts => {
  * @param {string} lambdaName
  * @param {string} params
  */
-const handleResource = ({
-	pathPart,
-	index,
-	parts,
-	pathname,
-	lambdaName,
-	params
-}) => {
+const handleResource = ({ pathPart, index, parts, pathname, lambdaName, params }) => {
 	const isUrlParam = pathPart.includes(":");
 	const currentPathName = pathPart.replace(":", "");
 	// Generation of the gateway resource
@@ -80,9 +68,7 @@ const handleResource = ({
 	// has a parent, generate Id of the parent
 	if (index > 0) {
 		// get the parent Id (generate it, actually)
-		const parentId = generateUniqueId(
-			generateUniqueName(parts.slice(0, index))
-		);
+		const parentId = generateUniqueId(generateUniqueName(parts.slice(0, index)));
 		const { uniqueId, resource } = generateGatewayResource({
 			id: uniqueName,
 			pathname: currentPathName,
@@ -174,9 +160,7 @@ function generateTerraformConfiguration(write = false) {
 		},
 		variable: {
 			integrationList: {
-				default: Object.keys(apiGatewayIntegration).map(
-					key => `aws_api_gateway_integration.${key}`
-				)
+				default: Object.keys(apiGatewayIntegration).map(key => `aws_api_gateway_integration.${key}`)
 			}
 		}
 	};

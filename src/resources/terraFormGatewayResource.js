@@ -1,8 +1,4 @@
-const {
-	getGatewayResourceId,
-	getRootResource,
-	getGatewayKey
-} = require("../configuration");
+const { getGatewayResourceId, getRootResource, getGatewayKey } = require("../configuration");
 
 /**
  * It generates the ApiGateway resource
@@ -27,9 +23,7 @@ function generateUniqueId(id) {
 function _generateResource(pathname, parentId, isUrlParam) {
 	return {
 		rest_api_id: getGatewayResourceId(),
-		parent_id: parentId
-			? "${aws_api_gateway_resource." + parentId + ".id}"
-			: getRootResource(),
+		parent_id: parentId ? "${aws_api_gateway_resource." + parentId + ".id}" : getRootResource(),
 		path_part: isUrlParam ? `{${pathname}}` : pathname
 	};
 }
