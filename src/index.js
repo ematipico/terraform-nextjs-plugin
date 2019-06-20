@@ -4,9 +4,15 @@ const { generateLambdas } = require("./generateLambdas");
 const cosmiconfig = require("cosmiconfig");
 
 /**
+ * @typedef {import("./index").terranext.Configuration} Configuration
+ * @typedef {import("./index").terranext.Result} Result
+ */
+
+/**
  *
- * @param {*} configuration The configuration needed to generate the resources
+ * @param {Configuration} configuration The configuration needed to generate the resources
  * @param {boolean} [write=false]
+ * @returns {Promise<Result>}
  */
 async function terranext(configuration, write = false) {
 	try {

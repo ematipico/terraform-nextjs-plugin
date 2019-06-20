@@ -1,5 +1,5 @@
 /* eslint-disable */
-declare namespace terranext {
+export declare namespace terranext {
 	interface Configuration {
 		gatewayKey?: string;
 
@@ -44,21 +44,21 @@ declare namespace terranext {
 	}
 }
 
-declare namespace AWS {
+export declare namespace AWS {
 	interface Method {
-		[key as string]: AWS.GatewayMethod;
+		[key: string]: AWS.GatewayMethod;
 	}
 
 	interface Resource {
-		[key as string]: AWS.GatewayResource;
+		[key: string]: AWS.GatewayResource;
 	}
 
 	interface Integration {
-		[key as string]: AWS.GatewayIntegration;
+		[key: string]: AWS.GatewayIntegration;
 	}
 
 	interface RequestParameter {
-		[key as string]: string;
+		[key: string]: { name: string };
 	}
 
 	interface Lambda {
@@ -66,12 +66,14 @@ declare namespace AWS {
 		aws_lambda_permission: AWS.LambdaPermission;
 	}
 
+	interface LambdaData {}
+
 	interface GatewayMethod {
 		rest_api_id: string;
 		resource_id: string;
 		http_method: string;
 		authorization: string;
-		request_parameters: AWS.RequestParameter;
+		request_parameters?: AWS.RequestParameter;
 	}
 
 	interface GatewayIntegration {
@@ -81,8 +83,7 @@ declare namespace AWS {
 		integration_http_method: string;
 		type: string;
 		uri: string;
-
-		request_parameters: AWS.RequestParameter;
+		request_parameters?: AWS.RequestParameter;
 	}
 
 	interface GatewayResource {
@@ -92,19 +93,21 @@ declare namespace AWS {
 	}
 
 	interface LambdaFunction {
-		[key as string]: {
-			filename: string;
-			function_name: string;
-			source_code_hash: string;
-			handler: string;
-			runtime: string;
-			memory_size: string;
-			timeout: string;
-			role: string;
-		};
+		[key: string]: AWS.Function;
+	}
+
+	interface Function {
+		filename: string;
+		function_name: string;
+		source_code_hash: string;
+		handler: string;
+		runtime: string;
+		memory_size: string;
+		timeout: string;
+		role: string;
 	}
 	interface LambdaPermission {
-		[key as string]: {
+		[key: string]: {
 			statement_id: string;
 			action: string;
 			function_name: string;
@@ -117,5 +120,3 @@ declare namespace AWS {
 declare function terranext(configuration: terranext.Configuration, write: boolean): Promise<void>;
 declare function terranext(configuration: terranext.Configuration): Promise<terranext.Result>;
 declare function terranext(): Promise<terranext.Result>;
-
-export = terranext;
