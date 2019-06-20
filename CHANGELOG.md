@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.3.0...v0.4.0) (2019-06-20)
+
+
+### Bug Fixes
+
+* menu documentation ([57b2ae1](https://github.com/ematipico/terraform-nextjs-plugin/commit/57b2ae1))
+
+
+### Features
+
+* create CLI utility ([0475466](https://github.com/ematipico/terraform-nextjs-plugin/commit/0475466))
+* create CLI utility ([#15](https://github.com/ematipico/terraform-nextjs-plugin/issues/15)) ([2162101](https://github.com/ematipico/terraform-nextjs-plugin/commit/2162101))
+
+
+
 ## [0.3.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.2.0...v0.3.0) (2019-06-10)
 
 
