@@ -65,7 +65,7 @@ terranext -g=CustomKey -p=../../nextjs-project/
 ### Via API
 
 ```js
-const { generateResources } = require("@ematipico/terraform-nextjs-plugin");
+const generateResources = require("@ematipico/terraform-nextjs-plugin");
 
 const configuration = {
   gatewayKey: "AmazingWebsite",
