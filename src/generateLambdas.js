@@ -64,23 +64,16 @@ function generateLambdas(write = false) {
 
 		// 2.
 		const newFilename = file.replace(".js", ".original.js");
-		fs.copyFileSync(
-			path.resolve(serverlessBuildPath, file),
-			path.resolve(buildPath, "lambdas", lambdaName, newFilename)
-		);
+		fs.copyFileSync(path.resolve(serverlessBuildPath, file), path.resolve(buildPath, "lambdas", lambdaName, newFilename));
 		// 3.
 		generateLambda(lambdaName, buildPath);
 		// 4.
-		fs.copyFileSync(
-			path.resolve(__dirname, "./compatLayer.js"),
-			path.resolve(buildPath, "lambdas", lambdaName, "compatLayer.js")
-		);
+		fs.copyFileSync(path.resolve(__dirname, "./compatLayer.js"), path.resolve(buildPath, "lambdas", lambdaName, "compatLayer.js"));
 
 		// 5.
 		const lambdaResource = generateLambdaResource({ id: lambdaName });
 		lambdasResources[lambdaResource.resourceUniqueId] = lambdaResource.resource;
-		lambdasPermissions[lambdaResource.permissionUniqueId] =
-			lambdaResource.permission;
+		lambdasPermissions[lambdaResource.permissionUniqueId] = lambdaResource.permission;
 
 		// 6.
 		const zipResource = generateZipResource({

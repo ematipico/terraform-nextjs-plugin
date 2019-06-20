@@ -6,12 +6,7 @@ const { getGatewayResourceId, getGatewayKey } = require("../configuration");
  * @param {string} gatewayResourceId
  * @returns
  */
-function generateGatewayMethod({
-	uniqueName,
-	gatewayResourceId,
-	params = [],
-	queryStringParams = []
-}) {
+function generateGatewayMethod({ uniqueName, gatewayResourceId, params = [], queryStringParams = [] }) {
 	return {
 		uniqueId: `${getGatewayKey()}-${uniqueName}`,
 		resource: _generateResource(gatewayResourceId, params, queryStringParams)

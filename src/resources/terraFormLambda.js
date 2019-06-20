@@ -13,8 +13,7 @@ function generateLambdaResource({ id }) {
 		resource: {
 			filename: "${data.archive_file.packLambda-" + id + ".output_path}",
 			function_name: "${local.groupname}-" + id,
-			source_code_hash:
-				"${data.archive_file.packLambda-" + id + ".output_base64sha256}",
+			source_code_hash: "${data.archive_file.packLambda-" + id + ".output_base64sha256}",
 			handler: id + ".render",
 			runtime: "nodejs8.10",
 			memory_size: "1024",
@@ -27,10 +26,7 @@ function generateLambdaResource({ id }) {
 			action: "lambda:InvokeFunction",
 			function_name: "${aws_lambda_function." + lamdbaId + ".function_name}",
 			principal: "apigateway.amazonaws.com",
-			source_arn:
-				"${aws_api_gateway_rest_api." +
-				getGatewayKey() +
-				".execution_arn}/*/*/*"
+			source_arn: "${aws_api_gateway_rest_api." + getGatewayKey() + ".execution_arn}/*/*/*"
 		}
 	};
 }
