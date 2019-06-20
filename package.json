@@ -48,8 +48,8 @@
   },
   "dependencies": {
     "cosmiconfig": "^5.2.1",
-    "prettier": "^1.17.1",
-    "yargs": "^13.2.4"
+    "meow": "^5.0.0",
+    "prettier": "^1.17.1"
   },
   "engines": {
     "node": ">= 8.5.x"

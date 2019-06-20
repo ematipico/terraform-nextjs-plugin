@@ -12,8 +12,6 @@ A plugin to generate terraform configuration from nextjs pages
 [![npm][npm]][npm-url]
 [![Conventional Commits][conventional]][conventional-url]
 
-
-
 ## The reason
 
 Nextjs supports serverless pages, where it creates files that can be used by some lambdas to render the pages.
@@ -39,6 +37,20 @@ yarn add --dev @ematipico/terraform-nextjs-plugin
 ```
 
 ## Usage
+
+This library supports [cosmiconfig](https://github.com/davidtheclark/cosmiconfig): you just need to have a file called `terranextrc` that matches the criteria. This repository has [one](./terranextrc).
+
+_At the moment, the library assumes that you already run `next build` inside your project._
+
+### Via CLI
+
+You can use the simple CLI available. At moment you *can't* pass the `routes` parameter, you will need to use the config object or use the [API](#via-api).
+
+Using the CLI will automatically emit the configuration files.
+
+_Arguments passed via CLI will *override* the ones that are defined inside the config file_.
+
+### Via API
 
 ```js
 const { generateResources } = require("@ematipico/terraform-nextjs-plugin");

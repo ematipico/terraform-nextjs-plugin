@@ -2,17 +2,57 @@
 "use strict";
 
 const cosmiconfig = require("cosmiconfig");
+const meow = require("meow");
+const { generateResources } = require("../src");
+
 const explorer = cosmiconfig("terranext");
-const terranext = require("../src");
+
+const cli = meow(
+	`
+	Usage
+	  $ terranext
+
+	Options
+	  --gatewayKey, -g  The API Gateway key of the project. Default is "Terranext"
+		--lambdaPath, -p  The path that Terraform CLI has to follow to reach the nextjs project.
+		--write						
+		
+	Examples
+	  $ terranext 
+	  $ terranext --gatewayKey=CustomKey --lambdaPath=../../nextjs-project/
+	  $ terranext -g=CustomKey -p=../../nextjs-project/
+`,
+	{
+		flags: {
+			gatewayKey: {
+				type: "string",
+				default: "Terranext",
+				alias: "g"
+			},
+			lambdaPath: {
+				type: "string",
+				alias: "p",
+				default: "./"
+			}
+		}
+	}
+);
+
 explorer
 	.search()
 	.then(result => {
-		terranext(result.config);
-		// result.config is the parsed configuration object.
-		// result.filepath is the path to the config file that was found.
-		// result.isEmpty is true if there was nothing to parse in the config file.
+		const { gatewayKey, lambdaPath } = cli.flags;
+		const options = {
+			...result.config,
+			gatewayKey,
+			lambdaPath
+		};
+
+		generateResources(options, true);
 	})
-	// eslint-disable-next-line no-unused-vars
 	.catch(error => {
+		// eslint-disable-next-line no-console
+		console.error(error);
+		process.exit(1);
 		// Do something constructive.
 	});
