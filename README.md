@@ -52,6 +52,16 @@ Using the CLI will automatically emit the configuration files.
 
 _Arguments passed via CLI will *override* the ones that are defined inside the config file_.
 
+```bash
+terranext --gatewayKey=CustomKey --lambdaPath=../../nextjs-project/
+```
+
+Or you can use the aliases:
+
+```bash
+terranext -g=CustomKey -p=../../nextjs-project/
+```
+
 ### Via API
 
 ```js
