@@ -23,5 +23,5 @@ jobs:
       displayName: "Installing dependencies"
     - script: npm run lint
       displayName: "Linting the code"
-    - script: npm run test:ci
+    - script: npm run test:ci-win
       displayName: "Running the tests"

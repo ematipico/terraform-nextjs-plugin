@@ -11,7 +11,7 @@ A plugin to generate terraform configuration from nextjs pages
 [![Codacy Badge][code-quality]][code-quality-url]
 [![npm][npm]][npm-url]
 [![Conventional Commits][conventional]][conventional-url]
-
+[![codecov][coverage]][coverage-url]
 ## The reason
 
 Nextjs supports serverless pages, where it creates files that can be used by some lambdas to render the pages.
@@ -200,3 +200,5 @@ Please check the [integration](/integration/aws/api.tf) testing to see how to co
 [code-quality-url]: https://www.codacy.com/app/ematipico/terraform-nextjs-plugin?utm_source=github.com&utm_medium=referral&utm_content=ematipico/terraform-nextjs-plugin&utm_campaign=Badge_Grade
 [conventional]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-green.svg
 [conventional-url]: https://conventionalcommits.org
+[coverage]: https://codecov.io/gh/ematipico/terraform-nextjs-plugin/branch/master/graph/badge.svg
+[coverage-url]: https://codecov.io/gh/ematipico/terraform-nextjs-plugin

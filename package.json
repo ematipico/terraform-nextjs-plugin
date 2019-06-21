@@ -6,7 +6,8 @@
   "bin": "bin/terranext.js",
   "scripts": {
     "test": "jest --watch",
-    "test:ci": "jest --maxWorkers=4 --reporters=default --reporters=jest-junit",
+    "test:ci-unix": "CI=true jest --colors --coverage --maxWorkers=4 --reporters=default --reporters=jest-junit && codecov -t 260305d4-6357-42d2-a73c-4c9b255d278a",
+    "test:ci-win": "jest --colors --coverage --maxWorkers=4 --reporters=default --reporters=jest-junit",
     "release": "standard-version",
     "lint": "eslint --ext js ./src ./bin ./tests",
     "lint:fix": "eslint --ext js ./src ./bin ./tests --fix",
@@ -35,6 +36,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.15",
     "babel-eslint": "^10.0.1",
+    "codecov": "^3.5.0",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^5.0.0",
     "eslint-plugin-node": "^9.1.0",

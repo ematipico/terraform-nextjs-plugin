@@ -23,7 +23,7 @@ jobs:
       displayName: "Installing dependencies"
     - script: npm run lint
       displayName: "Linting the code"
-    - script: npm run test:ci
+    - script: npm run test:ci-unix
       displayName: "Running the tests"
     - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
       displayName: 'Use Terraform 0.11.11'
