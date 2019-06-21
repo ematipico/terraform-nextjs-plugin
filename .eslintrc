@@ -7,10 +7,10 @@
 	},
 	"extends": [
 		"eslint:recommended",
+		"plugin:node/recommended",
 		"plugin:unicorn/recommended",
 		"prettier",
-		"prettier/unicorn",
-		"plugin:node/recommended"
+		"prettier/unicorn"
 	],
 	"globals": {
 		"Atomics": "readonly",
@@ -18,7 +18,7 @@
 	},
 	"plugins": ["node", "unicorn", "prettier", "node"],
 	"parserOptions": {
-		"ecmaVersion": 2018
+		"ecmaVersion": 2019
 	},
 	"rules": {
 		"unicorn/filename-case": ["error", { "case": "camelCase" }],

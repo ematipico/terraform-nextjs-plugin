@@ -1,16 +1,20 @@
 const { checkConfiguration, setConfiguration } = require("./configuration");
-const {
-	generateTerraformConfiguration
-} = require("./generateApiGatewayConfiguration");
+const { generateTerraformConfiguration } = require("./generateApiGatewayConfiguration");
 const { generateLambdas } = require("./generateLambdas");
 const cosmiconfig = require("cosmiconfig");
 
 /**
- *
- * @param {*} configuration The configuration needed to generate the resources
- * @param {boolean} [write=false]
+ * @typedef {import("./index").terranext.Configuration} Configuration
+ * @typedef {import("./index").terranext.Result} Result
  */
-async function generateResources(configuration, write = false) {
+
+/**
+ *
+ * @param {Configuration} configuration The configuration needed to generate the resources
+ * @param {boolean} [write=false]
+ * @returns {Promise<Result>}
+ */
+async function terranext(configuration, write = false) {
 	try {
 		const fileConfiguration = retrieveConfiguration();
 		checkConfiguration({
@@ -44,6 +48,4 @@ async function retrieveConfiguration() {
 	}
 }
 
-module.exports = {
-	generateResources
-};
+module.exports = terranext;

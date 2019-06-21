@@ -1,37 +1,32 @@
 const { getGatewayKey, getLambdaPrefix } = require("../configuration");
 
+/** @typedef {import('../aws').AWS.GatewayIntegration} GatewayIntegration */
+/** @typedef {import('../declarations').Param} Param */
+
+/** @typedef {{ uniqueId: string; resource: GatewayIntegration }} ReturnResult */
 /**
  * It generates the integration resource
  *
- * @param {string} uniqueName
- * @param {string} gatewayResourceId
- * @param {string} lambdaName
- * @returns
+ * @param {import('../declarations').GenerateGatewayIntegrationPayload} options
+ * @returns {ReturnResult}
  */
-function generateGatewayIntegration({
-	id,
-	gatewayResourceId,
-	lambdaName,
-	params = [],
-	queryStringParams = []
-}) {
+function generateGatewayIntegration({ id, gatewayResourceId, lambdaName, params = [], queryStringParams = [] }) {
 	return {
 		uniqueId: `${getGatewayKey()}-${id}`,
-		resource: _generateResource(
-			gatewayResourceId,
-			lambdaName,
-			params,
-			queryStringParams
-		)
+		resource: _generateResource(gatewayResourceId, lambdaName, params, queryStringParams)
 	};
 }
 
-function _generateResource(
-	gatewayResourceId,
-	lambdaName,
-	params,
-	queryStringParams
-) {
+/**
+ *
+ *
+ * @param {string} gatewayResourceId
+ * @param {string} lambdaName
+ * @param {Param[]} params
+ * @param {Param[]} queryStringParams
+ * @returns {GatewayIntegration}
+ */
+function _generateResource(gatewayResourceId, lambdaName, params, queryStringParams) {
 	const resource = {
 		rest_api_id: "${aws_api_gateway_rest_api." + getGatewayKey() + ".id}",
 		resource_id: "${aws_api_gateway_resource." + gatewayResourceId + ".id}",
@@ -48,9 +43,7 @@ function _generateResource(
 
 	if (params.length > 0) {
 		resource.request_parameters = params.reduce((result, param) => {
-			result[`integration.request.path.${param.name}`] = `method.request.path.${
-				param.name
-			}`;
+			result[`integration.request.path.${param.name}`] = `method.request.path.${param.name}`;
 
 			return result;
 		}, resource.request_parameters || {});
@@ -58,9 +51,7 @@ function _generateResource(
 
 	if (queryStringParams.length > 0) {
 		resource.request_parameters = queryStringParams.reduce((result, param) => {
-			result[
-				`integration.request.querystring.${param.name}`
-			] = `method.request.querystring.${param.name}`;
+			result[`integration.request.querystring.${param.name}`] = `method.request.querystring.${param.name}`;
 
 			return result;
 		}, resource.request_parameters || {});

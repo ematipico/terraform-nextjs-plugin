@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Credits to https://github.com/danielcondemarin
  * https://github.com/danielcondemarin/serverless-nextjs-plugin/blob/master/packages/next-aws-lambda/lib/compatLayer.js
@@ -15,10 +16,7 @@ const requestResponseMapper = (event, callback) => {
 	};
 
 	const request = new Stream.Readable();
-	request.url = (event.requestContext.path || event.path || "").replace(
-		new RegExp("^/" + event.requestContext.stage),
-		""
-	);
+	request.url = (event.requestContext.path || event.path || "").replace(new RegExp("^/" + event.requestContext.stage), "");
 
 	let qs = "";
 
@@ -81,10 +79,7 @@ const requestResponseMapper = (event, callback) => {
 		if (headers) res.headers = Object.assign(res.headers, headers);
 	};
 	res.write = chunk => {
-		response.body = Buffer.concat([
-			response.body,
-			Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
-		]);
+		response.body = Buffer.concat([response.body, Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)]);
 	};
 	res.setHeader = (name, value) => {
 		res.headers[name] = value;
@@ -100,9 +95,7 @@ const requestResponseMapper = (event, callback) => {
 	};
 	res.end = text => {
 		if (text) res.write(text);
-		response.body = Buffer.from(response.body).toString(
-			base64Support ? "base64" : undefined
-		);
+		response.body = Buffer.from(response.body).toString(base64Support ? "base64" : undefined);
 		response.multiValueHeaders = res.headers;
 		res.writeHead(response.statusCode);
 		fixApiGatewayMultipleHeaders();

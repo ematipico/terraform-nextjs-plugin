@@ -4,7 +4,6 @@
   "description": "A nextjs plugin to generate cloud providers configuration for Terraform",
   "main": "src/index.js",
   "bin": "bin/terranext.js",
-  "types": "commonjs",
   "scripts": {
     "test": "jest --watch",
     "test:ci": "jest --maxWorkers=4 --reporters=default --reporters=jest-junit",
@@ -13,6 +12,7 @@
     "lint:fix": "eslint --ext js ./src ./bin ./tests --fix",
     "integration:build": "cd ./integration/app; next build; node ./build.js"
   },
+  "typings": "./src/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ematipico/terraform-nextjs-plugin.git"
@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/ematipico/terraform-nextjs-plugin#readme",
   "devDependencies": {
+    "@types/jest": "^24.0.15",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^5.0.0",
@@ -41,10 +42,11 @@
     "eslint-plugin-unicorn": "^9.1.0",
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
-    "standard-version": "^6.0.1",
     "next": "^8.1.0",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "standard-version": "^6.0.1",
+    "tsd": "^0.7.3"
   },
   "dependencies": {
     "cosmiconfig": "^5.2.1",

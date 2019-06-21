@@ -3,7 +3,7 @@
 
 const cosmiconfig = require("cosmiconfig");
 const meow = require("meow");
-const { generateResources } = require("../src");
+const generateResources = require("../src");
 
 const explorer = cosmiconfig("terranext");
 

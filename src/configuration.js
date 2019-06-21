@@ -7,8 +7,7 @@ let configuration;
 /**
  *
  *
- * @param {*} newConfiguration
- * @param {string} newConfiguration.prefix
+ * @param {import('./').Configuration} configuration
  */
 function setConfiguration({ gatewayKey, lambdaPath, routes }) {
 	configuration = Object.assign(
@@ -47,11 +46,7 @@ function checkConfiguration(config) {
 function checkRoutes(routes) {
 	let valid = true;
 
-	if (
-		typeof routes.prefix === "undefined" ||
-		typeof routes.mappings === "undefined"
-	)
-		return false;
+	if (typeof routes.prefix === "undefined" || typeof routes.mappings === "undefined") return false;
 
 	if (typeof routes.prefix !== "string") return false;
 
@@ -75,12 +70,7 @@ function getLambdaPrefix() {
 }
 
 function getLambdaPath() {
-	return (
-		configuration.lambdaPath +
-		"/" +
-		configuration.buildPath +
-		"/serverless/pages"
-	);
+	return configuration.lambdaPath + "/" + configuration.buildPath + "/serverless/pages";
 }
 
 function getGatewayKey() {
@@ -96,11 +86,7 @@ function getBuildPath() {
 }
 
 function getServerlessBuildPath() {
-	return path.resolve(
-		process.cwd(),
-		configuration.buildPath,
-		"serverless/pages"
-	);
+	return path.resolve(process.cwd(), configuration.buildPath, "serverless/pages");
 }
 
 module.exports = {

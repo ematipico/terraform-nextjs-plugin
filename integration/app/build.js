@@ -1,5 +1,5 @@
 // eslint-disable-next-line node/no-unpublished-require
-const { generateResources } = require("../../src");
+const generateResources = require("../../src");
 const routes = require("./routes");
 generateResources(
 	{

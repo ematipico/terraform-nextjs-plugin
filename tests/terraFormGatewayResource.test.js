@@ -1,6 +1,4 @@
-const {
-	generateGatewayResource
-} = require("../src/resources/terraFormGatewayResource");
+const { generateGatewayResource } = require("../src/resources/terraFormGatewayResource");
 
 const { setConfiguration } = require("../src/configuration");
 
