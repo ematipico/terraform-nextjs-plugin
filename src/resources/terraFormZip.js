@@ -1,10 +1,17 @@
 const { getLambdaPath } = require("../configuration");
 const path = require("path");
+
+/** @typedef {import('../index').AWS.Data} Data */
+
+/** @typedef {{ uniqueId: string; resource: Data }} Result */
+
 /**
  * It generates the Lambda resource
  *
- * @param {string} id
- * @returns
+ * @param {object} options
+ * @param {string} options.id
+ * @param {string} options.directoryName
+ * @returns {Result}
  */
 function generateZipResource({ id, directoryName }) {
 	return {

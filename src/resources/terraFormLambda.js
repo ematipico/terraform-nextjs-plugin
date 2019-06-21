@@ -3,8 +3,9 @@ const { getLambdaPrefix, getGatewayKey } = require("../configuration");
 /**
  * It generates the Lambda resource
  *
- * @param {string} id
- * @returns
+ * @param {object} options
+ * @param {string} options.id
+ * @returns {import('../declarations').LambdaResource}
  */
 function generateLambdaResource({ id }) {
 	const lamdbaId = `${getLambdaPrefix()}-${id}`;
