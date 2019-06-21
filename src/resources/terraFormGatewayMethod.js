@@ -2,8 +2,7 @@ const { getGatewayResourceId, getGatewayKey } = require("../configuration");
 /**
  * It generates the resource for the single method
  *
- * @param {string} uniqueName
- * @param {string} gatewayResourceId
+ * @param {import('../declarations').GenerateGatewayMethodPayload} options
  * @returns
  */
 function generateGatewayMethod({ uniqueName, gatewayResourceId, params = [], queryStringParams = [] }) {
@@ -13,6 +12,12 @@ function generateGatewayMethod({ uniqueName, gatewayResourceId, params = [], que
 	};
 }
 
+/**
+ *
+ * @param {string} resourceId
+ * @param {import('../declarations').Param[]} params
+ * @param {import('../declarations').Param[]} queryStringParams
+ */
 function _generateResource(resourceId, params = [], queryStringParams = []) {
 	const resource = {
 		rest_api_id: getGatewayResourceId(),
