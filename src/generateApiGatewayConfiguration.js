@@ -51,12 +51,7 @@ const generateUniqueName = pathParts => {
 
 /**
  *
- * @param {string} pathPart
- * @param {number} index
- * @param {string[]} parts
- * @param {string} pathname
- * @param {string} lambdaName
- * @param {string} params
+ * @param {import("./declarations").HandleResource} payload
  */
 const handleResource = ({ pathPart, index, parts, pathname, lambdaName, params }) => {
 	const isUrlParam = pathPart.includes(":");

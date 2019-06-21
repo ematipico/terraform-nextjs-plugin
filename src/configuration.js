@@ -7,8 +7,7 @@ let configuration;
 /**
  *
  *
- * @param {*} newConfiguration
- * @param {string} newConfiguration.prefix
+ * @param {import('./').Configuration} configuration
  */
 function setConfiguration({ gatewayKey, lambdaPath, routes }) {
 	configuration = Object.assign(

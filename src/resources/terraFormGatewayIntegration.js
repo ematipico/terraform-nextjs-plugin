@@ -1,18 +1,13 @@
 const { getGatewayKey, getLambdaPrefix } = require("../configuration");
 
-/** @typedef {import('../index').AWS.GatewayIntegration} GatewayIntegration */
+/** @typedef {import('../aws').AWS.GatewayIntegration} GatewayIntegration */
 /** @typedef {import('../declarations').Param} Param */
 
 /** @typedef {{ uniqueId: string; resource: GatewayIntegration }} ReturnResult */
 /**
  * It generates the integration resource
  *
- * @param {object} options
- * @param {string} options.id
- * @param {string} options.gatewayResourceId
- * @param {string} options.lambdaName
- * @param {Param[]} options.params
- * @param {Param[]} options.queryStringParams
+ * @param {import('../declarations').GenerateGatewayIntegrationPayload} options
  * @returns {ReturnResult}
  */
 function generateGatewayIntegration({ id, gatewayResourceId, lambdaName, params = [], queryStringParams = [] }) {

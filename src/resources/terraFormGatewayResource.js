@@ -3,10 +3,7 @@ const { getGatewayResourceId, getRootResource, getGatewayKey } = require("../con
 /**
  * It generates the ApiGateway resource
  *
- * @param {string} id
- * @param {string} pathname
- * @param {string?} parentId
- * @param {boolean?} isUrlParam
+ * @param {import('../declarations').GenerateGatewayResourcePayload} options
  * @returns
  */
 function generateGatewayResource({ id, pathname, parentId, isUrlParam }) {
@@ -16,10 +13,22 @@ function generateGatewayResource({ id, pathname, parentId, isUrlParam }) {
 	};
 }
 
+/**
+ *
+ * @param {string} id
+ * @returns string
+ */
 function generateUniqueId(id) {
 	return `${getGatewayKey()}-${id}`;
 }
 
+/**
+ * It generates the single resource
+ * @param {string} pathname
+ * @param {string?} parentId
+ * @param {boolean?} isUrlParam
+ * @returns {import('../aws').AWS.GatewayResource}
+ */
 function _generateResource(pathname, parentId, isUrlParam) {
 	return {
 		rest_api_id: getGatewayResourceId(),

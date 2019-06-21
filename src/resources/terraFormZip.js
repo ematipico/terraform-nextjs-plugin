@@ -1,7 +1,7 @@
 const { getLambdaPath } = require("../configuration");
 const path = require("path");
 
-/** @typedef {import('../index').AWS.Data} Data */
+/** @typedef {import('../aws').AWS.Data} Data */
 
 /** @typedef {{ uniqueId: string; resource: Data }} Result */
 

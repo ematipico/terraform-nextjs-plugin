@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Credits to https://github.com/danielcondemarin
  * https://github.com/danielcondemarin/serverless-nextjs-plugin/blob/master/packages/next-aws-lambda/lib/compatLayer.js
