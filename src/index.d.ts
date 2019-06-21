@@ -1,10 +1,7 @@
-/* eslint-disable */
 export declare namespace terranext {
 	interface Configuration {
 		gatewayKey?: string;
-
 		lambdaPath?: string;
-
 		routes?: terranext.Route[];
 	}
 
@@ -39,8 +36,10 @@ export declare namespace terranext {
 	}
 
 	interface LambdaResources {
-		resource: AWS.Lambda;
-		data: AWS.LambdaData;
+		resource?: AWS.Lambdas;
+		data: {
+			archive_file: AWS.LambdaData;
+		};
 	}
 }
 
@@ -61,12 +60,20 @@ export declare namespace AWS {
 		[key: string]: { name: string };
 	}
 
-	interface Lambda {
+	interface Lambdas {
 		aws_lambda_function: AWS.LambdaFunction;
 		aws_lambda_permission: AWS.LambdaPermission;
 	}
 
-	interface LambdaData {}
+	interface LambdaData {
+		[key: string]: AWS.Data;
+	}
+
+	interface Data {
+		output_path: string;
+		type: string;
+		source_dir: string;
+	}
 
 	interface GatewayMethod {
 		rest_api_id: string;
@@ -107,13 +114,15 @@ export declare namespace AWS {
 		role: string;
 	}
 	interface LambdaPermission {
-		[key: string]: {
-			statement_id: string;
-			action: string;
-			function_name: string;
-			principal: string;
-			source_arn: string;
-		};
+		[key: string]: Permission;
+	}
+
+	interface Permission {
+		statement_id: string;
+		action: string;
+		function_name: string;
+		principal: string;
+		source_arn: string;
 	}
 }
 

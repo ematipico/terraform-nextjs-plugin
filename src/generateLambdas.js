@@ -32,12 +32,26 @@ exports.render = (event, context, callback) => {
 	);
 }
 
+/** @typedef {import('.').AWS.LambdaFunction} Lambdas */
+/** @typedef {import('.').AWS.LambdaPermission} LambdaPermissions */
+/** @typedef {import('.').AWS.LambdaData} LambdaData */
+/** @typedef {import('.').terranext.LambdaResources} LambdaResources */
+/** @type {Lambdas} */
 const lambdasResources = {};
+/** @type {LambdaPermissions} */
 const lambdasPermissions = {};
+/**@type {LambdaData} */
 const zipResources = {};
 
+/** @typedef {LambdaResources} */
 let lambdaResources;
 
+/**
+ *
+ *
+ * @param {boolean} [write=false]
+ * @returns {import('.').terranext.LambdaResources}
+ */
 function generateLambdas(write = false) {
 	const buildPath = getBuildPath();
 	const serverlessBuildPath = getServerlessBuildPath();
