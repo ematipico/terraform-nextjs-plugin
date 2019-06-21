@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.4.1...v0.5.0) (2019-06-21)
+
+
+### Bug Fixes
+
+* better styling ([d7825fd](https://github.com/ematipico/terraform-nextjs-plugin/commit/d7825fd))
+* typing for gateway integration ([94c4e17](https://github.com/ematipico/terraform-nextjs-plugin/commit/94c4e17))
+
+
+### Features
+
+* added more types ([eaa526d](https://github.com/ematipico/terraform-nextjs-plugin/commit/eaa526d))
+* added typings to the functions ([ad6ec11](https://github.com/ematipico/terraform-nextjs-plugin/commit/ad6ec11))
+* fixed declarations in lambdas ([2f1ab5e](https://github.com/ematipico/terraform-nextjs-plugin/commit/2f1ab5e))
+* TypeScript types for the main function ([#18](https://github.com/ematipico/terraform-nextjs-plugin/issues/18)) ([2610b7e](https://github.com/ematipico/terraform-nextjs-plugin/commit/2610b7e))
+
+
+
 ### [0.4.1](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.4.0...v0.4.1) (2019-06-20)
 
 
