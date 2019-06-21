@@ -38,11 +38,13 @@ Or
 yarn add --dev @ematipico/terraform-nextjs-plugin
 ```
 
+**This package requires at least Next v8.**
+
 ## Usage
 
 This library supports [cosmiconfig](https://github.com/davidtheclark/cosmiconfig): you just need to have a file called `terranextrc` that matches the criteria. This repository has [one](./terranextrc).
 
-_At the moment, the library assumes that you already run `next build` inside your project._
+_**At the moment, the library assumes that you already run `next build` inside your project.**_
 
 ### Via CLI
 
@@ -50,7 +52,7 @@ You can use the simple CLI available. At moment you *can't* pass the `routes` pa
 
 Using the CLI will automatically emit the configuration files.
 
-_Arguments passed via CLI will *override* the ones that are defined inside the config file_.
+_**Arguments passed via CLI will *override* the ones that are defined inside the config file**_.
 
 ```bash
 terranext --gatewayKey=CustomKey --lambdaPath=../../nextjs-project/
