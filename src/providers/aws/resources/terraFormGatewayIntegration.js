@@ -1,4 +1,4 @@
-const { getGatewayKey, getLambdaPrefix } = require("../configuration");
+const { getGatewayKey, getLambdaPrefix } = require("../../../configuration");
 
 /** @typedef {import('../aws').AWS.GatewayIntegration} GatewayIntegration */
 /** @typedef {import('../declarations').Param} Param */

@@ -7,7 +7,7 @@ let configuration;
 /**
  *
  *
- * @param {import('./').Configuration} configuration
+ * @param {import('./').terranext.Configuration} configuration
  */
 function setConfiguration({ gatewayKey, lambdaPath, routes }) {
 	configuration = Object.assign(

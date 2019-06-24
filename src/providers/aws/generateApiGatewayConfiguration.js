@@ -1,5 +1,5 @@
 "use strict";
-const { getRoutes } = require("./configuration");
+const { getRoutes } = require("../../configuration");
 const fs = require("fs");
 const prettier = require("prettier");
 

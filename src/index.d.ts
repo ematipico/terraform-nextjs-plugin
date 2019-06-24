@@ -1,15 +1,15 @@
-import { AWS } from "./aws";
+import { AWS } from "./providers/aws/aws";
 
-declare namespace terranext {
+export declare namespace terranext {
 	interface Configuration {
 		gatewayKey?: string;
 		lambdaPath?: string;
 		routes?: terranext.Route[] | terranext.Route;
 	}
 
-	interface Result {
-		gateway: terranext.GatewayResources;
-		lambdas: terranext.LambdaResources;
+	interface Result<G, L> {
+		gateway: G;
+		lambdas: L;
 	}
 
 	interface Route {
@@ -40,17 +40,8 @@ declare namespace terranext {
 			};
 		};
 	}
-
-	interface LambdaResources {
-		resource?: AWS.Lambdas;
-		data: {
-			archive_file: AWS.LambdaData;
-		};
-	}
 }
 
-declare function terranext(configuration: terranext.Configuration, write: boolean): Promise<void>;
-declare function terranext(configuration: terranext.Configuration): Promise<terranext.Result>;
-declare function terranext(): Promise<terranext.Result>;
-
-export = terranext;
+declare function terranext<G, L>(configuration: terranext.Configuration, write: boolean): Promise<void>;
+declare function terranext<G, L>(configuration: terranext.Configuration): Promise<terranext.Result<G, L>>;
+declare function terranext<G, L>(): Promise<terranext.Result<G, L>>;

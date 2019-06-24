@@ -1,4 +1,4 @@
-const { getLambdaPath } = require("../configuration");
+const { getLambdaPath } = require("../../../configuration");
 const path = require("path");
 
 /** @typedef {import('../aws').AWS.Data} Data */

@@ -1,6 +1,6 @@
 const { checkConfiguration, setConfiguration } = require("./configuration");
-const { generateTerraformConfiguration } = require("./generateApiGatewayConfiguration");
-const { generateLambdas } = require("./generateLambdas");
+const { generateTerraformConfiguration } = require("./providers/aws");
+const { generateLambdas } = require("./providers/aws");
 const cosmiconfig = require("cosmiconfig");
 
 /**

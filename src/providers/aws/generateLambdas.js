@@ -4,7 +4,7 @@ const path = require("path");
 const prettier = require("prettier");
 const { generateLambdaResource } = require("./resources/terraFormLambda");
 const { generateZipResource } = require("./resources/terraFormZip.js");
-const { getBuildPath, getServerlessBuildPath } = require("./configuration");
+const { getBuildPath, getServerlessBuildPath } = require("../../configuration");
 
 function generateLambda(filename, thePath) {
 	const lambdaTemplate = `
@@ -35,7 +35,7 @@ exports.render = (event, context, callback) => {
 /** @typedef {import('./aws').AWS.LambdaFunction} Lambdas */
 /** @typedef {import('./aws').AWS.LambdaPermission} LambdaPermissions */
 /** @typedef {import('./aws').AWS.LambdaData} LambdaData */
-/** @typedef {import('.').LambdaResources} LambdaResources */
+/** @typedef {import('./aws').AWS.LambdaResources} LambdaResources */
 /** @type {Lambdas} */
 const lambdasResources = {};
 /** @type {LambdaPermissions} */
@@ -50,7 +50,7 @@ let lambdaResources;
  *
  *
  * @param {boolean} [write=false]
- * @returns {import('.').LambdaResources}
+ * @returns {import('./aws').AWS.LambdaResources}
  */
 function generateLambdas(write = false) {
 	const buildPath = getBuildPath();

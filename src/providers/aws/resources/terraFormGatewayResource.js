@@ -1,4 +1,4 @@
-const { getGatewayResourceId, getRootResource, getGatewayKey } = require("../configuration");
+const { getGatewayResourceId, getRootResource, getGatewayKey } = require("../../../configuration");
 
 /**
  * It generates the ApiGateway resource

@@ -1,4 +1,4 @@
-const { generateTerraformConfiguration } = require("../src/generateApiGatewayConfiguration");
+const { generateTerraformConfiguration } = require("../src/providers/aws/generateApiGatewayConfiguration");
 const { setConfiguration } = require("../src/configuration");
 
 describe("generateTerraformConfiguration", () => {
