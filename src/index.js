@@ -4,8 +4,8 @@ const { generateLambdas } = require("./providers/aws");
 const cosmiconfig = require("cosmiconfig");
 
 /**
- * @typedef {import("./index").terranext.Configuration} Configuration
- * @typedef {import("./index").terranext.Result} Result
+ * @typedef {import("./declarations").terranext.Configuration} Configuration
+ * @typedef {import("./declarations").terranext.Result} Result
  */
 
 /**

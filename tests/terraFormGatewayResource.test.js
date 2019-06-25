@@ -1,4 +1,5 @@
-const { generateGatewayResource } = require("../src/resources/terraFormGatewayResource");
+// @ts-nocheck
+const { generateGatewayResource } = require("../src/providers/aws/resources/terraFormGatewayResource");
 
 const { setConfiguration } = require("../src/configuration");
 
