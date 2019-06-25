@@ -5,6 +5,7 @@ const prettier = require("prettier");
 const { generateLambdaResource } = require("./resources/terraFormLambda");
 const { generateZipResource } = require("./resources/terraFormZip.js");
 const { getBuildPath, getServerlessBuildPath } = require("../../configuration");
+const { COMPAT_LAYER_PATH } = require("../../constants");
 
 function generateLambda(filename, thePath) {
 	const lambdaTemplate = `
@@ -82,7 +83,7 @@ function generateLambdas(write = false) {
 		// 3.
 		generateLambda(lambdaName, buildPath);
 		// 4.
-		fs.copyFileSync(path.resolve(__dirname, "./compatLayer.js"), path.resolve(buildPath, "lambdas", lambdaName, "compatLayer.js"));
+		fs.copyFileSync(path.resolve(COMPAT_LAYER_PATH, "./compatLayer.js"), path.resolve(buildPath, "lambdas", lambdaName, "compatLayer.js"));
 
 		// 5.
 		const lambdaResource = generateLambdaResource({ id: lambdaName });
