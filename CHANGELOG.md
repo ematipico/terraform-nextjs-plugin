@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.6.1](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.4.1...v0.6.1) (2019-06-27)
+
+
+### Bug Fixes
+
+* added provider to integration test ([2d3dfdb](https://github.com/ematipico/terraform-nextjs-plugin/commit/2d3dfdb))
+* better styling ([371efee](https://github.com/ematipico/terraform-nextjs-plugin/commit/371efee))
+* compatLayer path ([a222bba](https://github.com/ematipico/terraform-nextjs-plugin/commit/a222bba))
+* export correct functions ([e0d6115](https://github.com/ematipico/terraform-nextjs-plugin/commit/e0d6115))
+* typing for gateway integration ([598d256](https://github.com/ematipico/terraform-nextjs-plugin/commit/598d256))
+
+
+### Features
+
+* added more types ([6e263b3](https://github.com/ematipico/terraform-nextjs-plugin/commit/6e263b3))
+* added typings to the functions ([a9d2d63](https://github.com/ematipico/terraform-nextjs-plugin/commit/a9d2d63))
+* fixed declarations in lambdas ([da752f0](https://github.com/ematipico/terraform-nextjs-plugin/commit/da752f0))
+* reactor based on providers ([786957b](https://github.com/ematipico/terraform-nextjs-plugin/commit/786957b))
+
+
+
+### [0.5.1](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.4.1...v0.5.1) (2019-06-27)
+
+
+### Bug Fixes
+
+* added provider to integration test ([2d3dfdb](https://github.com/ematipico/terraform-nextjs-plugin/commit/2d3dfdb))
+* better styling ([371efee](https://github.com/ematipico/terraform-nextjs-plugin/commit/371efee))
+* compatLayer path ([a222bba](https://github.com/ematipico/terraform-nextjs-plugin/commit/a222bba))
+* export correct functions ([e0d6115](https://github.com/ematipico/terraform-nextjs-plugin/commit/e0d6115))
+* typing for gateway integration ([598d256](https://github.com/ematipico/terraform-nextjs-plugin/commit/598d256))
+
+
+### Features
+
+* added more types ([6e263b3](https://github.com/ematipico/terraform-nextjs-plugin/commit/6e263b3))
+* added typings to the functions ([a9d2d63](https://github.com/ematipico/terraform-nextjs-plugin/commit/a9d2d63))
+* fixed declarations in lambdas ([da752f0](https://github.com/ematipico/terraform-nextjs-plugin/commit/da752f0))
+* reactor based on providers ([786957b](https://github.com/ematipico/terraform-nextjs-plugin/commit/786957b))
+
+
+
 ## [0.5.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.4.1...v0.5.0) (2019-06-21)
 
 
