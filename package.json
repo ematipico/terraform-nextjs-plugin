@@ -34,32 +34,32 @@
   },
   "homepage": "https://github.com/ematipico/terraform-nextjs-plugin#readme",
   "devDependencies": {
-    "@types/jest": "^24.0.15",
-    "babel-eslint": "^10.0.1",
-    "codecov": "^3.5.0",
-    "eslint": "^6.0.1",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-unicorn": "^9.1.0",
-    "jest": "^24.8.0",
-    "jest-junit": "^6.4.0",
-    "next": "^8.1.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "standard-version": "^6.0.1",
-    "tsd": "^0.7.3"
+    "@types/jest": "24.0.15",
+    "babel-eslint": "10.0.1",
+    "codecov": "3.5.0",
+    "eslint": "6.0.1",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-node": "9.1.0",
+    "eslint-plugin-prettier": "3.1.0",
+    "eslint-plugin-unicorn": "9.1.0",
+    "jest": "24.8.0",
+    "jest-junit": "6.4.0",
+    "next": "8.1.0",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "standard-version": "6.0.1",
+    "tsd": "0.7.3"
   },
   "dependencies": {
-    "cosmiconfig": "^5.2.1",
-    "meow": "^5.0.0",
-    "prettier": "^1.18.2"
+    "cosmiconfig": "5.2.1",
+    "meow": "5.0.0",
+    "prettier": "1.18.2"
   },
   "engines": {
     "node": ">= 8.5.x"
   },
   "peerDependencies": {
-    "next": "^8.0.0"
+    "next": "8.0.0"
   },
   "files": [
     "bin/*",
