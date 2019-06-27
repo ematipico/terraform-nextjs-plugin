@@ -12,6 +12,7 @@ A plugin to generate terraform configuration from nextjs pages
 [![npm][npm]][npm-url]
 [![Conventional Commits][conventional]][conventional-url]
 [![codecov][coverage]][coverage-url]
+
 ## The reason
 
 Nextjs supports serverless pages, where it creates files that can be used by some lambdas to render the pages.
@@ -72,6 +73,7 @@ const generateResources = require("@ematipico/terraform-nextjs-plugin");
 const configuration = {
   gatewayKey: "AmazingWebsite",
   lambdaPath: "../../project/build",
+  provider: "AWS",
   routes: [
     {
       prefix: "home",
@@ -122,6 +124,7 @@ It will be up to you to consume them in a proper way.
 | Name         | Type                     | Description                                                                                                                                                                 |
 | ------------ | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `gatewayKey` | `string`                 | A name that will be prefixed to your resources. Usually it's the project name. Default value is `Terranext`.                                                                |
+| `provider` | `string` | The Cloud Provider. Based on the value, a different configuration will be exported. Supported providers: `AWS` |
 | `lambdaPath` | `string`                 | This is the path where the lambdas really are. Usually you will run `terraform` CLI from a different project/folder. So you need to tell `terraform` where these files are. |
 | `routes`     | `Array<Mapping>`, `Mapping` | This is the structure of the routes that describe your pages.                                                                                                               |
 

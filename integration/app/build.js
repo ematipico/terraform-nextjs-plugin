@@ -5,6 +5,7 @@ generateResources(
 	{
 		gatewayKey: "CustomKey",
 		lambdaPath: "../app/",
+		provider: "AWS",
 		routes
 	},
 	true

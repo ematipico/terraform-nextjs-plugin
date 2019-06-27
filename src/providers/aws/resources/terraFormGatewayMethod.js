@@ -1,4 +1,4 @@
-const { getGatewayResourceId, getGatewayKey } = require("../configuration");
+const { getGatewayResourceId, getGatewayKey } = require("../../../configuration");
 /**
  * It generates the resource for the single method
  *

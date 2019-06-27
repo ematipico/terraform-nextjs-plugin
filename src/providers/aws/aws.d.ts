@@ -79,4 +79,11 @@ export declare namespace AWS {
 		principal: string;
 		source_arn: string;
 	}
+
+	interface LambdaResources {
+		resource?: AWS.Lambdas;
+		data: {
+			archive_file: AWS.LambdaData;
+		};
+	}
 }

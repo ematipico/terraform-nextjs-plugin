@@ -1,4 +1,6 @@
+// @ts-nocheck
 const { checkConfiguration, setConfiguration, getGatewayKey, getGatewayResourceId } = require("../src/configuration");
+const { PROVIDERS } = require("../src/constants");
 
 describe("Configuration", () => {
 	it("should throw an error when configuration is empty", () => {
@@ -73,7 +75,8 @@ describe("Configuration", () => {
 							route: "ehy"
 						}
 					]
-				}
+				},
+				provider: "AWS"
 			})
 		).toBe(true);
 
@@ -100,7 +103,9 @@ describe("Configuration", () => {
 							}
 						]
 					}
-				]
+				],
+
+				provider: "AWS"
 			})
 		).toBe(true);
 	});
@@ -113,5 +118,42 @@ describe("Configuration", () => {
 	it("should return the gateway key", () => {
 		setConfiguration({ gatewayKey: "myTest", lambdaPath: "/path" });
 		expect(getGatewayKey()).toEqual("myTest");
+	});
+
+	it("should throw an error when provider is not passed", () => {
+		expect(() =>
+			checkConfiguration({
+				gatewayKey: "myTest",
+				lambdaPath: "/path",
+				routes: {
+					prefix: "",
+					mappings: [
+						{
+							page: "/content",
+							route: "ehy"
+						}
+					]
+				}
+			})
+		).toThrowError("provider is missing, it must be provided");
+	});
+
+	it("should throw an error when provider is not supported", () => {
+		expect(() =>
+			checkConfiguration({
+				gatewayKey: "myTest",
+				lambdaPath: "/path",
+				routes: {
+					prefix: "",
+					mappings: [
+						{
+							page: "/content",
+							route: "ehy"
+						}
+					]
+				},
+				provider: "Azure"
+			})
+		).toThrowError("Azure provider is not supported. Choose between: " + Object.keys(PROVIDERS).join(", "));
 	});
 });

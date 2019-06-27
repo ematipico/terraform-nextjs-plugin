@@ -1,50 +1,45 @@
-import { AWS } from "./aws";
+import { AWS } from "./providers/aws/aws";
 
-export interface Param {
-	name: string;
+export declare namespace terranext {
+	interface Configuration {
+		gatewayKey?: string;
+		lambdaPath?: string;
+		routes?: terranext.Route[] | terranext.Route;
 
-	mandatory?: boolean;
-}
+		provider: string;
+	}
 
-export interface GenerateLambdaResource {
-	resourceUniqueId: string;
-	resource: AWS.Function;
-	permissionUniqueId: string;
-	permission: AWS.Permission;
-}
+	interface Result<G, L> {
+		gateway: G;
+		lambdas: L;
+	}
 
-export interface GenerateGatewayResource {
-	uniqueId: string;
-	resource: AWS.GatewayResource;
-}
+	interface Route {
+		prefix: string;
 
-export interface HandleResource {
-	pathPart: string;
-	index: number;
-	parts: string[];
-	pathname: string;
-	lambdaName: string;
-	params: Param[];
-}
+		mappings: terranext.Mapping[];
+	}
 
-export interface GenerateGatewayResourcePayload {
-	id: string;
-	pathname: string;
-	parentId?: string;
-	isUrlParam?: boolean;
-}
+	interface Mapping {
+		page: string;
 
-export interface GenerateGatewayIntegrationPayload {
-	id: string;
-	gatewayResourceId: string;
-	lambdaName: string;
-	params?: Param[];
-	queryStringParams?: Param[];
-}
+		route: string;
 
-export interface GenerateGatewayMethodPayload {
-	uniqueName: string;
-	gatewayResourceId: string;
-	params?: Param[];
-	queryStringParams?: Param[];
+		params?: {
+			[key: string]: boolean;
+		};
+	}
+
+	interface GatewayResources {
+		resource: {
+			aws_api_gateway_resource: AWS.Resource;
+			aws_api_gateway_method: AWS.Method;
+			aws_api_gateway_integration: AWS.Integration;
+		};
+		variable: {
+			integrationList: {
+				default: string[];
+			};
+		};
+	}
 }

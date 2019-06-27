@@ -15,11 +15,13 @@ const cli = meow(
 	Options
 	  --gatewayKey, -g  The API Gateway key of the project. Default is "Terranext"
 		--lambdaPath, -p  The path that Terraform CLI has to follow to reach the nextjs project.
-		--write						
+		--write		
+		--provider				The Cloud provider to use when exporting the configuration
 		
 	Examples
 	  $ terranext 
 	  $ terranext --gatewayKey=CustomKey --lambdaPath=../../nextjs-project/
+	  $ terranext --provider=AWS
 	  $ terranext -g=CustomKey -p=../../nextjs-project/
 `,
 	{
@@ -33,6 +35,9 @@ const cli = meow(
 				type: "string",
 				alias: "p",
 				default: "./"
+			},
+			provider: {
+				type: "string"
 			}
 		}
 	}
@@ -41,11 +46,12 @@ const cli = meow(
 explorer
 	.search()
 	.then(result => {
-		const { gatewayKey, lambdaPath } = cli.flags;
+		const { gatewayKey, lambdaPath, provider } = cli.flags;
 		const options = {
 			...result.config,
 			gatewayKey,
-			lambdaPath
+			lambdaPath,
+			provider
 		};
 
 		generateResources(options, true);

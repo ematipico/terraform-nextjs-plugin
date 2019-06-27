@@ -1,5 +1,7 @@
 const { MissingKeyError } = require("./errors/missingKeyError");
+const { ProviderNotSupported } = require("./errors/providerNotSupported");
 const { IncorrectRoutesError } = require("./errors/incorretRoutesError");
+const { PROVIDERS } = require("./constants");
 const path = require("path");
 
 let configuration;
@@ -7,7 +9,7 @@ let configuration;
 /**
  *
  *
- * @param {import('./').Configuration} configuration
+ * @param {import('./declarations').terranext.Configuration} configuration
  */
 function setConfiguration({ gatewayKey, lambdaPath, routes }) {
 	configuration = Object.assign(
@@ -25,9 +27,14 @@ function getConfiguration() {
 	return configuration;
 }
 
+/**
+ *
+ *
+ * @param {import('./declarations').terranext.Configuration} config
+ */
 function checkConfiguration(config) {
 	if (!config) throw new Error("Empty configuration, cannot proceed.");
-	const { gatewayKey, lambdaPath, routes } = config;
+	const { gatewayKey, lambdaPath, routes, provider } = config;
 
 	if (!gatewayKey) throw new MissingKeyError("gatewayKey");
 	if (!lambdaPath) throw new MissingKeyError("lambdaPath");
@@ -40,7 +47,17 @@ function checkConfiguration(config) {
 		if (!checkRoutes(routes)) throw new IncorrectRoutesError();
 	}
 
+	checkProvider(provider);
+
 	return true;
+}
+
+function checkProvider(provider) {
+	if (!provider) throw new MissingKeyError("provider");
+
+	if (!Object.keys(PROVIDERS).includes(provider)) {
+		throw new ProviderNotSupported(provider);
+	}
 }
 
 function checkRoutes(routes) {

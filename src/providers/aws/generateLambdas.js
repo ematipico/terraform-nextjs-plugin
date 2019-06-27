@@ -4,7 +4,8 @@ const path = require("path");
 const prettier = require("prettier");
 const { generateLambdaResource } = require("./resources/terraFormLambda");
 const { generateZipResource } = require("./resources/terraFormZip.js");
-const { getBuildPath, getServerlessBuildPath } = require("./configuration");
+const { getBuildPath, getServerlessBuildPath } = require("../../configuration");
+const { COMPAT_LAYER_PATH } = require("../../constants");
 
 function generateLambda(filename, thePath) {
 	const lambdaTemplate = `
@@ -35,7 +36,7 @@ exports.render = (event, context, callback) => {
 /** @typedef {import('./aws').AWS.LambdaFunction} Lambdas */
 /** @typedef {import('./aws').AWS.LambdaPermission} LambdaPermissions */
 /** @typedef {import('./aws').AWS.LambdaData} LambdaData */
-/** @typedef {import('.').LambdaResources} LambdaResources */
+/** @typedef {import('./aws').AWS.LambdaResources} LambdaResources */
 /** @type {Lambdas} */
 const lambdasResources = {};
 /** @type {LambdaPermissions} */
@@ -50,7 +51,7 @@ let lambdaResources;
  *
  *
  * @param {boolean} [write=false]
- * @returns {import('.').LambdaResources}
+ * @returns {import('./aws').AWS.LambdaResources}
  */
 function generateLambdas(write = false) {
 	const buildPath = getBuildPath();
@@ -82,7 +83,7 @@ function generateLambdas(write = false) {
 		// 3.
 		generateLambda(lambdaName, buildPath);
 		// 4.
-		fs.copyFileSync(path.resolve(__dirname, "./compatLayer.js"), path.resolve(buildPath, "lambdas", lambdaName, "compatLayer.js"));
+		fs.copyFileSync(path.resolve(COMPAT_LAYER_PATH, "./compatLayer.js"), path.resolve(buildPath, "lambdas", lambdaName, "compatLayer.js"));
 
 		// 5.
 		const lambdaResource = generateLambdaResource({ id: lambdaName });
