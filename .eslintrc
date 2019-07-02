@@ -25,6 +25,7 @@
 		"prettier/prettier": "error",
 		"indent": ["error", "tab"],
 		"unicorn/no-process-exit": "off",
-		"no-process-exit": "off"
+		"no-process-exit": "off",
+		"strict": ["error", "global"]
 	}
 }

@@ -4,65 +4,66 @@ const { PROVIDERS } = require("../src/constants");
 
 describe("Configuration", () => {
 	it("should throw an error when configuration is empty", () => {
-		expect(() => checkConfiguration()).toThrowError("Empty configuration, cannot proceed.");
+		const errors = checkConfiguration();
+
+		expect(errors).toHaveLength(1);
+		const er = errors.find(e => e.type === "EmptyConfigurationError");
+		expect(er.message).toBe("Empty configuration, cannot proceed.");
 	});
 
 	it("should throw an error when gatewayKey is not provided", () => {
-		expect(() => checkConfiguration({})).toThrowError("gatewayKey is missing, it must be provided");
+		const errors = checkConfiguration({});
+		expect(errors.find(e => e.message === "gatewayKey is missing, it must be provided")).toBeDefined();
 	});
 
-	it("should throw an error when gatewayKey is not provided", () => {
-		expect(() => checkConfiguration({ gatewayKey: "myTest" })).toThrowError("lambdaPath is missing, it must be provided");
-	});
-
-	it("should throw an error when routes is not provided", () => {
-		expect(() => checkConfiguration({ gatewayKey: "myTest", lambdaPath: "/path" })).toThrowError("routes is missing, it must be provided");
+	it("should throw an error when lambdaPath is not provided", () => {
+		const errors = checkConfiguration({});
+		expect(errors.find(e => e.message === "lambdaPath is missing, it must be provided")).toBeDefined();
 	});
 
 	it("should throw an error when routes is are malformed", () => {
-		expect(() =>
-			checkConfiguration({
-				gatewayKey: "myTest",
-				lambdaPath: "/path",
-				routes: {
-					prefix: "",
+		const errors = checkConfiguration({
+			gatewayKey: "myTest",
+			lambdaPath: "/path",
+			routes: {
+				prefix: "",
+				mappings: [
+					{
+						page: "/"
+					}
+				]
+			}
+		});
+
+		expect(errors.find(e => e.message === "The object containing the routes is not correct")).toBeDefined();
+
+		const errors2 = checkConfiguration({
+			gatewayKey: "myTest",
+			lambdaPath: "/path",
+			routes: [
+				{
+					prefix: "home",
 					mappings: [
 						{
-							page: "/"
+							page: "/content",
+							route: "ehy"
+						}
+					]
+				},
+				{
+					prefix: "blog",
+					mappings: [
+						{
+							route: "ehy"
 						}
 					]
 				}
-			})
-		).toThrowError("The object containing the routes is not correct");
-
-		expect(() =>
-			checkConfiguration({
-				gatewayKey: "myTest",
-				lambdaPath: "/path",
-				routes: [
-					{
-						prefix: "home",
-						mappings: [
-							{
-								page: "/content",
-								route: "ehy"
-							}
-						]
-					},
-					{
-						prefix: "blog",
-						mappings: [
-							{
-								route: "ehy"
-							}
-						]
-					}
-				]
-			})
-		).toThrowError("The object containing the routes is not correct");
+			]
+		});
+		expect(errors2.find(e => e.message === "The object containing the routes is not correct")).toBeDefined();
 	});
 
-	it("should return true when the configuration is sane", () => {
+	it("should return true when the configuration is correct", () => {
 		expect(
 			checkConfiguration({
 				gatewayKey: "myTest",
@@ -121,39 +122,40 @@ describe("Configuration", () => {
 	});
 
 	it("should throw an error when provider is not passed", () => {
-		expect(() =>
-			checkConfiguration({
-				gatewayKey: "myTest",
-				lambdaPath: "/path",
-				routes: {
-					prefix: "",
-					mappings: [
-						{
-							page: "/content",
-							route: "ehy"
-						}
-					]
-				}
-			})
-		).toThrowError("provider is missing, it must be provided");
+		const errors = checkConfiguration({
+			gatewayKey: "myTest",
+			lambdaPath: "/path",
+			routes: {
+				prefix: "",
+				mappings: [
+					{
+						page: "/content",
+						route: "ehy"
+					}
+				]
+			}
+		});
+		expect(errors.find(e => e.message === "provider is missing, it must be provided")).toBeDefined();
 	});
 
 	it("should throw an error when provider is not supported", () => {
-		expect(() =>
-			checkConfiguration({
-				gatewayKey: "myTest",
-				lambdaPath: "/path",
-				routes: {
-					prefix: "",
-					mappings: [
-						{
-							page: "/content",
-							route: "ehy"
-						}
-					]
-				},
-				provider: "Azure"
-			})
-		).toThrowError("Azure provider is not supported. Choose between: " + Object.keys(PROVIDERS).join(", "));
+		const errors = checkConfiguration({
+			gatewayKey: "myTest",
+			lambdaPath: "/path",
+			routes: {
+				prefix: "",
+				mappings: [
+					{
+						page: "/content",
+						route: "ehy"
+					}
+				]
+			},
+			provider: "Azure"
+		});
+
+		expect(
+			errors.find(e => e.message === "Azure provider is not supported. Choose between: " + Object.keys(PROVIDERS).join(", "))
+		).toBeDefined();
 	});
 });

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-"use strict";
 
 const cosmiconfig = require("cosmiconfig");
 const meow = require("meow");

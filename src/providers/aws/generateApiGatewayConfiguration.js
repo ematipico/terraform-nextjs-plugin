@@ -1,8 +1,8 @@
-"use strict";
 const { getRoutes } = require("../../configuration");
 const fs = require("fs");
+const path = require("path");
 const prettier = require("prettier");
-
+const { FILE_NAMES } = require("../../constants");
 const { generateGatewayResource, generateUniqueId } = require("./resources/terraFormGatewayResource");
 const { generateGatewayMethod } = require("./resources/terraFormGatewayMethod");
 const { generateGatewayIntegration } = require("./resources/terraFormGatewayIntegration");
@@ -164,7 +164,7 @@ function generateTerraformConfiguration(write = false) {
 		// eslint-disable-next-line no-console
 		console.log("Generating file gateway.terraform.tf.json");
 		fs.writeFileSync(
-			process.cwd() + "/gateway.terraform.tf.json",
+			path.join(process.cwd(), FILE_NAMES.GATEWAY),
 			prettier.format(JSON.stringify(terraformConfiguration), {
 				parser: "json",
 				endOfLine: "lf"
