@@ -7,18 +7,18 @@ describe("Configuration", () => {
 		const errors = checkConfiguration();
 
 		expect(errors).toHaveLength(1);
-		const er = errors.find(e => e.type === "EmptyConfigurationError");
+		const er = errors.find(error => error.type === "EmptyConfigurationError");
 		expect(er.message).toBe("Empty configuration, cannot proceed.");
 	});
 
 	it("should throw an error when gatewayKey is not provided", () => {
 		const errors = checkConfiguration({});
-		expect(errors.find(e => e.message === "gatewayKey is missing, it must be provided")).toBeDefined();
+		expect(errors.find(error => error.message === "gatewayKey is missing, it must be provided")).toBeDefined();
 	});
 
 	it("should throw an error when lambdaPath is not provided", () => {
 		const errors = checkConfiguration({});
-		expect(errors.find(e => e.message === "lambdaPath is missing, it must be provided")).toBeDefined();
+		expect(errors.find(error => error.message === "lambdaPath is missing, it must be provided")).toBeDefined();
 	});
 
 	it("should throw an error when routes is are malformed", () => {
@@ -35,7 +35,7 @@ describe("Configuration", () => {
 			}
 		});
 
-		expect(errors.find(e => e.message === "The object containing the routes is not correct")).toBeDefined();
+		expect(errors.find(error => error.message === "The object containing the routes is not correct")).toBeDefined();
 
 		const errors2 = checkConfiguration({
 			gatewayKey: "myTest",
@@ -60,7 +60,7 @@ describe("Configuration", () => {
 				}
 			]
 		});
-		expect(errors2.find(e => e.message === "The object containing the routes is not correct")).toBeDefined();
+		expect(errors2.find(error => error.message === "The object containing the routes is not correct")).toBeDefined();
 	});
 
 	it("should return true when the configuration is correct", () => {
@@ -135,7 +135,7 @@ describe("Configuration", () => {
 				]
 			}
 		});
-		expect(errors.find(e => e.message === "provider is missing, it must be provided")).toBeDefined();
+		expect(errors.find(error => error.message === "provider is missing, it must be provided")).toBeDefined();
 	});
 
 	it("should throw an error when provider is not supported", () => {
@@ -155,7 +155,7 @@ describe("Configuration", () => {
 		});
 
 		expect(
-			errors.find(e => e.message === "Azure provider is not supported. Choose between: " + Object.keys(PROVIDERS).join(", "))
+			errors.find(error => error.message === "Azure provider is not supported. Choose between: " + Object.keys(PROVIDERS).join(", "))
 		).toBeDefined();
 	});
 });
