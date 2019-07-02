@@ -1,7 +1,7 @@
 // @ts-nocheck
-const { generateGatewayResource } = require("../src/providers/aws/resources/terraFormGatewayResource");
+const { generateGatewayResource } = require("../../../src/providers/aws/resources/terraFormGatewayResource");
 
-const { setConfiguration } = require("../src/configuration");
+const { setConfiguration } = require("../../../src/configuration");
 
 describe("Gateway integration", () => {
 	it("should return the expected resource for a top level", () => {
