@@ -7,6 +7,7 @@ const path = require("path");
 
 /**
  * @typedef {import('./errors/errors').ValidationError} ValidationError
+ * @typedef {import('./declarations').terranext.Route} Route
  */
 
 let configuration;
@@ -107,10 +108,18 @@ function getGatewayKey() {
 	return configuration.gatewayKey;
 }
 
+/**
+ *
+ *
+ * @returns {Route[]|undefined}
+ */
 function getRoutes() {
-	return configuration.routes;
+	return [configuration.routes];
 }
 
+/**
+ * @returns {string}
+ */
 function getBuildPath() {
 	return path.resolve(process.cwd(), configuration.buildPath);
 }

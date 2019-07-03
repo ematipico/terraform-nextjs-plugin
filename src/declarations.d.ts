@@ -1,4 +1,5 @@
 import { AWS } from "./providers/aws/aws";
+import { Param } from "./providers/aws/declarations";
 
 export declare namespace terranext {
 	interface Configuration {
@@ -15,7 +16,7 @@ export declare namespace terranext {
 	}
 
 	interface Route {
-		prefix: string;
+		prefix?: string;
 
 		mappings: terranext.Mapping[];
 	}
@@ -25,9 +26,7 @@ export declare namespace terranext {
 
 		route: string;
 
-		params?: {
-			[key: string]: boolean;
-		};
+		params?: Param[];
 	}
 
 	interface GatewayResources {

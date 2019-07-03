@@ -27,8 +27,9 @@ async function terranext(configuration, write = false) {
 			generateLambdas(write);
 		} else {
 			const lambdas = await generateLambdas();
+			const gateway = await generateTerraformConfiguration();
 			return {
-				gateway: generateTerraformConfiguration(),
+				gateway,
 				lambdas
 			};
 		}

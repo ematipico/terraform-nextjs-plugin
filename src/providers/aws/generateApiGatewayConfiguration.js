@@ -1,4 +1,4 @@
-const { getRoutes } = require("../../configuration");
+const { getRoutes, getLambdaPath } = require("../../configuration");
 const fs = require("fs");
 const path = require("path");
 const prettier = require("prettier");
@@ -6,9 +6,28 @@ const { FILE_NAMES } = require("../../constants");
 const { generateGatewayResource, generateUniqueId } = require("./resources/terraFormGatewayResource");
 const { generateGatewayMethod } = require("./resources/terraFormGatewayMethod");
 const { generateGatewayIntegration } = require("./resources/terraFormGatewayIntegration");
+const { generateUniqueName } = require("../../utils");
+const { generateMappingsFromFiles, getLambdaFiles } = require("../../shared");
 
+/**
+ * @typedef {import('../../declarations').terranext.GatewayResources} GatewayResources
+ * @typedef {import('../../declarations').terranext.Route} Route
+ * @typedef {import('./aws').AWS.Resource} AWS.Resource
+ * @typedef {import('./aws').AWS.Method} AWS.Method
+ * @typedef {import('./aws').AWS.Integration} AWS.Integration
+ */
+
+/**
+ * @type {AWS.Resource}
+ */
 const apiGatewayResource = {};
+/**
+ * @type {AWS.Method}
+ */
 const apiGatewayMethod = {};
+/**
+ * @type {AWS.Integration}
+ */
 const apiGatewayIntegration = {};
 
 const getParamsFromPath = pathname => {
@@ -37,17 +56,6 @@ const parseParams = params => {
 
 let gatewayResourceId;
 let uniqueName;
-
-/**
- * @param {string[]} pathParts
- * @returns {string}
- */
-const generateUniqueName = pathParts => {
-	return pathParts
-		.filter(Boolean)
-		.map(p => p.replace(":", "").replace("?", ""))
-		.join("-");
-};
 
 /**
  *
@@ -115,9 +123,23 @@ const handleResource = ({ pathPart, index, parts, pathname, lambdaName, params }
 };
 
 const generateResources = routesObject => {
-	routesObject.mappings.forEach(currentRoute => {
+	if (Array.isArray(routesObject)) {
+		routesObject.forEach(generateResourcesFromRoute);
+	} else {
+		generateResourcesFromRoute(routesObject);
+	}
+};
+
+/**
+ *
+const generateResourcesFromRoute = currentRoute => {
+ * @param {Route} routeObject
+ */
+const generateResourcesFromRoute = routeObject => {
+	routeObject.mappings.forEach(currentRoute => {
 		const { params, page, route } = currentRoute;
-		const pathname = routesObject.prefix + route;
+		const prefix = routeObject.prefix ? routeObject.prefix : "";
+		const pathname = prefix + route;
 		const lambdaName = page.replace("/", "");
 		pathname
 			.split("/")
@@ -141,11 +163,15 @@ let terraformConfiguration;
  * Generates the terraform configuration for the API Gateway
  *
  * @param {boolean} [write=false] Whether it writes files to the system
- * @returns
+ * @returns {Promise<GatewayResources|void>}
  */
-function generateTerraformConfiguration(write = false) {
+async function generateTerraformConfiguration(write = false) {
 	const routes = getRoutes();
-	generateResources(routes);
+	const lambaPath = getLambdaPath();
+	const files = await getLambdaFiles(lambaPath);
+	const nextRoutes = generateMappingsFromFiles(files);
+	const finalRoutes = routes ? [...routes, nextRoutes] : nextRoutes;
+	generateResources(finalRoutes);
 
 	terraformConfiguration = {
 		resource: {
@@ -162,7 +188,7 @@ function generateTerraformConfiguration(write = false) {
 
 	if (write) {
 		// eslint-disable-next-line no-console
-		console.log("Generating file gateway.terraform.tf.json");
+		console.log(`Generating file ${FILE_NAMES.GATEWAY}`);
 		fs.writeFileSync(
 			path.join(process.cwd(), FILE_NAMES.GATEWAY),
 			prettier.format(JSON.stringify(terraformConfiguration), {

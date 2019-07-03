@@ -9,8 +9,10 @@
     "test:ci-unix": "CI=true jest --colors --coverage --maxWorkers=4 --reporters=default --reporters=jest-junit && codecov -t 260305d4-6357-42d2-a73c-4c9b255d278a",
     "test:ci-win": "jest --colors --coverage --maxWorkers=4 --reporters=default --reporters=jest-junit",
     "release": "standard-version",
-    "lint": "eslint --ext js ./src ./bin ./tests",
-    "lint:fix": "eslint --ext js ./src ./bin ./tests --fix",
+    "lint": "npm run lint:files && npm run lint:types",
+    "lint:files": "eslint --ext js ./src ./bin ./tests",
+    "lint:fix": "npm run lint:files -- --fix",
+    "lint:types": "tsc",
     "integration:build": "cd ./integration/app; next build; node ./build.js"
   },
   "typings": "./src/index.d.ts",

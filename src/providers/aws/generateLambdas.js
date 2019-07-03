@@ -5,7 +5,7 @@ const { generateLambdaResource } = require("./resources/terraFormLambda");
 const { generateZipResource } = require("./resources/terraFormZip.js");
 const { getBuildPath, getServerlessBuildPath } = require("../../configuration");
 const { COMPAT_LAYER_PATH, FILE_NAMES } = require("../../constants");
-const { getLambdaFiles } = require("./shared");
+const { getLambdaFiles } = require("../../shared");
 const FolderNotFoundError = require("../../errors/folderNotFoundError");
 
 function generateLambda(filename, thePath) {
