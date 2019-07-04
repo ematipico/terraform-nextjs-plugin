@@ -1,7 +1,6 @@
 // @ts-nocheck
 const { generateZipResource } = require("../../../src/providers/aws/resources/terraFormZip");
 const { setConfiguration } = require("../../../src/configuration");
-const path = require("path");
 describe("terraFormZip", () => {
 	it("should create the correct resource", () => {
 		setConfiguration({
@@ -10,11 +9,8 @@ describe("terraFormZip", () => {
 
 		const result = generateZipResource({ id: "index", directoryName: "index" });
 		expect(result.uniqueId).toBe("packLambda-index");
-		expect(result.resource).toStrictEqual({
-			output_path: "files/${local.groupname}-index.zip",
-			type: "zip",
-			// eslint-disable-next-line unicorn/prevent-abbreviations
-			source_dir: path.join("../../fake/path/.next/serverless/pages", "index")
-		});
+		expect(result.resource.output_path).toEqual("files/${local.groupname}-index.zip");
+		expect(result.resource.type).toEqual("zip");
+		expect(result.resource.source_dir).toContain("fake/path/.next/serverless/pages");
 	});
 });
