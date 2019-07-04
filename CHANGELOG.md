@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.6.1...v0.8.0) (2019-07-04)
+
+
+* BREAKING CHANGE: routes not mandatory (#29) ([e5f6e78](https://github.com/ematipico/terraform-nextjs-plugin/commit/e5f6e78)), closes [#29](https://github.com/ematipico/terraform-nextjs-plugin/issues/29)
+
+
+### BREAKING CHANGES
+
+* routes not mandatory
+
+- routes is not mandatory
+- added more types to the code
+- create routes based on next pages
+
+* fix: removed .next from ignored files
+
+* fix: path resolution of lambdas
+
+- fix path resolution of where the lambdas are
+- removed default value from CLI
+- handling schema validation in a different way
+
+* fix: test reviewed
+
+* fix: path to lambda
+
+
+
 ## [0.7.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.6.1...v0.7.0) (2019-07-04)
 
 
