@@ -1,6 +1,6 @@
 // @ts-nocheck
-const { generateLambdaResource } = require("../src/providers/aws/resources/terraFormLambda");
-const { setConfiguration } = require("../src/configuration");
+const { generateLambdaResource } = require("../../../src/providers/aws/resources/terraFormLambda");
+const { setConfiguration } = require("../../../src/configuration");
 
 describe("terraFormLambda", () => {
 	it("should create the correct resource", () => {

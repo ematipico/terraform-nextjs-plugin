@@ -17,23 +17,32 @@ const cosmiconfig = require("cosmiconfig");
 async function terranext(configuration, write = false) {
 	try {
 		const fileConfiguration = retrieveConfiguration();
-		checkConfiguration({
+		const finalConfiguration = {
 			...fileConfiguration,
 			...configuration
-		});
-		setConfiguration(configuration);
-		if (write === true) {
-			generateTerraformConfiguration(write);
-			generateLambdas(write);
+		};
+		const result = checkConfiguration(finalConfiguration);
+		if (result === true) {
+			setConfiguration(configuration);
+			if (write === true) {
+				await generateTerraformConfiguration(write);
+				await generateLambdas(write);
+			} else {
+				const lambdas = await generateLambdas();
+				const gateway = await generateTerraformConfiguration();
+				return {
+					gateway,
+					lambdas
+				};
+			}
 		} else {
-			return {
-				gateway: generateTerraformConfiguration(),
-				lambdas: generateLambdas()
-			};
+			// eslint-disable-next-line no-console
+			console.error(result);
+			process.exit(1);
 		}
 	} catch (error) {
 		// eslint-disable-next-line no-console
-		console.error(error.message);
+		console.error(error);
 		process.exit(1);
 	}
 }

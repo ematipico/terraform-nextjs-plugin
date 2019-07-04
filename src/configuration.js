@@ -1,8 +1,14 @@
-const { MissingKeyError } = require("./errors/missingKeyError");
-const { ProviderNotSupported } = require("./errors/providerNotSupported");
-const { IncorrectRoutesError } = require("./errors/incorretRoutesError");
+const MissingKeyError = require("./errors/missingKeyError");
+const ProviderNotSupported = require("./errors/providerNotSupported");
+const IncorrectRoutesError = require("./errors/incorretRoutesError");
+const EmptyConfigurationError = require("./errors/emptyConfigurationError");
 const { PROVIDERS } = require("./constants");
 const path = require("path");
+
+/**
+ * @typedef {import('./errors/errors').ValidationError} ValidationError
+ * @typedef {import('./declarations').terranext.Route} Route
+ */
 
 let configuration;
 
@@ -17,7 +23,7 @@ function setConfiguration({ gatewayKey, lambdaPath, routes }) {
 		{
 			gatewayKey: gatewayKey || "Terranext",
 			buildPath: ".next",
-			lambdaPath,
+			lambdaPath: lambdaPath ? path.resolve(process.cwd(), lambdaPath) : "./",
 			routes
 		}
 	);
@@ -31,33 +37,41 @@ function getConfiguration() {
  *
  *
  * @param {import('./declarations').terranext.Configuration} config
+ * @returns {Boolean|ValidationError[]}
  */
 function checkConfiguration(config) {
-	if (!config) throw new Error("Empty configuration, cannot proceed.");
+	/**
+	 * @type {ValidationError[]}
+	 */
+
+	let errors = [];
+	if (!config) {
+		errors.push(new EmptyConfigurationError());
+		return errors;
+	}
 	const { gatewayKey, lambdaPath, routes, provider } = config;
 
-	if (!gatewayKey) throw new MissingKeyError("gatewayKey");
-	if (!lambdaPath) throw new MissingKeyError("lambdaPath");
-	if (!routes) throw new MissingKeyError("routes");
+	if (!gatewayKey) errors.push(new MissingKeyError("gatewayKey"));
+	if (!lambdaPath) errors.push(new MissingKeyError("lambdaPath"));
 
-	if (Array.isArray(routes)) {
-		const isInvalid = routes.some(r => checkRoutes(r) === false);
-		if (isInvalid === true) throw new IncorrectRoutesError();
-	} else {
-		if (!checkRoutes(routes)) throw new IncorrectRoutesError();
+	if (routes) {
+		if (Array.isArray(routes)) {
+			const isInvalid = routes.some(r => checkRoutes(r) === false);
+			if (isInvalid === true) errors.push(new IncorrectRoutesError());
+		} else {
+			if (!checkRoutes(routes)) errors.push(new IncorrectRoutesError());
+		}
 	}
 
-	checkProvider(provider);
-
-	return true;
-}
-
-function checkProvider(provider) {
-	if (!provider) throw new MissingKeyError("provider");
+	if (!provider) errors.push(new MissingKeyError("provider"));
 
 	if (!Object.keys(PROVIDERS).includes(provider)) {
-		throw new ProviderNotSupported(provider);
+		errors.push(new ProviderNotSupported(provider));
 	}
+
+	if (errors.length > 0) return errors;
+
+	return true;
 }
 
 function checkRoutes(routes) {
@@ -94,10 +108,18 @@ function getGatewayKey() {
 	return configuration.gatewayKey;
 }
 
+/**
+ *
+ *
+ * @returns {Route[]|undefined}
+ */
 function getRoutes() {
-	return configuration.routes;
+	return [configuration.routes];
 }
 
+/**
+ * @returns {string}
+ */
 function getBuildPath() {
 	return path.resolve(process.cwd(), configuration.buildPath);
 }

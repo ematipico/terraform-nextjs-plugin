@@ -2,6 +2,8 @@
 	"compilerOptions": {
 		"noEmit": true,
 		"allowJs": true,
-		"checkJs": true
-	}
+		"checkJs": true,
+		"downlevelIteration": true
+	},
+	"include": ["./src"]
 }

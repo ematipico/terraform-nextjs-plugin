@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-"use strict";
 
 const cosmiconfig = require("cosmiconfig");
 const meow = require("meow");
@@ -21,7 +20,7 @@ const cli = meow(
 	Examples
 	  $ terranext 
 	  $ terranext --gatewayKey=CustomKey --lambdaPath=../../nextjs-project/
-	  $ terranext --provider=AWS
+	  $ terranext --provider=AWS --lambdaPath=../../nextjs-project/
 	  $ terranext -g=CustomKey -p=../../nextjs-project/
 `,
 	{
@@ -33,8 +32,7 @@ const cli = meow(
 			},
 			lambdaPath: {
 				type: "string",
-				alias: "p",
-				default: "./"
+				alias: "p"
 			},
 			provider: {
 				type: "string"
@@ -53,7 +51,6 @@ explorer
 			lambdaPath,
 			provider
 		};
-
 		generateResources(options, true);
 	})
 	.catch(error => {

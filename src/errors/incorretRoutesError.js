@@ -1,11 +1,11 @@
-class IncorrectRoutesError extends Error {
+const ValidationError = require("./validationError");
+
+class IncorrectRoutesError extends ValidationError {
 	constructor() {
 		super();
-		this.name = "IncorrectRoutesError";
+		this.type = "IncorrectRoutesError";
 		this.message = `The object containing the routes is not correct`;
 	}
 }
 
-module.exports = {
-	IncorrectRoutesError
-};
+module.exports = IncorrectRoutesError;
