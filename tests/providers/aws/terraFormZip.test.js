@@ -11,6 +11,6 @@ describe("terraFormZip", () => {
 		expect(result.uniqueId).toBe("packLambda-index");
 		expect(result.resource.output_path).toEqual("files/${local.groupname}-index.zip");
 		expect(result.resource.type).toEqual("zip");
-		expect(result.resource.source_dir).toContain("fake/path/.next/serverless/pages");
+		expect(result.resource.source_dir).toContain("serverless");
 	});
 });

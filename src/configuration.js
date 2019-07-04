@@ -23,7 +23,7 @@ function setConfiguration({ gatewayKey, lambdaPath, routes }) {
 		{
 			gatewayKey: gatewayKey || "Terranext",
 			buildPath: ".next",
-			lambdaPath: lambdaPath ? path.resolve(__dirname, lambdaPath) : "./",
+			lambdaPath: lambdaPath ? path.resolve(process.cwd(), lambdaPath) : "./",
 			routes
 		}
 	);
