@@ -56,13 +56,13 @@ Using the CLI will automatically emit the configuration files.
 _**Arguments passed via CLI will *override* the ones that are defined inside the config file**_.
 
 ```bash
-terranext --gatewayKey=CustomKey --lambdaPath=../../nextjs-project/
+terranext --provider=AWS --gatewayKey=CustomKey --lambdaPath=../../nextjs-project/
 ```
 
 Or you can use the aliases:
 
 ```bash
-terranext -g=CustomKey -p=../../nextjs-project/
+terranext --provider=AWS -g=CustomKey -p=../../nextjs-project/
 ```
 
 ### Via API
@@ -73,38 +73,7 @@ const generateResources = require("@ematipico/terraform-nextjs-plugin");
 const configuration = {
   gatewayKey: "AmazingWebsite",
   lambdaPath: "../../project/build",
-  provider: "AWS",
-  routes: [
-    {
-      prefix: "home",
-      mappings: [
-        {
-          page: "/content", // physical name of the nextjs page
-          route: "/beautiful-content" // the url of the page
-        },
-        {
-          page: "/content", // physical name of the nextjs page
-          route: "/beautiful-content", // the url of the page
-          params: {
-            myParam: false // it is not mandatory
-          }
-        }
-      ]
-    },
-    {
-      prefix: "blog",
-      mappings: [
-        {
-          page: "/list",
-          route: "/blog-list"
-        },
-        {
-          page: "/singlePost",
-          route: "/blog-list/article/:url"
-        }
-      ]
-    }
-  ]
+  provider: "AWS"
 };
 
 const resources = generateResources(configuration); // inside resources you have the terraform json configuration
@@ -129,6 +98,8 @@ It will be up to you to consume them in a proper way.
 | `routes`     | `Array<Mapping>`, `Mapping` | This is the structure of the routes that describe your pages.                                                                                                               |
 
 ### Mapping explained
+
+These mappings are only needed if you have custom routes. If you don't, `routes` is not needed as this library is able to create mappings from the files that Nextjs generates.
 
 Let's say we want to describe the following URLs:
 
