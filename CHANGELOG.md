@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.8.0...v0.9.0) (2019-07-06)
+
+
+* BREAKING CHANGE: renamed CLI params (#33) ([24efe81](https://github.com/ematipico/terraform-nextjs-plugin/commit/24efe81)), closes [#33](https://github.com/ematipico/terraform-nextjs-plugin/issues/33)
+
+
+### BREAKING CHANGES
+
+* renamed CLI params
+
+- gatewayKey => gateway-key
+- lambdaPath => next-app-dir
+
+* chore: removed next build app
+chore: udpated test
+
+* fix: tests
+
+* fix: added more info on the error msg
+
+* fix: path resolution
+
+* fix: requrie the correct build func
+
+* fix: correctly call build
+
+
+
 ## [0.8.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.6.1...v0.8.0) (2019-07-04)
 
 
