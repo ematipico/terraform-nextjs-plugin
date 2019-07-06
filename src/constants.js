@@ -9,9 +9,11 @@ const FILE_NAMES = {
 };
 
 const COMPAT_LAYER_PATH = path.resolve(__dirname);
+const NEXT_CONFIG = "next.config.js";
 
 module.exports = {
 	PROVIDERS,
 	COMPAT_LAYER_PATH,
-	FILE_NAMES
+	FILE_NAMES,
+	NEXT_CONFIG
 };
