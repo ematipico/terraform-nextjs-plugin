@@ -7,7 +7,9 @@ describe("generateTerraformConfiguration", () => {
 	it("should generate the correct configuration", async () => {
 		setConfiguration({
 			gatewayKey: "CustomKey",
-			lambdaPath: path.resolve(__dirname, "__fixtures__"),
+			// eslint-disable-next-line unicorn/prevent-abbreviations
+			nextAppDir: path.resolve(__dirname, "__fixtures__"),
+			provider: "AWS",
 			routes: {
 				prefix: "",
 				mappings: [

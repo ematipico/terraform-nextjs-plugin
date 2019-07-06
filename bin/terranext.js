@@ -8,20 +8,19 @@ const explorer = cosmiconfig("terranext");
 
 const cli = meow(
 	`
-	Usage
-	  $ terranext
+Usage
+	$ terranext
 
-	Options
-	  --gatewayKey, -g  The API Gateway key of the project. Default is "Terranext"
-		--lambdaPath, -p  The path that Terraform CLI has to follow to reach the nextjs project.
-		--write		
-		--provider				The Cloud provider to use when exporting the configuration
+Options
+	--gateway-key, -g   The API Gateway key of the project. Default is "Terranext"
+	--next-app-dir, -d  The path that Terraform CLI has to follow to reach the nextjs project.
+	--provider          The Cloud provider to use when exporting the configuration
 		
-	Examples
-	  $ terranext 
-	  $ terranext --gatewayKey=CustomKey --lambdaPath=../../nextjs-project/
-	  $ terranext --provider=AWS --lambdaPath=../../nextjs-project/
-	  $ terranext -g=CustomKey -p=../../nextjs-project/
+Examples
+	$ terranext 
+	$ terranext --gateway-key=CustomKey --next-app-dir=../../nextjs-project/
+	$ terranext --provider=AWS --next-app-dir=../../nextjs-project/
+	$ terranext -g=CustomKey -d=../../nextjs-project/
 `,
 	{
 		flags: {
@@ -30,9 +29,10 @@ const cli = meow(
 				default: "Terranext",
 				alias: "g"
 			},
-			lambdaPath: {
+			// eslint-disable-next-line unicorn/prevent-abbreviations
+			nextAppDir: {
 				type: "string",
-				alias: "p"
+				alias: "d"
 			},
 			provider: {
 				type: "string"
@@ -43,15 +43,15 @@ const cli = meow(
 
 explorer
 	.search()
-	.then(result => {
-		const { gatewayKey, lambdaPath, provider } = cli.flags;
+	.then(async result => {
+		const { gatewayKey, nextAppDir, provider } = cli.flags;
 		const options = {
 			...result.config,
 			gatewayKey,
-			lambdaPath,
+			nextAppDir,
 			provider
 		};
-		generateResources(options, true);
+		await generateResources(options, true);
 	})
 	.catch(error => {
 		// eslint-disable-next-line no-console

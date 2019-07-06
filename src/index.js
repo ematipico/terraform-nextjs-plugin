@@ -1,7 +1,8 @@
-const { checkConfiguration, setConfiguration } = require("./configuration");
+const { checkConfiguration, setConfiguration, getNextConfig, getNextAppDir } = require("./configuration");
 const { generateTerraformConfiguration } = require("./providers/aws");
 const { generateLambdas } = require("./providers/aws");
 const cosmiconfig = require("cosmiconfig");
+const build = require("next/dist/build").default;
 
 /**
  * @typedef {import("./declarations").terranext.Configuration} Configuration
@@ -24,6 +25,11 @@ async function terranext(configuration, write = false) {
 		const result = checkConfiguration(finalConfiguration);
 		if (result === true) {
 			setConfiguration(configuration);
+			const nextConfig = getNextConfig();
+			// @ts-ignore
+			nextConfig.target = "serverless";
+			await build(getNextAppDir(), nextConfig);
+
 			if (write === true) {
 				await generateTerraformConfiguration(write);
 				await generateLambdas(write);

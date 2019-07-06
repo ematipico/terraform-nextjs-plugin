@@ -4,8 +4,10 @@ import { Param } from "./providers/aws/declarations";
 export declare namespace terranext {
 	interface Configuration {
 		gatewayKey?: string;
-		lambdaPath?: string;
+		nextAppDir?: string;
 		routes?: terranext.Route[] | terranext.Route;
+
+		buildPath?: string;
 
 		provider: string;
 	}

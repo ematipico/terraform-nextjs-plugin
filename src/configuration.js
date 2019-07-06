@@ -1,29 +1,37 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 const MissingKeyError = require("./errors/missingKeyError");
 const ProviderNotSupported = require("./errors/providerNotSupported");
 const IncorrectRoutesError = require("./errors/incorretRoutesError");
 const EmptyConfigurationError = require("./errors/emptyConfigurationError");
-const { PROVIDERS } = require("./constants");
+const { PROVIDERS, NEXT_CONFIG } = require("./constants");
 const path = require("path");
+const fs = require("fs");
 
 /**
  * @typedef {import('./errors/errors').ValidationError} ValidationError
  * @typedef {import('./declarations').terranext.Route} Route
+ * @typedef {import('./declarations').terranext.Configuration} Configuration
  */
 
+/**
+ * @type {Configuration}
+ */
 let configuration;
 
 /**
  *
  *
- * @param {import('./declarations').terranext.Configuration} configuration
+ * @param {Configuration} config
  */
-function setConfiguration({ gatewayKey, lambdaPath, routes }) {
+function setConfiguration(config) {
+	const { gatewayKey, nextAppDir, routes, provider, buildPath } = config;
 	configuration = Object.assign(
 		{},
 		{
 			gatewayKey: gatewayKey || "Terranext",
-			buildPath: ".next",
-			lambdaPath: lambdaPath ? path.resolve(process.cwd(), lambdaPath) : "./",
+			buildPath: buildPath || ".next",
+			provider,
+			nextAppDir: nextAppDir ? path.resolve(process.cwd(), nextAppDir) : "./",
 			routes
 		}
 	);
@@ -36,7 +44,7 @@ function getConfiguration() {
 /**
  *
  *
- * @param {import('./declarations').terranext.Configuration} config
+ * @param {Configuration} config
  * @returns {Boolean|ValidationError[]}
  */
 function checkConfiguration(config) {
@@ -49,10 +57,10 @@ function checkConfiguration(config) {
 		errors.push(new EmptyConfigurationError());
 		return errors;
 	}
-	const { gatewayKey, lambdaPath, routes, provider } = config;
+	const { gatewayKey, nextAppDir, routes, provider } = config;
 
 	if (!gatewayKey) errors.push(new MissingKeyError("gatewayKey"));
-	if (!lambdaPath) errors.push(new MissingKeyError("lambdaPath"));
+	if (!nextAppDir) errors.push(new MissingKeyError("nextAppDir"));
 
 	if (routes) {
 		if (Array.isArray(routes)) {
@@ -88,32 +96,28 @@ function checkRoutes(routes) {
 	return valid;
 }
 
-function getGatewayResourceId() {
-	return "${aws_api_gateway_rest_api." + getGatewayKey() + ".id}";
-}
-
-function getRootResource() {
-	return "${aws_api_gateway_rest_api." + getGatewayKey() + ".root_resource_id}";
-}
-
-function getLambdaPrefix() {
-	return `lambdaFor${getGatewayKey()}`;
-}
-
+/**
+ * @returns {string}
+ */
 function getLambdaPath() {
-	return configuration.lambdaPath + "/" + configuration.buildPath + "/serverless/pages";
+	return configuration.nextAppDir + "/" + configuration.buildPath + "/serverless/pages";
 }
 
+/**
+ * @returns {string}
+ */
 function getGatewayKey() {
 	return configuration.gatewayKey;
 }
 
 /**
  *
- *
  * @returns {Route[]|undefined}
  */
 function getRoutes() {
+	if (Array.isArray(configuration.routes)) {
+		return configuration.routes;
+	}
 	return [configuration.routes];
 }
 
@@ -128,16 +132,27 @@ function getServerlessBuildPath() {
 	return path.resolve(process.cwd(), configuration.buildPath, "serverless/pages");
 }
 
+function getNextConfig() {
+	const nextConfigFilePath = path.resolve(configuration.nextAppDir, NEXT_CONFIG);
+	if (fs.existsSync(nextConfigFilePath)) {
+		return fs.readFileSync(nextConfigFilePath);
+	}
+	throw new Error("Missing config file inside the Next.js folder: " + nextConfigFilePath);
+}
+
+function getNextAppDir() {
+	return configuration.nextAppDir;
+}
+
 module.exports = {
 	setConfiguration,
 	getConfiguration,
 	checkConfiguration,
-	getGatewayResourceId,
 	getRoutes,
 	getGatewayKey,
-	getLambdaPrefix,
-	getRootResource,
 	getLambdaPath,
+	getNextConfig,
 	getBuildPath,
-	getServerlessBuildPath
+	getServerlessBuildPath,
+	getNextAppDir
 };

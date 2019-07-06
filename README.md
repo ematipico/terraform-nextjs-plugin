@@ -1,8 +1,8 @@
 # Terraform nextjs plugin
 
 <p align="center">
-	<img height=200 src="https://www.ongraph.com/wp-content/uploads/2018/02/nextjs_icon.png" width=200 />
-	<img height=200 src="https://avatars0.githubusercontent.com/u/11051457?v=3&s=280" width=200 />
+  <img height=200 src="https://www.ongraph.com/wp-content/uploads/2018/02/nextjs_icon.png" width=200 />
+  <img height=200 src="https://avatars0.githubusercontent.com/u/11051457?v=3&s=280" width=200 />
 </p>
 
 A plugin to generate terraform configuration from nextjs pages
@@ -56,13 +56,32 @@ Using the CLI will automatically emit the configuration files.
 _**Arguments passed via CLI will *override* the ones that are defined inside the config file**_.
 
 ```bash
-terranext --provider=AWS --gatewayKey=CustomKey --lambdaPath=../../nextjs-project/
+terranext --provider=AWS --gateway-key=CustomKey --next-dir-app=../../nextjs-project/
 ```
 
 Or you can use the aliases:
 
 ```bash
 terranext --provider=AWS -g=CustomKey -p=../../nextjs-project/
+```
+
+### Help section
+
+```block
+
+Usage
+  $ terranext
+
+Options
+  --gateway-key, -g   The API Gateway key of the project. Default is "Terranext"
+  --next-app-dir, -d  The path that Terraform CLI has to follow to reach the nextjs project.
+  --provider          The Cloud provider to use when exporting the configuration
+
+Examples
+  $ terranext
+  $ terranext --gateway-key=CustomKey --next-app-dir=../../nextjs-project/
+  $ terranext --provider=AWS --next-app-dir=../../nextjs-project/
+  $ terranext -g=CustomKey -d=../../nextjs-project/
 ```
 
 ### Via API
@@ -94,7 +113,7 @@ It will be up to you to consume them in a proper way.
 | ------------ | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `gatewayKey` | `string`                 | A name that will be prefixed to your resources. Usually it's the project name. Default value is `Terranext`.                                                                |
 | `provider` | `string` | The Cloud Provider. Based on the value, a different configuration will be exported. Supported providers: `AWS` |
-| `lambdaPath` | `string`                 | This is the path where the lambdas really are. Usually you will run `terraform` CLI from a different project/folder. So you need to tell `terraform` where these files are. |
+| `nextDirApp` | `string`                 | This is the path where the lambdas really are. Usually you will run `terraform` CLI from a different project/folder. So you need to tell `terraform` where these files are. |
 | `routes`     | `Array<Mapping>`, `Mapping` | This is the structure of the routes that describe your pages.                                                                                                               |
 
 ### Mapping explained

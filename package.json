@@ -13,7 +13,7 @@
     "lint:files": "eslint --ext js ./src ./bin ./tests",
     "lint:fix": "npm run lint:files -- --fix",
     "lint:types": "tsc",
-    "integration:build": "cd ./integration/app; next build; node ./build.js"
+    "integration:build": "cd ./integration/app; node ./build.js"
   },
   "typings": "./src/index.d.ts",
   "repository": {

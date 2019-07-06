@@ -4,7 +4,7 @@ const routes = require("./routes");
 generateResources(
 	{
 		gatewayKey: "CustomKey",
-		lambdaPath: "../app/",
+		nextAppDir: "../app/",
 		provider: "AWS",
 		routes
 	},
