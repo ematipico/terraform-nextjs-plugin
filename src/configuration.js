@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 const MissingKeyError = require("./errors/missingKeyError");
 const ProviderNotSupported = require("./errors/providerNotSupported");
 const IncorrectRoutesError = require("./errors/incorretRoutesError");
@@ -30,7 +31,7 @@ function setConfiguration(config) {
 			gatewayKey: gatewayKey || "Terranext",
 			buildPath: buildPath || ".next",
 			provider,
-			lambdaPath: nextAppDir ? path.resolve(process.cwd(), nextAppDir) : "./",
+			nextAppDir: nextAppDir ? path.resolve(process.cwd(), nextAppDir) : "./",
 			routes
 		}
 	);
@@ -56,10 +57,10 @@ function checkConfiguration(config) {
 		errors.push(new EmptyConfigurationError());
 		return errors;
 	}
-	const { gatewayKey, nextAppDir: lambdaPath, routes, provider } = config;
+	const { gatewayKey, nextAppDir, routes, provider } = config;
 
 	if (!gatewayKey) errors.push(new MissingKeyError("gatewayKey"));
-	if (!lambdaPath) errors.push(new MissingKeyError("lambdaPath"));
+	if (!nextAppDir) errors.push(new MissingKeyError("nextAppDir"));
 
 	if (routes) {
 		if (Array.isArray(routes)) {

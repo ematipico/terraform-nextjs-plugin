@@ -1,4 +1,5 @@
-const { getLambdaPrefix, getGatewayKey } = require("../../../configuration");
+const { getGatewayKey } = require("../../../configuration");
+const { getLambdaPrefix } = require("../shared");
 
 /**
  * It generates the Lambda resource

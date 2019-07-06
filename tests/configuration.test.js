@@ -1,6 +1,8 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 // @ts-nocheck
-const { checkConfiguration, setConfiguration, getGatewayKey, getGatewayResourceId } = require("../src/configuration");
+const { checkConfiguration, setConfiguration, getGatewayKey } = require("../src/configuration");
 const { PROVIDERS } = require("../src/constants");
+const { getGatewayResourceId } = require("../src/providers/aws/shared");
 
 describe("Configuration", () => {
 	it("should throw an error when configuration is empty", () => {
@@ -18,7 +20,7 @@ describe("Configuration", () => {
 
 	it("should throw an error when lambdaPath is not provided", () => {
 		const errors = checkConfiguration({});
-		expect(errors.find(error => error.message === "lambdaPath is missing, it must be provided")).toBeDefined();
+		expect(errors.find(error => error.message === "nextAppDir is missing, it must be provided")).toBeDefined();
 	});
 
 	it("should throw an error when routes is are malformed", () => {
@@ -67,7 +69,7 @@ describe("Configuration", () => {
 		expect(
 			checkConfiguration({
 				gatewayKey: "myTest",
-				lambdaPath: "/path",
+				nextAppDir: "/path",
 				routes: {
 					prefix: "",
 					mappings: [
@@ -84,7 +86,7 @@ describe("Configuration", () => {
 		expect(
 			checkConfiguration({
 				gatewayKey: "myTest",
-				lambdaPath: "/path",
+				nextAppDir: "/path",
 				routes: [
 					{
 						prefix: "home",
@@ -112,19 +114,19 @@ describe("Configuration", () => {
 	});
 
 	it("should return the gateway key", () => {
-		setConfiguration({ gatewayKey: "myTest", lambdaPath: "/path" });
+		setConfiguration({ gatewayKey: "myTest", nextAppDir: "/path" });
 		expect(getGatewayResourceId()).toEqual("${aws_api_gateway_rest_api.myTest.id}");
 	});
 
 	it("should return the gateway key", () => {
-		setConfiguration({ gatewayKey: "myTest", lambdaPath: "/path" });
+		setConfiguration({ gatewayKey: "myTest", nextAppDir: "/path" });
 		expect(getGatewayKey()).toEqual("myTest");
 	});
 
 	it("should throw an error when provider is not passed", () => {
 		const errors = checkConfiguration({
 			gatewayKey: "myTest",
-			lambdaPath: "/path",
+			nextAppDir: "/path",
 			routes: {
 				prefix: "",
 				mappings: [
@@ -141,7 +143,7 @@ describe("Configuration", () => {
 	it("should throw an error when provider is not supported", () => {
 		const errors = checkConfiguration({
 			gatewayKey: "myTest",
-			lambdaPath: "/path",
+			nextAppDir: "/path",
 			routes: {
 				prefix: "",
 				mappings: [

@@ -166,38 +166,42 @@ let terraformConfiguration;
  * @returns {Promise<GatewayResources|void>}
  */
 async function generateTerraformConfiguration(write = false) {
-	const routes = getRoutes();
-	const lambaPath = getLambdaPath();
-	const files = await getLambdaFiles(lambaPath);
-	const nextRoutes = generateMappingsFromFiles(files);
-	const finalRoutes = routes ? [...routes, nextRoutes] : nextRoutes;
-	generateResources(finalRoutes);
+	try {
+		const routes = getRoutes();
+		const lambdaPath = getLambdaPath();
+		const files = await getLambdaFiles(lambdaPath);
+		const nextRoutes = generateMappingsFromFiles(files);
+		const finalRoutes = routes ? [...routes, nextRoutes] : nextRoutes;
+		generateResources(finalRoutes);
 
-	terraformConfiguration = {
-		resource: {
-			aws_api_gateway_resource: apiGatewayResource,
-			aws_api_gateway_method: apiGatewayMethod,
-			aws_api_gateway_integration: apiGatewayIntegration
-		},
-		variable: {
-			integrationList: {
-				default: Object.keys(apiGatewayIntegration).map(key => `aws_api_gateway_integration.${key}`)
+		terraformConfiguration = {
+			resource: {
+				aws_api_gateway_resource: apiGatewayResource,
+				aws_api_gateway_method: apiGatewayMethod,
+				aws_api_gateway_integration: apiGatewayIntegration
+			},
+			variable: {
+				integrationList: {
+					default: Object.keys(apiGatewayIntegration).map(key => `aws_api_gateway_integration.${key}`)
+				}
 			}
-		}
-	};
+		};
 
-	if (write) {
-		// eslint-disable-next-line no-console
-		console.log(`Generating file ${FILE_NAMES.GATEWAY}`);
-		fs.writeFileSync(
-			path.join(process.cwd(), FILE_NAMES.GATEWAY),
-			prettier.format(JSON.stringify(terraformConfiguration), {
-				parser: "json",
-				endOfLine: "lf"
-			})
-		);
-	} else {
-		return terraformConfiguration;
+		if (write) {
+			// eslint-disable-next-line no-console
+			console.log(`Generating file ${FILE_NAMES.GATEWAY}`);
+			fs.writeFileSync(
+				path.join(process.cwd(), FILE_NAMES.GATEWAY),
+				prettier.format(JSON.stringify(terraformConfiguration), {
+					parser: "json",
+					endOfLine: "lf"
+				})
+			);
+		} else {
+			return terraformConfiguration;
+		}
+	} catch (error) {
+		throw new Error(error);
 	}
 }
 
