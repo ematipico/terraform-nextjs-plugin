@@ -138,7 +138,7 @@ function getNextConfig() {
 	if (fs.existsSync(nextConfigFile)) {
 		return nextConfigFile;
 	}
-	throw new Error("Missing config file inside the Next.js folder");
+	throw new Error("Missing config file inside the Next.js folder: " + nextFolder + ", " + nextConfigFile);
 }
 
 module.exports = {
