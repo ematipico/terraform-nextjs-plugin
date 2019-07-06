@@ -2,7 +2,7 @@ const { checkConfiguration, setConfiguration, getNextConfig } = require("./confi
 const { generateTerraformConfiguration } = require("./providers/aws");
 const { generateLambdas } = require("./providers/aws");
 const cosmiconfig = require("cosmiconfig");
-const build = require("next/dist/build");
+const build = require("next/dist/build").default;
 
 /**
  * @typedef {import("./declarations").terranext.Configuration} Configuration
