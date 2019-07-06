@@ -133,12 +133,11 @@ function getServerlessBuildPath() {
 }
 
 function getNextConfig() {
-	const nextFolder = getBuildPath();
-	const nextConfigFile = path.resolve(nextFolder, NEXT_CONFIG);
-	if (fs.existsSync(nextConfigFile)) {
-		return nextConfigFile;
+	const nextConfigFilePath = path.resolve(configuration.nextAppDir, NEXT_CONFIG);
+	if (fs.existsSync(nextConfigFilePath)) {
+		return fs.readFileSync(nextConfigFilePath);
 	}
-	throw new Error("Missing config file inside the Next.js folder: " + nextFolder + ", " + nextConfigFile);
+	throw new Error("Missing config file inside the Next.js folder: " + nextConfigFilePath);
 }
 
 module.exports = {
