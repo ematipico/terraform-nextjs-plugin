@@ -1,4 +1,4 @@
-const { checkConfiguration, setConfiguration, getNextConfig } = require("./configuration");
+const { checkConfiguration, setConfiguration, getNextConfig, getNextAppDir } = require("./configuration");
 const { generateTerraformConfiguration } = require("./providers/aws");
 const { generateLambdas } = require("./providers/aws");
 const cosmiconfig = require("cosmiconfig");
@@ -28,7 +28,7 @@ async function terranext(configuration, write = false) {
 			const nextConfig = getNextConfig();
 			// @ts-ignore
 			nextConfig.target = "serverless";
-			await build(nextConfig);
+			await build(getNextAppDir(), nextConfig);
 
 			if (write === true) {
 				await generateTerraformConfiguration(write);

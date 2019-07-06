@@ -140,6 +140,10 @@ function getNextConfig() {
 	throw new Error("Missing config file inside the Next.js folder: " + nextConfigFilePath);
 }
 
+function getNextAppDir() {
+	return configuration.nextAppDir;
+}
+
 module.exports = {
 	setConfiguration,
 	getConfiguration,
@@ -149,5 +153,6 @@ module.exports = {
 	getLambdaPath,
 	getNextConfig,
 	getBuildPath,
-	getServerlessBuildPath
+	getServerlessBuildPath,
+	getNextAppDir
 };
