@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.9.0...v1.0.0) (2019-07-08)
+
+
+### Bug Fixes
+
+* set next app dir default value ([#35](https://github.com/ematipico/terraform-nextjs-plugin/issues/35)) ([7b02c66](https://github.com/ematipico/terraform-nextjs-plugin/commit/7b02c66))
+
+
+
 ## [0.9.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v0.8.0...v0.9.0) (2019-07-06)
 
 
