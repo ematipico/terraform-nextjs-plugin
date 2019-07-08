@@ -32,7 +32,8 @@ Examples
 			// eslint-disable-next-line unicorn/prevent-abbreviations
 			nextAppDir: {
 				type: "string",
-				alias: "d"
+				alias: "d",
+				default: "./"
 			},
 			provider: {
 				type: "string"
