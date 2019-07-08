@@ -43,9 +43,11 @@ yarn add --dev @ematipico/terraform-nextjs-plugin
 
 ## Usage
 
-This library supports [cosmiconfig](https://github.com/davidtheclark/cosmiconfig): you just need to have a file called `terranextrc` that matches the criteria. This repository has [one](./terranextrc).
+```bash
+terranext --provider=AWS
+```
 
-_**At the moment, the library assumes that you already run `next build` inside your project.**_
+This library supports [cosmiconfig](https://github.com/davidtheclark/cosmiconfig): you just need to have a file called `terranextrc` that matches the criteria. This repository has [one](./terranextrc).
 
 ### Via CLI
 
@@ -111,9 +113,9 @@ It will be up to you to consume them in a proper way.
 
 | Name         | Type                     | Description                                                                                                                                                                 |
 | ------------ | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `gatewayKey` | `string`                 | A name that will be prefixed to your resources. Usually it's the project name. Default value is `Terranext`.                                                                |
+| `gatewayKey` | `string`                 | A name that will be prefixed to your resources. Usually it's the project name. _Default value: `Terranext`_.                                                                |
 | `provider` | `string` | The Cloud Provider. Based on the value, a different configuration will be exported. Supported providers: `AWS` |
-| `nextDirApp` | `string`                 | This is the path where the lambdas really are. Usually you will run `terraform` CLI from a different project/folder. So you need to tell `terraform` where these files are. |
+| `nextDirApp` | `string`                 | This is the path where your Next.js project is. Usually you will run `terraform` CLI from a different project/folder. So you need to tell `terraform` where this folder is. The library will take care of the rest. _Default value: `"./"`_ |
 | `routes`     | `Array<Mapping>`, `Mapping` | This is the structure of the routes that describe your pages.                                                                                                               |
 
 ### Mapping explained
