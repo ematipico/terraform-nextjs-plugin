@@ -43,7 +43,7 @@
     "eslint-config-prettier": "6.1.0",
     "eslint-plugin-node": "9.1.0",
     "eslint-plugin-prettier": "3.1.0",
-    "eslint-plugin-unicorn": "9.1.1",
+    "eslint-plugin-unicorn": "10.0.0",
     "jest": "24.9.0",
     "jest-junit": "7.0.0",
     "next": "8.1.0",
