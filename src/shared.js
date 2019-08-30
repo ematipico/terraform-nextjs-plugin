@@ -5,6 +5,33 @@ const { promisify } = require("util");
 /** @typedef {import('./declarations').terranext.Route} Route */
 
 /**
+ *
+ * @param {string} fileName
+ * @param {string} pathPart
+ * @returns {string}
+ */
+function generatePathFromFile(fileName, pathPart) {
+	if (fileName.includes("index") && pathPart) {
+		const parts = pathPart.split("/");
+		return (
+			"/" +
+			parts[parts.length - 1]
+				.replace(".js", "")
+				.replace(":", "")
+				.replace(/\[/gm, "")
+				.replace(/\]/gm, "")
+		);
+	}
+	return (
+		"/" +
+		fileName
+			.replace(".js", "")
+			.replace(/\[/gm, "")
+			.replace(/\]/gm, "")
+	);
+}
+
+/**
  * It returns the files inside a folder
  *
  * @param {string} lambdaPath The Path to the lambdas
@@ -32,10 +59,10 @@ async function getLambdaFiles(lambdaPath) {
  */
 function generateMappingsFromFiles(files) {
 	const mappings = files.reduce((mappings, file) => {
-		const normalizedFile = "/" + file.replace(".js", "");
+		const path = generatePathFromFile(file);
 		mappings.push({
-			route: normalizedFile,
-			page: normalizedFile
+			route: path,
+			page: path
 		});
 
 		return mappings;
@@ -47,7 +74,58 @@ function generateMappingsFromFiles(files) {
 	};
 }
 
+/**
+ *
+ * @param {string} pathToPagesFolder
+ * @returns {Route}
+ */
+function generateMappingsFromPagesFolder(pathToPagesFolder) {
+	const mappings = [];
+
+	recursiveBuildMappings(pathToPagesFolder, mappings);
+
+	return {
+		prefix: "",
+		mappings
+	};
+}
+
+function recursiveBuildMappings(directoryPath, mappings = [], pathPart = "") {
+	const files = fs.readdirSync(directoryPath);
+	files.forEach(file => {
+		const fileInfo = path.join(directoryPath, file);
+		// const fileInfo = fs.readdirSync(partPath);
+		const newPathPart = fromNextPathToQueryPath(pathPart, file);
+
+		if (fs.statSync(fileInfo).isDirectory()) {
+			recursiveBuildMappings(fileInfo, mappings, newPathPart);
+		} else {
+			const mapping = {
+				route: newPathPart,
+				page: generatePathFromFile(file, newPathPart)
+			};
+			// if ()
+			mappings.push(mapping);
+		}
+	});
+}
+
+function isUrlPathname(string) {
+	return /^\[.*[a-zA-z0-9]\]$/gm.test(string);
+}
+
+function fromNextPathToQueryPath(pathPart, file) {
+	const cleanedFile = file.replace(".js", "");
+	if (isUrlPathname(cleanedFile)) {
+		return `${pathPart}/${":" +
+			cleanedFile.replace(/\[/gm, "").replace(/\]/gm, "")}`;
+	} else {
+		return `${pathPart}/${cleanedFile}`;
+	}
+}
+
 module.exports = {
 	getLambdaFiles,
-	generateMappingsFromFiles
+	generateMappingsFromFiles,
+	generateMappingsFromPagesFolder
 };

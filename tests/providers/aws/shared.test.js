@@ -1,4 +1,4 @@
-const { generateMappingsFromFiles, getLambdaFiles } = require("../../../src/shared");
+const { generateMappingsFromFiles, getLambdaFiles, generateMappingsFromPagesFolder } = require("../../../src/shared");
 const path = require("path");
 
 describe("shared.js", () => {
@@ -44,6 +44,33 @@ describe("shared.js", () => {
 				{
 					page: "/index",
 					route: "/index"
+				}
+			]
+		});
+	});
+
+	it("should generate routes from next 9 folder structure", async () => {
+		const testPath = path.resolve(__dirname, "__fixtures__", "next9", "pages");
+
+		const routes = await generateMappingsFromPagesFolder(testPath);
+		expect(routes).toEqual({
+			prefix: "",
+			mappings: [
+				{
+					page: "/deep",
+					route: "/:foo/:deep"
+				},
+				{
+					page: "/query",
+					route: "/:foo/:query"
+				},
+				{
+					page: "/bar",
+					route: "/:foo/bar"
+				},
+				{
+					page: "/fixed",
+					route: "/:foo/fixed"
 				}
 			]
 		});

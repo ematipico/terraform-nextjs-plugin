@@ -61,7 +61,7 @@
     "node": ">= 8.5.x"
   },
   "peerDependencies": {
-    "next": "8.0.0"
+    "next": ">=8.0.0 || < 9.0.0"
   },
   "files": [
     "bin/*",

@@ -17,7 +17,10 @@ const build = require("next/dist/build").default;
  */
 async function terranext(configuration, write = false) {
 	try {
-		const fileConfiguration = retrieveConfiguration();
+		/**
+		 * @type {Configuration}
+		 */
+		const fileConfiguration = await retrieveConfiguration();
 		const finalConfiguration = {
 			...fileConfiguration,
 			...configuration
