@@ -50,7 +50,7 @@
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "standard-version": "7.0.0",
-    "tsd": "0.7.4"
+    "tsd": "0.8.0"
   },
   "dependencies": {
     "cosmiconfig": "5.2.1",
