@@ -58,19 +58,19 @@ describe("shared.js", () => {
 			mappings: [
 				{
 					page: "/deep",
-					route: path.join(path.delimiter, ":foo", ":deep")
+					route: "/:foo/:deep"
 				},
 				{
 					page: "/query",
-					route: path.join(path.delimiter, ":foo", ":query")
+					route: "/:foo/:query"
 				},
 				{
 					page: "/bar",
-					route: path.join(path.delimiter, ":foo", "bar")
+					route: "/:foo/bar"
 				},
 				{
 					page: "/fixed",
-					route: path.join(path.delimiter, ":foo", "fixed")
+					route: "/:foo/fixed"
 				}
 			]
 		});
