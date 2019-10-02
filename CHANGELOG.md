@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v1.0.1...v1.1.0) (2019-10-02)
+
+
+### Chores
+
+* **deps-dev:** bump jest from 24.8.0 to 24.9.0 ([#54](https://github.com/ematipico/terraform-nextjs-plugin/issues/54)) ([b0a7468](https://github.com/ematipico/terraform-nextjs-plugin/commit/b0a7468))
+* added config to include more commits ([b03db8c](https://github.com/ematipico/terraform-nextjs-plugin/commit/b03db8c))
+* **deps:** [security] bump eslint-utils from 1.3.1 to 1.4.2 ([#64](https://github.com/ematipico/terraform-nextjs-plugin/issues/64)) ([37388fb](https://github.com/ematipico/terraform-nextjs-plugin/commit/37388fb))
+* **deps:** [security] bump mixin-deep from 1.3.1 to 1.3.2 ([#66](https://github.com/ematipico/terraform-nextjs-plugin/issues/66)) ([12a0070](https://github.com/ematipico/terraform-nextjs-plugin/commit/12a0070))
+* **deps-dev:** bump @types/jest from 24.0.15 to 24.0.16 ([#45](https://github.com/ematipico/terraform-nextjs-plugin/issues/45)) ([760da5e](https://github.com/ematipico/terraform-nextjs-plugin/commit/760da5e))
+* **deps-dev:** bump @types/jest from 24.0.16 to 24.0.17 ([0fe3020](https://github.com/ematipico/terraform-nextjs-plugin/commit/0fe3020))
+* **deps-dev:** bump @types/jest from 24.0.16 to 24.0.17 ([#48](https://github.com/ematipico/terraform-nextjs-plugin/issues/48)) ([87c356e](https://github.com/ematipico/terraform-nextjs-plugin/commit/87c356e))
+* **deps-dev:** bump @types/jest from 24.0.17 to 24.0.18 ([#57](https://github.com/ematipico/terraform-nextjs-plugin/issues/57)) ([ac4f280](https://github.com/ematipico/terraform-nextjs-plugin/commit/ac4f280))
+* **deps-dev:** bump babel-eslint from 10.0.1 to 10.0.2 ([#52](https://github.com/ematipico/terraform-nextjs-plugin/issues/52)) ([dccc496](https://github.com/ematipico/terraform-nextjs-plugin/commit/dccc496))
+* **deps-dev:** bump babel-eslint from 10.0.2 to 10.0.3 ([#63](https://github.com/ematipico/terraform-nextjs-plugin/issues/63)) ([8d1433e](https://github.com/ematipico/terraform-nextjs-plugin/commit/8d1433e))
+* **deps-dev:** bump eslint from 5.16.0 to 6.2.2 ([#60](https://github.com/ematipico/terraform-nextjs-plugin/issues/60)) ([81756b1](https://github.com/ematipico/terraform-nextjs-plugin/commit/81756b1))
+* **deps-dev:** bump eslint from 6.2.2 to 6.3.0 ([#68](https://github.com/ematipico/terraform-nextjs-plugin/issues/68)) ([00944af](https://github.com/ematipico/terraform-nextjs-plugin/commit/00944af))
+* **deps-dev:** bump eslint-config-prettier from 5.1.0 to 6.0.0 ([#53](https://github.com/ematipico/terraform-nextjs-plugin/issues/53)) ([db028c6](https://github.com/ematipico/terraform-nextjs-plugin/commit/db028c6))
+* **deps-dev:** bump eslint-config-prettier from 6.0.0 to 6.1.0 ([#58](https://github.com/ematipico/terraform-nextjs-plugin/issues/58)) ([c79ef3a](https://github.com/ematipico/terraform-nextjs-plugin/commit/c79ef3a))
+* **deps-dev:** bump eslint-config-prettier from 6.1.0 to 6.2.0 ([#69](https://github.com/ematipico/terraform-nextjs-plugin/issues/69)) ([d0b73cc](https://github.com/ematipico/terraform-nextjs-plugin/commit/d0b73cc))
+* **deps-dev:** bump eslint-config-prettier from 6.2.0 to 6.3.0 ([#71](https://github.com/ematipico/terraform-nextjs-plugin/issues/71)) ([1fda150](https://github.com/ematipico/terraform-nextjs-plugin/commit/1fda150))
+* **deps-dev:** bump eslint-plugin-node from 9.1.0 to 9.2.0 ([#67](https://github.com/ematipico/terraform-nextjs-plugin/issues/67)) ([bbe7869](https://github.com/ematipico/terraform-nextjs-plugin/commit/bbe7869))
+* **deps-dev:** bump eslint-plugin-node from 9.2.0 to 10.0.0 ([#70](https://github.com/ematipico/terraform-nextjs-plugin/issues/70)) ([e35deb4](https://github.com/ematipico/terraform-nextjs-plugin/commit/e35deb4))
+* **deps-dev:** bump eslint-plugin-prettier from 3.1.0 to 3.1.1 ([#76](https://github.com/ematipico/terraform-nextjs-plugin/issues/76)) ([75214e5](https://github.com/ematipico/terraform-nextjs-plugin/commit/75214e5))
+* **deps-dev:** bump eslint-plugin-unicorn from 9.1.0 to 9.1.1 ([#51](https://github.com/ematipico/terraform-nextjs-plugin/issues/51)) ([39f20d1](https://github.com/ematipico/terraform-nextjs-plugin/commit/39f20d1))
+* **deps-dev:** bump eslint-plugin-unicorn from 9.1.1 to 10.0.0 ([#62](https://github.com/ematipico/terraform-nextjs-plugin/issues/62)) ([5328438](https://github.com/ematipico/terraform-nextjs-plugin/commit/5328438))
+* **deps-dev:** bump jest-junit from 6.4.0 to 7.0.0 ([661e7e9](https://github.com/ematipico/terraform-nextjs-plugin/commit/661e7e9))
+* **deps-dev:** bump jest-junit from 6.4.0 to 7.0.0 ([#43](https://github.com/ematipico/terraform-nextjs-plugin/issues/43)) ([321d855](https://github.com/ematipico/terraform-nextjs-plugin/commit/321d855))
+* **deps-dev:** bump jest-junit from 7.0.0 to 8.0.0 ([#65](https://github.com/ematipico/terraform-nextjs-plugin/issues/65)) ([a768faf](https://github.com/ematipico/terraform-nextjs-plugin/commit/a768faf))
+* **deps-dev:** bump react from 16.8.6 to 16.9.0 ([#50](https://github.com/ematipico/terraform-nextjs-plugin/issues/50)) ([6533c71](https://github.com/ematipico/terraform-nextjs-plugin/commit/6533c71))
+* **deps-dev:** bump react-dom from 16.8.6 to 16.9.0 ([#49](https://github.com/ematipico/terraform-nextjs-plugin/issues/49)) ([78eec10](https://github.com/ematipico/terraform-nextjs-plugin/commit/78eec10))
+* **deps-dev:** bump standard-version from 6.0.1 to 7.0.0 ([71bd550](https://github.com/ematipico/terraform-nextjs-plugin/commit/71bd550))
+* **deps-dev:** bump standard-version from 6.0.1 to 7.0.0 ([#44](https://github.com/ematipico/terraform-nextjs-plugin/issues/44)) ([638066c](https://github.com/ematipico/terraform-nextjs-plugin/commit/638066c))
+
+
+### Features
+
+* added support for next 9 ([#88](https://github.com/ematipico/terraform-nextjs-plugin/issues/88)) ([ee0a1b7](https://github.com/ematipico/terraform-nextjs-plugin/commit/ee0a1b7))
+
 ### [1.0.1](https://github.com/ematipico/terraform-nextjs-plugin/compare/v1.0.0...v1.0.1) (2019-07-11)
 
 
