@@ -1,4 +1,4 @@
-const { getRoutes, getLambdaPath } = require("../../configuration");
+const { getRoutes, getServerlessPagesPath } = require("../../configuration");
 const fs = require("fs");
 const path = require("path");
 const prettier = require("prettier");
@@ -168,7 +168,7 @@ let terraformConfiguration;
 async function generateTerraformConfiguration(write = false) {
 	try {
 		const routes = getRoutes();
-		const lambdaPath = getLambdaPath();
+		const lambdaPath = getServerlessPagesPath();
 		const files = await getLambdaFiles(lambdaPath);
 		const nextRoutes = generateMappingsFromFiles(files);
 		const finalRoutes = routes ? [...routes, nextRoutes] : nextRoutes;

@@ -14,8 +14,10 @@ const path = require("path");
  * @returns {Result}
  */
 function generateZipResource({ id, directoryName }) {
+	const cleanedId = id.replace(/\[|\]/g, "");
+
 	return {
-		uniqueId: `packLambda-${id}`,
+		uniqueId: `packLambda-${cleanedId}`,
 		resource: {
 			output_path: "files/${local.groupname}-" + id + ".zip",
 			type: "zip",

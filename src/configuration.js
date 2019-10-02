@@ -100,7 +100,14 @@ function checkRoutes(routes) {
  * @returns {string}
  */
 function getLambdaPath() {
-	return configuration.nextAppDir + "/" + configuration.buildPath + "/serverless/pages";
+	return path.resolve(configuration.nextAppDir, configuration.buildPath, "lambdas");
+}
+
+/**
+ * @returns {string}
+ */
+function getServerlessPagesPath() {
+	return path.resolve(configuration.nextAppDir, configuration.buildPath, "serverless", "pages");
 }
 
 /**
@@ -154,5 +161,6 @@ module.exports = {
 	getNextConfig,
 	getBuildPath,
 	getServerlessBuildPath,
-	getNextAppDir
+	getNextAppDir,
+	getServerlessPagesPath
 };
