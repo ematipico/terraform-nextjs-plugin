@@ -9,7 +9,7 @@ const { getLambdaPrefix } = require("../shared");
  * @returns {import('../declarations').GenerateLambdaResource}
  */
 function generateLambdaResource({ id }) {
-	const cleanedId = id.replace(/[|]/, "");
+	const cleanedId = id.replace(/\[|\]/g, "");
 	const lambdaId = `${getLambdaPrefix()}-${cleanedId}`;
 	return {
 		resourceUniqueId: lambdaId,
