@@ -29,8 +29,8 @@ function generateGatewayIntegration({
  *
  * @param {string} gatewayResourceId
  * @param {string} lambdaName
- * @param {Param[]} params
- * @param {Param[]} queryStringParams
+ * @param {Param[]} parameters
+ * @param {Param[]} queryStringParameters
  * @returns {GatewayIntegration}
  */
 function _generateResource(gatewayResourceId, lambdaName, parameters, queryStringParameters) {

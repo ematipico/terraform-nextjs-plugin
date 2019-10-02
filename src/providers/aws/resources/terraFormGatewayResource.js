@@ -26,7 +26,7 @@ function generateUniqueId(id) {
  * It generates the single resource
  * @param {string} pathname
  * @param {string?} parentId
- * @param {boolean?} isUrlParam
+ * @param {boolean?} isUrlParameter
  * @returns {import('../aws').AWS.GatewayResource}
  */
 function _generateResource(pathname, parentId, isUrlParameter) {

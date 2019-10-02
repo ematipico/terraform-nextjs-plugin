@@ -16,8 +16,8 @@ function generateGatewayMethod({ uniqueName, gatewayResourceId, params: paramete
 /**
  *
  * @param {string} resourceId
- * @param {import('../declarations').Param[]} params
- * @param {import('../declarations').Param[]} queryStringParams
+ * @param {import('../declarations').Param[]} parameters
+ * @param {import('../declarations').Param[]} queryStringParameters
  */
 function _generateResource(resourceId, parameters = [], queryStringParameters = []) {
 	const resource = {
