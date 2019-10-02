@@ -7,7 +7,7 @@ const { promisify } = require("util");
 /**
  *
  * @param {string} fileName
- * @param {string} pathPart
+ * @param {string} [pathPart]
  * @returns {string}
  */
 function generatePathFromFile(fileName, pathPart) {
@@ -97,7 +97,7 @@ function recursiveBuildMappings(directoryPath, mappings = [], pathPart = "") {
 		const absoluteFilePath = path.join(directoryPath, file);
 		const newPathPart = fromNextPathToQueryPath(pathPart, file);
 		const hasIndex = directoryContainsIndexFile(absoluteFilePath);
-		if (fs.statSync(absoluteFilePath).isDirectory() && !hasIndex) {			
+		if (fs.statSync(absoluteFilePath).isDirectory() && !hasIndex) {
 			recursiveBuildMappings(absoluteFilePath, mappings, newPathPart);
 		} else {
 			const mapping = {
@@ -117,20 +117,19 @@ function isUrlPathname(string) {
 function fromNextPathToQueryPath(pathPart, file) {
 	const cleanedFile = file.replace(".js", "");
 	if (isUrlPathname(cleanedFile)) {
-		return `${pathPart}/${":" +
-			cleanedFile.replace(/\[/gm, "").replace(/\]/gm, "")}`;
+		return `${pathPart}/${":" + cleanedFile.replace(/\[/gm, "").replace(/\]/gm, "")}`;
 	} else {
 		return `${pathPart}/${cleanedFile}`;
 	}
 }
 
 /**
- * 
- * @param {string} absoluteFilePath 
+ *
+ * @param {string} absoluteFilePath
  */
 function directoryContainsIndexFile(absoluteFilePath) {
 	if (fs.statSync(absoluteFilePath).isDirectory()) {
-		return fs.existsSync(path.resolve(absoluteFilePath, 'index.js'));
+		return fs.existsSync(path.resolve(absoluteFilePath, "index.js"));
 	}
 
 	return false;

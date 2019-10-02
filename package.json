@@ -50,7 +50,8 @@
     "react": "16.10.1",
     "react-dom": "16.10.1",
     "standard-version": "7.0.0",
-    "tsd": "0.9.0"
+    "tsd": "0.9.0",
+    "typescript": "^3.6.3"
   },
   "dependencies": {
     "cosmiconfig": "5.2.1",
@@ -61,7 +62,7 @@
     "node": ">= 8.5.x"
   },
   "peerDependencies": {
-    "next": ">=8.0.0 || < 9.0.0"
+    "next": ">=8.0.0"
   },
   "files": [
     "bin/*",

@@ -6,10 +6,10 @@ const { getGatewayResourceId } = require("../shared");
  * @param {import('../declarations').GenerateGatewayMethodPayload} options
  * @returns
  */
-function generateGatewayMethod({ uniqueName, gatewayResourceId, params = [], queryStringParams = [] }) {
+function generateGatewayMethod({ uniqueName, gatewayResourceId, params: parameters = [], queryStringParams: queryStringParameters = [] }) {
 	return {
 		uniqueId: `${getGatewayKey()}-${uniqueName}`,
-		resource: _generateResource(gatewayResourceId, params, queryStringParams)
+		resource: _generateResource(gatewayResourceId, parameters, queryStringParameters)
 	};
 }
 
@@ -19,23 +19,23 @@ function generateGatewayMethod({ uniqueName, gatewayResourceId, params = [], que
  * @param {import('../declarations').Param[]} params
  * @param {import('../declarations').Param[]} queryStringParams
  */
-function _generateResource(resourceId, params = [], queryStringParams = []) {
+function _generateResource(resourceId, parameters = [], queryStringParameters = []) {
 	const resource = {
 		rest_api_id: getGatewayResourceId(),
 		resource_id: "${aws_api_gateway_resource." + resourceId + ".id}",
 		http_method: "GET",
 		authorization: "NONE"
 	};
-	if (params.length > 0) {
-		resource.request_parameters = params.reduce((result, param) => {
-			result[`method.request.path.${param.name}`] = param.mandatory;
+	if (parameters.length > 0) {
+		resource.request_parameters = parameters.reduce((result, parameter) => {
+			result[`method.request.path.${parameter.name}`] = parameter.mandatory;
 
 			return result;
 		}, resource.request_parameters || {});
 	}
-	if (queryStringParams.length > 0) {
-		resource.request_parameters = queryStringParams.reduce((result, param) => {
-			result[`method.request.querystring.${param.name}`] = param.mandatory;
+	if (queryStringParameters.length > 0) {
+		resource.request_parameters = queryStringParameters.reduce((result, parameter) => {
+			result[`method.request.querystring.${parameter.name}`] = parameter.mandatory;
 
 			return result;
 		}, resource.request_parameters || {});
