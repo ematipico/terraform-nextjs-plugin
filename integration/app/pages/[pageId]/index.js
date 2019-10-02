@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function BlogPost() {
+export default function BlogPage() {
 	return <h1>Blog post page</h1>;
 }
 
-BlogPost.getInitialProps = function() {
+BlogPage.getInitialProps = function() {
 	return {
 		name: "foo"
 	};
