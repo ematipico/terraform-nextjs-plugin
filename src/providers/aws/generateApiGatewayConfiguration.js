@@ -1,4 +1,4 @@
-const { getRoutes, getLambdaPath } = require("../../configuration");
+const { getRoutes, getServerlessPagesPath } = require("../../configuration");
 const fs = require("fs");
 const path = require("path");
 const prettier = require("prettier");
@@ -30,7 +30,7 @@ const apiGatewayMethod = {};
  */
 const apiGatewayIntegration = {};
 
-const getParamsFromPath = pathname => {
+const getParametersFromPath = pathname => {
 	return pathname
 		.split("/")
 		.map(pathPart => {
@@ -45,11 +45,11 @@ const getParamsFromPath = pathname => {
 		.filter(Boolean);
 };
 
-const parseParams = params => {
-	return Object.keys(params).map(paramKey => {
+const parseParameters = parameters => {
+	return Object.keys(parameters).map(parameterKey => {
 		return {
-			name: paramKey,
-			mandatory: params[paramKey]
+			name: parameterKey,
+			mandatory: parameters[parameterKey]
 		};
 	});
 };
@@ -62,7 +62,7 @@ let uniqueName;
  * @param {import("./declarations").HandleResource} payload
  */
 const handleResource = ({ pathPart, index, parts, pathname, lambdaName, params }) => {
-	const isUrlParam = pathPart.includes(":");
+	const isUrlParameter = pathPart.includes(":");
 	const currentPathName = pathPart.replace(":", "");
 	// Generation of the gateway resource
 	// we don't generate a gateway resource if the path part is a query string
@@ -76,7 +76,7 @@ const handleResource = ({ pathPart, index, parts, pathname, lambdaName, params }
 			id: uniqueName,
 			pathname: currentPathName,
 			parentId,
-			isUrlParam
+			isUrlParam: isUrlParameter
 		});
 		gatewayResourceId = uniqueId;
 		apiGatewayResource[uniqueId] = resource;
@@ -84,7 +84,7 @@ const handleResource = ({ pathPart, index, parts, pathname, lambdaName, params }
 		const { uniqueId, resource } = generateGatewayResource({
 			id: uniqueName,
 			pathname: uniqueName,
-			isUrlParam
+			isUrlParam: isUrlParameter
 		});
 		gatewayResourceId = uniqueId;
 		apiGatewayResource[uniqueId] = resource;
@@ -94,19 +94,19 @@ const handleResource = ({ pathPart, index, parts, pathname, lambdaName, params }
 	// also, we have to enter when we have a query string parameter.
 	// In this last case, the gateway resource will belong to the father because hasn't been set
 	if (index === parts.length - 1) {
-		let urlParams = [];
-		let queryStringParams = [];
-		if (isUrlParam) {
-			urlParams = getParamsFromPath(pathname);
+		let urlParameters = [];
+		let queryStringParameters = [];
+		if (isUrlParameter) {
+			urlParameters = getParametersFromPath(pathname);
 		}
 		if (params) {
-			queryStringParams = parseParams(params);
+			queryStringParameters = parseParameters(params);
 		}
 		const method = generateGatewayMethod({
 			uniqueName,
 			gatewayResourceId: gatewayResourceId,
-			params: urlParams,
-			queryStringParams
+			params: urlParameters,
+			queryStringParams: queryStringParameters
 		});
 
 		apiGatewayMethod[method.uniqueId] = method.resource;
@@ -115,8 +115,8 @@ const handleResource = ({ pathPart, index, parts, pathname, lambdaName, params }
 			id: uniqueName,
 			gatewayResourceId: gatewayResourceId,
 			lambdaName,
-			params: urlParams,
-			queryStringParams
+			params: urlParameters,
+			queryStringParams: queryStringParameters
 		});
 		apiGatewayIntegration[integration.uniqueId] = integration.resource;
 	}
@@ -168,7 +168,7 @@ let terraformConfiguration;
 async function generateTerraformConfiguration(write = false) {
 	try {
 		const routes = getRoutes();
-		const lambdaPath = getLambdaPath();
+		const lambdaPath = getServerlessPagesPath();
 		const files = await getLambdaFiles(lambdaPath);
 		const nextRoutes = generateMappingsFromFiles(files);
 		const finalRoutes = routes ? [...routes, nextRoutes] : nextRoutes;

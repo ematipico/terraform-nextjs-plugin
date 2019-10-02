@@ -5,13 +5,7 @@
 		"node": true,
 		"jest": true
 	},
-	"extends": [
-		"eslint:recommended",
-		"plugin:node/recommended",
-		"plugin:unicorn/recommended",
-		"prettier",
-		"prettier/unicorn"
-	],
+	"extends": ["eslint:recommended", "plugin:node/recommended", "plugin:unicorn/recommended", "prettier", "prettier/unicorn"],
 	"globals": {
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
@@ -22,6 +16,7 @@
 	},
 	"rules": {
 		"unicorn/filename-case": ["error", { "case": "camelCase" }],
+		"unicorn/prevent-abbreviations": "off",
 		"prettier/prettier": "error",
 		"indent": ["error", "tab"],
 		"unicorn/no-process-exit": "off",

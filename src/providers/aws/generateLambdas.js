@@ -4,19 +4,19 @@ const prettier = require("prettier");
 const { generateLambdaResource } = require("./resources/terraFormLambda");
 const { generateZipResource } = require("./resources/terraFormZip.js");
 const { getBuildPath, getServerlessBuildPath } = require("../../configuration");
-const { COMPAT_LAYER_PATH, FILE_NAMES } = require("../../constants");
+const { FILE_NAMES } = require("../../constants");
 const { getLambdaFiles } = require("../../shared");
 const FolderNotFoundError = require("../../errors/folderNotFoundError");
 
 function generateLambda(filename, thePath) {
 	const lambdaTemplate = `
 
-const compatLayer = require('./compatLayer.js');
 const page = require('./${filename}.original.js');
+const http = require('http')
 
 exports.render = (event, context, callback) => {
-	const { req, res } = compatLayer(event, callback);
-	page.render(req, res);
+	const server = new http.Server((req, res) => page.render(req, res));
+	server.listen(3000);
 };
 
 
@@ -71,9 +71,8 @@ function generateLambdas(write = false) {
 				 * 1. create a folder with name of the file
 				 * 2. copy the next file with a suffix .original.js
 				 * 3. create the lambda from the template
-				 * 4. copy the compatLayer file
-				 * 5. generate the lambda resource
-				 * 6. generate the zip file resource
+				 * 4. generate the lambda resource
+				 * 5. generate the zip file resource
 				 */
 				// 1.
 				const lambdaName = file.replace(".js", "");
@@ -85,18 +84,13 @@ function generateLambdas(write = false) {
 				fs.copyFileSync(path.resolve(serverlessBuildPath, file), path.resolve(buildPath, "lambdas", lambdaName, newFilename));
 				// 3.
 				generateLambda(lambdaName, buildPath);
-				// 4.
-				fs.copyFileSync(
-					path.resolve(COMPAT_LAYER_PATH, "./compatLayer.js"),
-					path.resolve(buildPath, "lambdas", lambdaName, "compatLayer.js")
-				);
 
-				// 5.
+				// 4.
 				const lambdaResource = generateLambdaResource({ id: lambdaName });
 				lambdasResources[lambdaResource.resourceUniqueId] = lambdaResource.resource;
 				lambdasPermissions[lambdaResource.permissionUniqueId] = lambdaResource.permission;
 
-				// 6.
+				// 5.
 				const zipResource = generateZipResource({
 					id: lambdaName,
 					directoryName: lambdaName

@@ -9,24 +9,25 @@ const { getLambdaPrefix } = require("../shared");
  * @returns {import('../declarations').GenerateLambdaResource}
  */
 function generateLambdaResource({ id }) {
-	const lamdbaId = `${getLambdaPrefix()}-${id}`;
+	const cleanedId = id.replace(/\[|\]/g, "");
+	const lambdaId = `${getLambdaPrefix()}-${cleanedId}`;
 	return {
-		resourceUniqueId: lamdbaId,
+		resourceUniqueId: lambdaId,
 		resource: {
-			filename: "${data.archive_file.packLambda-" + id + ".output_path}",
-			function_name: "${local.groupname}-" + id,
-			source_code_hash: "${data.archive_file.packLambda-" + id + ".output_base64sha256}",
+			filename: "${data.archive_file.packLambda-" + cleanedId + ".output_path}",
+			function_name: "${local.groupname}-" + cleanedId,
+			source_code_hash: "${data.archive_file.packLambda-" + cleanedId + ".output_base64sha256}",
 			handler: id + ".render",
 			runtime: "nodejs8.10",
 			memory_size: "1024",
 			timeout: "180",
 			role: "${local.lambda_iam_role}"
 		},
-		permissionUniqueId: lamdbaId,
+		permissionUniqueId: lambdaId,
 		permission: {
 			statement_id: "AllowExecutionFromAPIGateway",
 			action: "lambda:InvokeFunction",
-			function_name: "${aws_lambda_function." + lamdbaId + ".function_name}",
+			function_name: "${aws_lambda_function." + lambdaId + ".function_name}",
 			principal: "apigateway.amazonaws.com",
 			source_arn: "${aws_api_gateway_rest_api." + getGatewayKey() + ".execution_arn}/*/*/*"
 		}

@@ -11,10 +11,16 @@ const { getLambdaPrefix } = require("../shared");
  * @param {import('../declarations').GenerateGatewayIntegrationPayload} options
  * @returns {ReturnResult}
  */
-function generateGatewayIntegration({ id, gatewayResourceId, lambdaName, params = [], queryStringParams = [] }) {
+function generateGatewayIntegration({
+	id,
+	gatewayResourceId,
+	lambdaName,
+	params: parameters = [],
+	queryStringParams: queryStringParameters = []
+}) {
 	return {
 		uniqueId: `${getGatewayKey()}-${id}`,
-		resource: _generateResource(gatewayResourceId, lambdaName, params, queryStringParams)
+		resource: _generateResource(gatewayResourceId, lambdaName, parameters, queryStringParameters)
 	};
 }
 
@@ -23,11 +29,11 @@ function generateGatewayIntegration({ id, gatewayResourceId, lambdaName, params 
  *
  * @param {string} gatewayResourceId
  * @param {string} lambdaName
- * @param {Param[]} params
- * @param {Param[]} queryStringParams
+ * @param {Param[]} parameters
+ * @param {Param[]} queryStringParameters
  * @returns {GatewayIntegration}
  */
-function _generateResource(gatewayResourceId, lambdaName, params, queryStringParams) {
+function _generateResource(gatewayResourceId, lambdaName, parameters, queryStringParameters) {
 	const resource = {
 		rest_api_id: "${aws_api_gateway_rest_api." + getGatewayKey() + ".id}",
 		resource_id: "${aws_api_gateway_resource." + gatewayResourceId + ".id}",
@@ -42,17 +48,17 @@ function _generateResource(gatewayResourceId, lambdaName, params, queryStringPar
 			".arn}/invocations"
 	};
 
-	if (params.length > 0) {
-		resource.request_parameters = params.reduce((result, param) => {
-			result[`integration.request.path.${param.name}`] = `method.request.path.${param.name}`;
+	if (parameters.length > 0) {
+		resource.request_parameters = parameters.reduce((result, parameter) => {
+			result[`integration.request.path.${parameter.name}`] = `method.request.path.${parameter.name}`;
 
 			return result;
 		}, resource.request_parameters || {});
 	}
 
-	if (queryStringParams.length > 0) {
-		resource.request_parameters = queryStringParams.reduce((result, param) => {
-			result[`integration.request.querystring.${param.name}`] = `method.request.querystring.${param.name}`;
+	if (queryStringParameters.length > 0) {
+		resource.request_parameters = queryStringParameters.reduce((result, parameter) => {
+			result[`integration.request.querystring.${parameter.name}`] = `method.request.querystring.${parameter.name}`;
 
 			return result;
 		}, resource.request_parameters || {});

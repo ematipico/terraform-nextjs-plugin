@@ -100,7 +100,14 @@ function checkRoutes(routes) {
  * @returns {string}
  */
 function getLambdaPath() {
-	return configuration.nextAppDir + "/" + configuration.buildPath + "/serverless/pages";
+	return path.resolve(configuration.nextAppDir, configuration.buildPath, "lambdas");
+}
+
+/**
+ * @returns {string}
+ */
+function getServerlessPagesPath() {
+	return path.resolve(configuration.nextAppDir, configuration.buildPath, "serverless", "pages");
 }
 
 /**
@@ -135,7 +142,7 @@ function getServerlessBuildPath() {
 function getNextConfig() {
 	const nextConfigFilePath = path.resolve(configuration.nextAppDir, NEXT_CONFIG);
 	if (fs.existsSync(nextConfigFilePath)) {
-		return fs.readFileSync(nextConfigFilePath);
+		return require(nextConfigFilePath);
 	}
 	throw new Error("Missing config file inside the Next.js folder: " + nextConfigFilePath);
 }
@@ -154,5 +161,6 @@ module.exports = {
 	getNextConfig,
 	getBuildPath,
 	getServerlessBuildPath,
-	getNextAppDir
+	getNextAppDir,
+	getServerlessPagesPath
 };
