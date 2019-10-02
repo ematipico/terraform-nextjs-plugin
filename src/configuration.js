@@ -135,7 +135,7 @@ function getServerlessBuildPath() {
 function getNextConfig() {
 	const nextConfigFilePath = path.resolve(configuration.nextAppDir, NEXT_CONFIG);
 	if (fs.existsSync(nextConfigFilePath)) {
-		return JSON.parse(fs.readFileSync(nextConfigFilePath).toString("utf-8"));
+		return fs.readFileSync(nextConfigFilePath).toString("utf-8");
 	}
 	throw new Error("Missing config file inside the Next.js folder: " + nextConfigFilePath);
 }

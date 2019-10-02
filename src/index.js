@@ -29,7 +29,9 @@ async function terranext(configuration, write = false) {
 		if (result === true) {
 			setConfiguration(configuration);
 			const nextConfig = getNextConfig();
+			// @ts-ignore
 			nextConfig.target = "serverless";
+			// @ts-ignore
 			await build(getNextAppDir(), nextConfig);
 
 			if (write === true) {
