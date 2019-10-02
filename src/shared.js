@@ -91,14 +91,14 @@ function generateMappingsFromPagesFolder(pathToPagesFolder) {
 }
 
 function recursiveBuildMappings(directoryPath, mappings = [], pathPart = "") {
+	// it starts by reading files inside the given folder
 	const files = fs.readdirSync(directoryPath);
 	files.forEach(file => {
-		const fileInfo = path.join(directoryPath, file);
-		// const fileInfo = fs.readdirSync(partPath);
+		const absoluteFilePath = path.join(directoryPath, file);
 		const newPathPart = fromNextPathToQueryPath(pathPart, file);
-
-		if (fs.statSync(fileInfo).isDirectory()) {
-			recursiveBuildMappings(fileInfo, mappings, newPathPart);
+		const hasIndex = directoryContainsIndexFile(absoluteFilePath);
+		if (fs.statSync(absoluteFilePath).isDirectory() && !hasIndex) {			
+			recursiveBuildMappings(absoluteFilePath, mappings, newPathPart);
 		} else {
 			const mapping = {
 				route: newPathPart,
@@ -122,6 +122,18 @@ function fromNextPathToQueryPath(pathPart, file) {
 	} else {
 		return `${pathPart}/${cleanedFile}`;
 	}
+}
+
+/**
+ * 
+ * @param {string} absoluteFilePath 
+ */
+function directoryContainsIndexFile(absoluteFilePath) {
+	if (fs.statSync(absoluteFilePath).isDirectory()) {
+		return fs.existsSync(path.resolve(absoluteFilePath, 'index.js'));
+	}
+
+	return false;
 }
 
 module.exports = {
