@@ -37,6 +37,7 @@
   "homepage": "https://github.com/ematipico/terraform-nextjs-plugin#readme",
   "devDependencies": {
     "@types/jest": "24.0.18",
+    "@types/node": "^12.7.11",
     "babel-eslint": "10.0.3",
     "codecov": "3.6.1",
     "eslint": "6.5.1",
@@ -47,16 +48,15 @@
     "jest": "24.9.0",
     "jest-junit": "8.0.0",
     "next": "9.0.7",
+    "react": "16.10.1",
     "react": "16.10.2",
     "react-dom": "16.10.1",
     "standard-version": "7.0.0",
-    "tsd": "0.9.0",
     "typescript": "3.6.3"
   },
   "dependencies": {
     "cosmiconfig": "5.2.1",
-    "meow": "5.0.0",
-    "prettier": "1.18.2"
+    "meow": "5.0.0"
   },
   "engines": {
     "node": ">= 8.5.x"
