@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const prettier = require("prettier");
 const { generateLambdaResource } = require("./resources/terraFormLambda");
 const { generateZipResource } = require("./resources/terraFormZip.js");
 const { getBuildPath, getServerlessBuildPath } = require("../../configuration");
@@ -22,16 +21,9 @@ exports.render = (event, context, callback) => {
 
 `;
 
-	fs.writeFileSync(
-		path.resolve(thePath, "lambdas", filename, filename + ".js"),
-		prettier.format(lambdaTemplate, {
-			parser: "babel",
-			endOfLine: "lf"
-		}),
-		{
-			encoding: "utf8"
-		}
-	);
+	fs.writeFileSync(path.resolve(thePath, "lambdas", filename, filename + ".js"), JSON.stringify(lambdaTemplate, null, 4), {
+		encoding: "utf-8"
+	});
 }
 
 /** @typedef {import('./aws').AWS.LambdaFunction} Lambdas */
@@ -113,13 +105,9 @@ function generateLambdas(write = false) {
 			if (write === true) {
 				// eslint-disable-next-line no-console
 				console.log(`Generating file ${FILE_NAMES.LAMBDAS}`);
-				fs.writeFileSync(
-					path.join(process.cwd(), FILE_NAMES.LAMBDAS),
-					prettier.format(JSON.stringify(lambdaResources), {
-						parser: "json",
-						endOfLine: "lf"
-					})
-				);
+				fs.writeFileSync(path.join(process.cwd(), FILE_NAMES.LAMBDAS), JSON.stringify(lambdaResources, null, 4), {
+					encoding: "utf-8"
+				});
 			} else {
 				return lambdaResources;
 			}

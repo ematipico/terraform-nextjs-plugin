@@ -1,7 +1,6 @@
 const { getRoutes, getServerlessPagesPath } = require("../../configuration");
 const fs = require("fs");
 const path = require("path");
-const prettier = require("prettier");
 const { FILE_NAMES } = require("../../constants");
 const { generateGatewayResource, generateUniqueId } = require("./resources/terraFormGatewayResource");
 const { generateGatewayMethod } = require("./resources/terraFormGatewayMethod");
@@ -190,13 +189,9 @@ async function generateTerraformConfiguration(write = false) {
 		if (write) {
 			// eslint-disable-next-line no-console
 			console.log(`Generating file ${FILE_NAMES.GATEWAY}`);
-			fs.writeFileSync(
-				path.join(process.cwd(), FILE_NAMES.GATEWAY),
-				prettier.format(JSON.stringify(terraformConfiguration), {
-					parser: "json",
-					endOfLine: "lf"
-				})
-			);
+			fs.writeFileSync(path.join(process.cwd(), FILE_NAMES.GATEWAY), JSON.stringify(terraformConfiguration, null, 4), {
+				encoding: "utf-8"
+			});
 		} else {
 			return terraformConfiguration;
 		}

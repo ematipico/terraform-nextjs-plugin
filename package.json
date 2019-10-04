@@ -55,8 +55,7 @@
   },
   "dependencies": {
     "cosmiconfig": "5.2.1",
-    "meow": "5.0.0",
-    "prettier": "1.18.2"
+    "meow": "5.0.0"
   },
   "engines": {
     "node": ">= 8.5.x"
