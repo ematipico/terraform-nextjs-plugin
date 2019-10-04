@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v1.1.0...v1.2.0) (2019-10-04)
+
+
+### Chores
+
+* **deps-dev:** bump react from 16.10.1 to 16.10.2 ([#90](https://github.com/ematipico/terraform-nextjs-plugin/issues/90)) ([f363711](https://github.com/ematipico/terraform-nextjs-plugin/commit/f363711))
+
+
+### Features
+
+* writing files using native methods ([#92](https://github.com/ematipico/terraform-nextjs-plugin/issues/92)) ([118b30c](https://github.com/ematipico/terraform-nextjs-plugin/commit/118b30c))
+
 ## [1.1.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v1.0.1...v1.1.0) (2019-10-02)
 
 
