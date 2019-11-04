@@ -55,7 +55,7 @@
     "typescript": "3.6.3"
   },
   "dependencies": {
-    "cosmiconfig": "5.2.1",
+    "cosmiconfig": "6.0.0",
     "meow": "5.0.0"
   },
   "engines": {
