@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/ematipico/terraform-nextjs-plugin/compare/v1.2.0...v1.2.1) (2019-11-13)
+
+
+### Bug Fixes
+
+* restored the compact layer ([#126](https://github.com/ematipico/terraform-nextjs-plugin/issues/126)) ([96d7923](https://github.com/ematipico/terraform-nextjs-plugin/commit/96d7923))
+
+
+### Chores
+
+* **deps-dev:** bump @types/node from 12.7.11 to 12.11.7 ([#107](https://github.com/ematipico/terraform-nextjs-plugin/issues/107)) ([37e1271](https://github.com/ematipico/terraform-nextjs-plugin/commit/37e1271))
+* added CI build on Github => lint and unit test ([5236da2](https://github.com/ematipico/terraform-nextjs-plugin/commit/5236da2))
+
 ## [1.2.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v1.1.0...v1.2.0) (2019-10-04)
 
 
