@@ -106,6 +106,7 @@ const requestResponseMapper = (event, callback) => {
 		request.push(null);
 	}
 
+	// eslint-disable-next-line unicorn/consistent-function-scoping
 	function fixApiGatewayMultipleHeaders() {
 		for (const key of Object.keys(response.multiValueHeaders)) {
 			if (!Array.isArray(response.multiValueHeaders[key])) {
