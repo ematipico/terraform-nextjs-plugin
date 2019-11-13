@@ -26,7 +26,7 @@ jobs:
       - name: npm install
         run: npm install
       - name: Linting
-        run: npm lint
+        run: npm run lint
       - name: Unit Test
         run: npm run test:ci-unix
         env:
