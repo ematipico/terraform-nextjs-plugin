@@ -28,11 +28,11 @@ const compatLayer = require('./compatLayer.js');
 const page = require('./${filename}.original.js');
 
 exports.render = (event, context, callback) => {
-\tconst { req, res } = compatLayer(event, callback);
-\tpage.render(req, res);
-`;
+	const { req, res } = compatLayer(event, callback);
+	page.render(req, res);
+}`;
 
-		fs.writeFileSync(path.resolve(thePath, "lambdas", filename, filename + ".js"), JSON.stringify(lambdaTemplate, null, 4), {
+		fs.writeFileSync(path.resolve(thePath, "lambdas", filename, filename + ".js"), lambdaTemplate, {
 			encoding: "utf-8"
 		});
 	}

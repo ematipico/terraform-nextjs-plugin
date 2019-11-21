@@ -43,7 +43,7 @@ async function terranext(configuration, write = false) {
 			await aws.generateGatewayResources(write);
 			await aws.generateLambdaResources(write);
 		} else {
-			const lambdas = await aws.generateLambdaResources();
+			const lambdas = aws.generateLambdaResources();
 			const gateway = await aws.generateGatewayResources();
 			return {
 				gateway,

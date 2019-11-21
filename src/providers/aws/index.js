@@ -110,6 +110,22 @@ class AwsResources extends BaseProvider {
 		}
 	}
 
+	deleteDir(pathToDelete) {
+		if (fs.existsSync(pathToDelete)) {
+			fs.readdirSync(pathToDelete).forEach(file => {
+				const curPath = path.join(pathToDelete, file);
+				if (fs.lstatSync(curPath).isDirectory()) {
+					// recurse
+					this.deleteDir(curPath);
+				} else {
+					// delete file
+					fs.unlinkSync(curPath);
+				}
+			});
+			fs.rmdirSync(pathToDelete);
+		}
+	}
+
 	/**
 	 *
 	 * @param {boolean} write
@@ -156,7 +172,7 @@ class AwsResources extends BaseProvider {
 		const serverlessBuildPath = this.config.getServerlessBuildPath();
 
 		if (fs.existsSync(buildPath + "/lambdas")) {
-			fs.rmdirSync(buildPath + "/lambdas");
+			this.deleteDir(buildPath + "/lambdas");
 		}
 		// it creates the folder that will contain the lambdas
 		fs.mkdirSync(buildPath + "/lambdas");
@@ -197,7 +213,7 @@ class AwsResources extends BaseProvider {
 					// 5.
 					const lambdaResource = lambda.generate();
 					this.lambdasResources[lambdaResource.properties.resourceUniqueId] = lambdaResource.properties.resource;
-					this.lambdasPermissions[lambdaResource.permisssions.permissionUniqueId] = lambdaResource.permissions.resource;
+					this.lambdasPermissions[lambdaResource.permissions.permissionUniqueId] = lambdaResource.permissions.resource;
 					this.lambdaZip[lambdaResource.zip.uniqueId] = lambdaResource.zip.resource;
 				});
 				// it gets files that are inside the serverless folder created by next
@@ -223,8 +239,8 @@ class AwsResources extends BaseProvider {
 					return lambdaResources;
 				}
 			})
-			.catch(() => {
-				throw new FolderNotFoundError(serverlessBuildPath);
+			.catch((error) => {
+				throw new FolderNotFoundError(serverlessBuildPath, error);
 			});
 	}
 }
