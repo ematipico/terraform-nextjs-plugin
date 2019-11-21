@@ -18,7 +18,9 @@
 		"unicorn/filename-case": ["error", { "case": "camelCase" }],
 		"unicorn/prevent-abbreviations": "off",
 		"prettier/prettier": "error",
-		"indent": ["error", "tab"],
+		"indent": ["error", "tab", {
+			"SwitchCase": 1
+		}],
 		"unicorn/no-process-exit": "off",
 		"no-process-exit": "off",
 		"strict": ["error", "global"]

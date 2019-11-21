@@ -1,16 +1,20 @@
-// @ts-nocheck
-const { setConfiguration } = require("../../../src/configuration");
-const { generateGatewayMethod } = require("../../../src/providers/aws/resources/terraFormGatewayMethod");
+const AwsConfig = require("../../../src/providers/aws/awsConfig");
+const GatewayMethod = require("../../../src/providers/aws/resources/gatewayMethod");
+
 describe("terraFormGatewayMethod", () => {
 	it("should create a correct resource", () => {
-		setConfiguration({
-			gatewayKey: "CustomKey"
+		const config = new AwsConfig({
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
-		const result = generateGatewayMethod({
-			uniqueName: "index",
-			gatewayResourceId: "index"
+		const method = new GatewayMethod(config, {
+			id: "index",
+			pathname: "/",
+			lambdaName: "index"
 		});
+
+		const result = method.generateGatewayMethod("index");
 
 		expect(result.uniqueId).toBe("CustomKey-index");
 		expect(result.resource).toStrictEqual({
@@ -22,13 +26,15 @@ describe("terraFormGatewayMethod", () => {
 	});
 
 	it("should create a correct resource when there are normal params", () => {
-		setConfiguration({
-			gatewayKey: "CustomKey"
+		const config = new AwsConfig({
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
-		const result = generateGatewayMethod({
-			uniqueName: "index",
-			gatewayResourceId: "index",
+		const method = new GatewayMethod(config, {
+			id: "index",
+			pathname: "/",
+			lambdaName: "index",
 			params: [
 				{
 					name: "accountId",
@@ -40,6 +46,8 @@ describe("terraFormGatewayMethod", () => {
 				}
 			]
 		});
+
+		const result = method.generateGatewayMethod("index");
 
 		expect(result.uniqueId).toBe("CustomKey-index");
 		expect(result.resource).toStrictEqual({
@@ -55,13 +63,15 @@ describe("terraFormGatewayMethod", () => {
 	});
 
 	it("should create a correct resource when there are normal query string params", () => {
-		setConfiguration({
-			gatewayKey: "CustomKey"
+		const config = new AwsConfig({
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
-		const result = generateGatewayMethod({
-			uniqueName: "index",
-			gatewayResourceId: "index",
+		const method = new GatewayMethod(config, {
+			id: "index",
+			pathname: "/",
+			lambdaName: "index",
 			queryStringParams: [
 				{
 					name: "accountId",
@@ -73,6 +83,8 @@ describe("terraFormGatewayMethod", () => {
 				}
 			]
 		});
+
+		const result = method.generateGatewayMethod("index");
 
 		expect(result.uniqueId).toBe("CustomKey-index");
 		expect(result.resource).toStrictEqual({
@@ -88,13 +100,15 @@ describe("terraFormGatewayMethod", () => {
 	});
 
 	it("should create a correct resource when there are both type of params", () => {
-		setConfiguration({
-			gatewayKey: "CustomKey"
+		const config = new AwsConfig({
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
-		const result = generateGatewayMethod({
-			uniqueName: "index",
-			gatewayResourceId: "index",
+		const method = new GatewayMethod(config, {
+			id: "index",
+			pathname: "/",
+			lambdaName: "index",
 			queryStringParams: [
 				{
 					name: "accountId",
@@ -112,6 +126,8 @@ describe("terraFormGatewayMethod", () => {
 				}
 			]
 		});
+
+		const result = method.generateGatewayMethod("index");
 
 		expect(result.uniqueId).toBe("CustomKey-index");
 		expect(result.resource).toStrictEqual({

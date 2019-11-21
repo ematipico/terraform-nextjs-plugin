@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const cosmiconfig = require("cosmiconfig");
+const { cosmiconfig } = require("cosmiconfig");
 const meow = require("meow");
 const generateResources = require("../src");
 
@@ -15,12 +15,14 @@ Options
 	--gateway-key, -g   The API Gateway key of the project. Default is "Terranext"
 	--next-app-dir, -d  The path that Terraform CLI has to follow to reach the nextjs project.
 	--provider          The Cloud provider to use when exporting the configuration
+	--env								A way for passing environment variables to the lambdas
 		
 Examples
 	$ terranext 
 	$ terranext --gateway-key=CustomKey --next-app-dir=../../nextjs-project/
 	$ terranext --provider=AWS --next-app-dir=../../nextjs-project/
 	$ terranext -g=CustomKey -d=../../nextjs-project/
+	$ terranext --env="DEBUG,express:*"
 `,
 	{
 		flags: {
@@ -37,6 +39,9 @@ Examples
 			},
 			provider: {
 				type: "string"
+			},
+			env: {
+				type: "string"
 			}
 		}
 	}
@@ -45,12 +50,18 @@ Examples
 explorer
 	.search()
 	.then(async result => {
-		const { gatewayKey, nextAppDir, provider } = cli.flags;
+		const { gatewayKey, nextAppDir, provider, env } = cli.flags;
+		let parsedEnvs;
+		if (env) {
+			parsedEnvs = parseEnv(env, {});
+		}
+		console.log(parsedEnvs);
 		const options = {
 			...result.config,
 			gatewayKey,
 			nextAppDir,
-			provider
+			provider,
+			env: parsedEnvs
 		};
 		await generateResources(options, true);
 	})
@@ -60,3 +71,24 @@ explorer
 		process.exit(1);
 		// Do something constructive.
 	});
+
+function parseEnv(unparsedEnv) {
+	if (Array.isArray(unparsedEnv)) {
+		return unparsedEnv.map(env => {
+			const splitEnv = env.split(",");
+			return {
+				key: splitEnv[0],
+				value: splitEnv[1]
+			};
+		});
+	}
+
+	const splitEnv = unparsedEnv.split(",");
+
+	return [
+		{
+			key: splitEnv[0],
+			value: splitEnv[1]
+		}
+	];
+}
