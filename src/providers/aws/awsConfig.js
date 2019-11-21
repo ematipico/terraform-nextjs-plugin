@@ -1,9 +1,13 @@
 const Configuration = require("../../configuration");
 
 /**
- * @typedef {import('../../configuration')} Configuration
+ * @typedef {import('../../index').Configuration} GlobalConfiguration
  */
 class AwsConfig extends Configuration {
+	/**
+	 *
+	 * @param {GlobalConfiguration} configuration
+	 */
 	constructor(configuration) {
 		super(configuration);
 	}

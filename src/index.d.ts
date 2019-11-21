@@ -6,7 +6,7 @@ import { Param } from "./providers/aws/declarations";
 		nextAppDir?: string;
 		routes?: Route[] | Route;
 		buildPath?: string;
-		provider: string;
+		provider: "AWS";
 		nodeVersion?: "8" | "10" | "12";
 	}
 

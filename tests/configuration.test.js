@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/prevent-abbreviations */
+// @ts-nocheck
 
 const Configuration = require("../src/configuration");
 const AwsConfig = require("../src/providers/aws/awsConfig");
@@ -153,6 +154,7 @@ describe("Configuration", () => {
 					}
 				]
 			},
+			// @ts-ignore
 			provider: "Azure"
 		});
 

@@ -4,7 +4,8 @@ const AwsConfig = require("../../../src/providers/aws/awsConfig");
 describe("Gateway integration", () => {
 	it("should return the expected resource for a top level", () => {
 		const c = new AwsConfig({
-			gatewayKey: "CustomKey"
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
 		const method = new GatewayResource(c, {
@@ -24,9 +25,9 @@ describe("Gateway integration", () => {
 	});
 
 	it("should return the expected resource when it has a parent", () => {
-
 		const c = new AwsConfig({
-			gatewayKey: "CustomKey"
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
 		const method = new GatewayResource(c, {

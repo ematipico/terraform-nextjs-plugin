@@ -4,7 +4,8 @@ const AwsConfig = require("../../../src/providers/aws/awsConfig");
 describe("terraFormZip", () => {
 	it("should create the correct resource", () => {
 		const config = new AwsConfig({
-			lambdaPath: "../../fake/path"
+			gatewayKey: "Test",
+			provider: "AWS"
 		});
 
 		const zip = new LambdaZip(config, {

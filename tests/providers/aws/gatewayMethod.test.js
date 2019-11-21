@@ -4,7 +4,8 @@ const GatewayMethod = require("../../../src/providers/aws/resources/gatewayMetho
 describe("terraFormGatewayMethod", () => {
 	it("should create a correct resource", () => {
 		const config = new AwsConfig({
-			gatewayKey: "CustomKey"
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
 		const method = new GatewayMethod(config, {
@@ -26,7 +27,8 @@ describe("terraFormGatewayMethod", () => {
 
 	it("should create a correct resource when there are normal params", () => {
 		const config = new AwsConfig({
-			gatewayKey: "CustomKey"
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
 		const method = new GatewayMethod(config, {
@@ -62,7 +64,8 @@ describe("terraFormGatewayMethod", () => {
 
 	it("should create a correct resource when there are normal query string params", () => {
 		const config = new AwsConfig({
-			gatewayKey: "CustomKey"
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
 		const method = new GatewayMethod(config, {
@@ -98,7 +101,8 @@ describe("terraFormGatewayMethod", () => {
 
 	it("should create a correct resource when there are both type of params", () => {
 		const config = new AwsConfig({
-			gatewayKey: "CustomKey"
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
 		const method = new GatewayMethod(config, {

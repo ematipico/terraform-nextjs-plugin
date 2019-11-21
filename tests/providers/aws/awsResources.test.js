@@ -24,10 +24,16 @@ describe("AwsResources", () => {
 					{
 						page: "/blogPost",
 						route: "/blog/detail/:url",
-						params: {
-							page: true,
-							hideComments: false
-						}
+						params: [
+							{
+								name: "page",
+								mandatory: true
+							},
+							{
+								name: "hideComments",
+								mandatory: false
+							}
+						]
 					}
 				]
 			}

@@ -4,12 +4,14 @@ const GatewayIntegration = require("../../../src/providers/aws/resources/gateway
 describe("Gateway integration", () => {
 	it("should return the expected resource", () => {
 		const config = new AwsConfig({
-			gatewayKey: "CustomKey"
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
 		const resource = new GatewayIntegration(config, {
 			id: "index",
-			lambdaName: "index"
+			lambdaName: "index",
+			pathname: "/"
 		});
 
 		const result = resource.generateGatewayIntegration("CustomKey-index");

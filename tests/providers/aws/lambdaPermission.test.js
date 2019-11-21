@@ -4,7 +4,8 @@ const AwsConfig = require("../../../src/providers/aws/awsConfig");
 describe("terraFormLambda", () => {
 	it("should create the correct resource", () => {
 		const c = new AwsConfig({
-			gatewayKey: "CustomKey"
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
 		const properties = new LambdaPermission(c, {

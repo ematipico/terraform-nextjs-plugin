@@ -4,7 +4,8 @@ const AwsConfig = require("../../../src/providers/aws/awsConfig");
 describe("terraFormLambda", () => {
 	it("should create the correct resource", () => {
 		const c = new AwsConfig({
-			gatewayKey: "CustomKey"
+			gatewayKey: "CustomKey",
+			provider: "AWS"
 		});
 
 		const properties = new LambdaProperties(c, {
@@ -30,7 +31,8 @@ describe("terraFormLambda", () => {
 	it("return the correct node version 10", () => {
 		const c = new AwsConfig({
 			gatewayKey: "CustomKey",
-			nodeVersion: "10"
+			nodeVersion: "10",
+			provider: "AWS"
 		});
 
 		const properties = new LambdaProperties(c, {
@@ -47,7 +49,8 @@ describe("terraFormLambda", () => {
 	it("return the correct node version 12", () => {
 		const c = new AwsConfig({
 			gatewayKey: "CustomKey",
-			nodeVersion: "12"
+			nodeVersion: "12",
+			provider: "AWS"
 		});
 
 		const properties = new LambdaProperties(c, {

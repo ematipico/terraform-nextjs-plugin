@@ -34,7 +34,7 @@ class Configuration {
 	/**
 	 *
 	 *
-	 * @param {GlobalConfiguration} config
+	 * @param {GlobalConfiguration=} config
 	 * @returns {Boolean|ValidationError[]}
 	 */
 	static checkConfiguration(config) {
