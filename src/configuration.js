@@ -166,6 +166,17 @@ class Configuration {
 				return "nodejs8.10";
 		}
 	}
+
+	hasEnvs() {
+		return !!this.properties.env;
+	}
+
+	getEnvs() {
+		return this.properties.env.reduce((result, env) => {
+			result[env.key] = env.value;
+			return result;
+		}, {});
+	}
 }
 
 module.exports = Configuration;

@@ -67,7 +67,15 @@ export declare namespace AWS {
 		memory_size: string;
 		timeout: string;
 		role: string;
+		environment?: Environment;
 	}
+
+	interface Environment {
+		variables: {
+			[key: string]: string
+		}
+	}
+
 	interface LambdaPermission {
 		[key: string]: Permission;
 	}

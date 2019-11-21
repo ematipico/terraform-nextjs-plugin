@@ -8,6 +8,12 @@ import { Param } from "./providers/aws/declarations";
 		buildPath?: string;
 		provider: "AWS";
 		nodeVersion?: "8" | "10" | "12";
+		env?: EnvParam[];
+	}
+
+	export interface EnvParam {
+		key: string;
+		value: string;
 	}
 
 	export interface Result<G, L> {

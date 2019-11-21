@@ -63,4 +63,33 @@ describe("terraFormLambda", () => {
 		expect(result.resourceUniqueId).toBe("lambdaForCustomKey-index");
 		expect(result.resource.runtime).toEqual("nodejs12.x");
 	});
+
+	it("should return the environment variables", () => {
+		const c = new AwsConfig({
+			gatewayKey: "CustomKey",
+			nodeVersion: "12",
+			provider: "AWS",
+			env: [
+				{
+					key: "PROD_KEY",
+					value: "230402"
+				}
+			]
+		});
+
+		const properties = new LambdaProperties(c, {
+			id: "index",
+			directoryName: "/test"
+		});
+
+		const result = properties.generateLambdaProperties();
+
+		expect(result.resourceUniqueId).toBe("lambdaForCustomKey-index");
+		expect(result.resource.environment).toBeTruthy();
+		expect(result.resource.environment).toStrictEqual({
+			variables: {
+				PROD_KEY: "230402"
+			}
+		});
+	});
 });

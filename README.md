@@ -51,7 +51,7 @@ This library supports [cosmiconfig](https://github.com/davidtheclark/cosmiconfig
 
 ### Via CLI
 
-You can use the simple CLI available. At moment you *can't* pass the `routes` parameter, you will need to use the config object or use the [API](#via-api).
+You can use the simple CLI available. At moment you _can't_ pass the `routes` parameter, you will need to use the config object or use the [API](#via-api).
 
 Using the CLI will automatically emit the configuration files.
 
@@ -75,15 +75,18 @@ Usage
   $ terranext
 
 Options
-  --gateway-key, -g   The API Gateway key of the project. Default is "Terranext"
-  --next-app-dir, -d  The path that Terraform CLI has to follow to reach the nextjs project.
-  --provider          The Cloud provider to use when exporting the configuration
+  --gateway-key, -g     The API Gateway key of the project. Default is "Terranext"
+  --next-app-dir, -d    The path that Terraform CLI has to follow to reach the nextjs project.
+  --provider            The Cloud provider to use when exporting the configuration
+  --env				    A way for passing environment variables to the lambdas
+
 
 Examples
   $ terranext
   $ terranext --gateway-key=CustomKey --next-app-dir=../../nextjs-project/
   $ terranext --provider=AWS --next-app-dir=../../nextjs-project/
   $ terranext -g=CustomKey -d=../../nextjs-project/
+  $ terranext --env="DEBUG,express:*"
 ```
 
 ### Via API
@@ -92,13 +95,19 @@ Examples
 const generateResources = require("@ematipico/terraform-nextjs-plugin");
 
 const configuration = {
-  gatewayKey: "AmazingWebsite",
-  lambdaPath: "../../project/build",
-  provider: "AWS"
+	gatewayKey: "AmazingWebsite",
+	lambdaPath: "../../project/build",
+	provider: "AWS",
+	env: [
+		{
+			key: "KEY",
+			value: "2940"
+		}
+	]
 };
 
 const resources = generateResources(configuration); // inside resources you have the terraform json configuration
-generateResources(configuration, true) // it creates two files
+generateResources(configuration, true); // it creates two files
 ```
 
 If the second argument is a boolean and it's `true`, the library will create two files:
@@ -111,12 +120,13 @@ It will be up to you to consume them in a proper way.
 
 ## Configuration
 
-| Name         | Type                     | Description                                                                                                                                                                 |
-| ------------ | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `gatewayKey` | `string`                 | A name that will be prefixed to your resources. Usually it's the project name. _Default value: `Terranext`_.                                                                |
-| `provider` | `string` | The Cloud Provider. Based on the value, a different configuration will be exported. Supported providers: `AWS` |
-| `nextDirApp` | `string`                 | This is the path where your Next.js project is. Usually you will run `terraform` CLI from a different project/folder. So you need to tell `terraform` where this folder is. The library will take care of the rest. _Default value: `"./"`_ |
-| `routes`     | `Array<Mapping>`, `Mapping` | This is the structure of the routes that describe your pages.                                                                                                               |
+| Name         | Type                        | Description                                                                                                                                                                                                                                 |
+| ------------ | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `gatewayKey` | `string`                    | A name that will be prefixed to your resources. Usually it's the project name. _Default value: `Terranext`_.                                                                                                                                |
+| `provider`   | `string`                    | The Cloud Provider. Based on the value, a different configuration will be exported. Supported providers: `AWS`                                                                                                                              |
+| `nextDirApp` | `string`                    | This is the path where your Next.js project is. Usually you will run `terraform` CLI from a different project/folder. So you need to tell `terraform` where this folder is. The library will take care of the rest. _Default value: `"./"`_ |
+| `routes`     | `Array<Mapping>`, `Mapping` | This is the structure of the routes that describe your pages.                                                                                                                                                                               |
+| `env`        | `Array<Env>`                | Environments passed via CLI have to be split using `,`: `--env="KEY,VALUE"`. When using the API, you always have to pass an array of objects `{ key: "MyKeyName", "value": "MyKeyValue" }`                                                                                                                                                                               |
 
 ### Mapping explained
 
@@ -132,35 +142,35 @@ Let's say we want to describe the following URLs:
 
 ```js
 const routes = [
-  {
-    prefix: "/about-us",
-    mappings: [
-      {
-        route: "/contacts", // the URL
-        page: "/companyContacts" // the nextjs file, inside pages folder, that is responsible to render this page
-      },
-      {
-        route: "/the-company",
-        page: "/aboutTheCompany"
-      }
-    ]
-  },
-  {
-    prefix: "",
-    mappings: [
-      {
-        route: "/blog/:url",
-        page: "/blogPost"
-      },
-      {
-        route: "/credits",
-        page: "/credits",
-        params: {
-          hideComments: false
-        }
-      }
-    ]
-  }
+	{
+		prefix: "/about-us",
+		mappings: [
+			{
+				route: "/contacts", // the URL
+				page: "/companyContacts" // the nextjs file, inside pages folder, that is responsible to render this page
+			},
+			{
+				route: "/the-company",
+				page: "/aboutTheCompany"
+			}
+		]
+	},
+	{
+		prefix: "",
+		mappings: [
+			{
+				route: "/blog/:url",
+				page: "/blogPost"
+			},
+			{
+				route: "/credits",
+				page: "/credits",
+				params: {
+					hideComments: false
+				}
+			}
+		]
+	}
 ];
 ```
 

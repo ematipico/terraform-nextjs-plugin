@@ -23,7 +23,7 @@ class LambdaProperties {
 	generateLambdaProperties() {
 		const cleanedId = this.options.id.replace(/\[|\]/g, "");
 		const lambdaId = `${this.config.getLambdaPrefix()}-${cleanedId}`;
-		return {
+		const resource = {
 			resourceUniqueId: lambdaId,
 			resource: {
 				filename: "${data.archive_file.packLambda-" + cleanedId + ".output_path}",
@@ -36,6 +36,13 @@ class LambdaProperties {
 				role: "${local.lambda_iam_role}"
 			}
 		};
+		if (this.config.hasEnvs()) {
+			resource.resource.environment = {
+				variables: this.config.getEnvs()
+			};
+		}
+
+		return resource;
 	}
 }
 
