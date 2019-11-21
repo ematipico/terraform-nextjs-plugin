@@ -1,5 +1,5 @@
 // @ts-nocheck
-const { generateLambdaResource } = require("../../../src/providers/aws/resources/terraFormLambda");
+const { generateLambdaProperties } = require("../../../src/providers/aws/resources/lambdaProperties");
 const { setConfiguration } = require("../../../src/configuration");
 
 describe("terraFormLambda", () => {

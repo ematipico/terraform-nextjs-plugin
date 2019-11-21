@@ -1,5 +1,5 @@
 // @ts-nocheck
-const { generateZipResource } = require("../../../src/providers/aws/resources/terraFormZip");
+const { generateZipResource } = require("../../../src/providers/aws/resources/lambdaZip");
 const { setConfiguration } = require("../../../src/configuration");
 describe("terraFormZip", () => {
 	it("should create the correct resource", () => {

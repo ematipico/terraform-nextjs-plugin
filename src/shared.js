@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { promisify } = require("util");
 
-/** @typedef {import('./declarations').terranext.Route} Route */
+/** @typedef {import('./index').Route} Route */
 
 /**
  *

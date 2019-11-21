@@ -1,16 +1,28 @@
-import { AWS } from "./aws";
+import { AWS } from "./aws.declarations";
 
 export interface Param {
 	name: string;
-
 	mandatory?: boolean;
+}
+
+export interface AwsGatewayOptions {
+	parentId?: string;
+	id: string;
+	isUrlParameter?: boolean;
+	pathname: string;
+	params?: Param[];
+	queryStringParams?: Param[];
+	lambdaName: string;
 }
 
 export interface GenerateLambdaResource {
 	resourceUniqueId: string;
 	resource: AWS.Function;
+}
+
+export interface LambdaPermission {
 	permissionUniqueId: string;
-	permission: AWS.Permission;
+	resource: AWS.Permission;
 }
 
 export interface GenerateGatewayResource {

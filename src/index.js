@@ -1,12 +1,14 @@
-const { checkConfiguration, setConfiguration, getNextConfig, getNextAppDir } = require("./configuration");
-const { generateTerraformConfiguration } = require("./providers/aws");
-const { generateLambdas } = require("./providers/aws");
-const cosmiconfig = require("cosmiconfig");
+const Configuration = require("./configuration");
+// @ts-ignore
+const AwsResources = require("./providers/aws");
+// @ts-ignore
+const { cosmiconfig } = require("cosmiconfig");
+// @ts-ignore
 const build = require("next/dist/build").default;
 
 /**
- * @typedef {import("./declarations").terranext.Configuration} Configuration
- * @typedef {import("./declarations").terranext.Result} Result
+ * @typedef {import("./index").Configuration} GlobalConfiguration
+ * @typedef {import("./index").Result} Result
  */
 
 /**
@@ -18,37 +20,35 @@ const build = require("next/dist/build").default;
 async function terranext(configuration, write = false) {
 	try {
 		/**
-		 * @type {Configuration}
+		 * @type {GlobalConfiguration}
 		 */
 		const fileConfiguration = await retrieveConfiguration();
+		/**
+		 *
+		 * @type {GlobalConfiguration}
+		 */
 		const finalConfiguration = {
 			...fileConfiguration,
 			...configuration
 		};
-		const result = checkConfiguration(finalConfiguration);
-		if (result === true) {
-			setConfiguration(configuration);
-			const nextConfig = getNextConfig();
-			// @ts-ignore
-			nextConfig.target = "serverless";
-			// @ts-ignore
-			await build(getNextAppDir(), nextConfig);
+		const config = new Configuration(finalConfiguration);
+		const nextConfig = config.getNextConfig();
+		// @ts-ignore
+		nextConfig.target = "serverless";
+		// @ts-ignore
+		await build(config.getNextAppDir(), nextConfig);
+		const aws = new AwsResources({ config });
 
-			if (write === true) {
-				await generateTerraformConfiguration(write);
-				await generateLambdas(write);
-			} else {
-				const lambdas = await generateLambdas();
-				const gateway = await generateTerraformConfiguration();
-				return {
-					gateway,
-					lambdas
-				};
-			}
+		if (write === true) {
+			await aws.generateGatewayResources(write);
+			await aws.generateLambdaResources(write);
 		} else {
-			// eslint-disable-next-line no-console
-			console.error(result);
-			process.exit(1);
+			const lambdas = await aws.generateLambdaResources();
+			const gateway = await aws.generateGatewayResources();
+			return {
+				gateway,
+				lambdas
+			};
 		}
 	} catch (error) {
 		// eslint-disable-next-line no-console
