@@ -5,7 +5,13 @@ generateResources(
 		gatewayKey: "CustomKey",
 		nextAppDir: "../app/",
 		provider: "AWS",
-		routes
+		routes,
+		env: [
+			{
+				key: "DEBUG",
+				value: "express:*"
+			}
+		]
 	},
 	true
 );
