@@ -5,10 +5,9 @@ import { Param } from "./providers/aws/declarations";
 		gatewayKey?: string;
 		nextAppDir?: string;
 		routes?: Route[] | Route;
-
 		buildPath?: string;
-
 		provider: string;
+		nodeVersion?: "8" | "10" | "12";
 	}
 
 	export interface Result<G, L> {

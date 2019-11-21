@@ -26,4 +26,38 @@ describe("terraFormLambda", () => {
 			role: "${local.lambda_iam_role}"
 		});
 	});
+
+	it("return the correct node version 10", () => {
+		const c = new AwsConfig({
+			gatewayKey: "CustomKey",
+			nodeVersion: "10"
+		});
+
+		const properties = new LambdaProperties(c, {
+			id: "index",
+			directoryName: "/test"
+		});
+
+		const result = properties.generateLambdaProperties();
+
+		expect(result.resourceUniqueId).toBe("lambdaForCustomKey-index");
+		expect(result.resource.runtime).toEqual("nodejs10.x");
+	});
+
+	it("return the correct node version 12", () => {
+		const c = new AwsConfig({
+			gatewayKey: "CustomKey",
+			nodeVersion: "12"
+		});
+
+		const properties = new LambdaProperties(c, {
+			id: "index",
+			directoryName: "/test"
+		});
+
+		const result = properties.generateLambdaProperties();
+
+		expect(result.resourceUniqueId).toBe("lambdaForCustomKey-index");
+		expect(result.resource.runtime).toEqual("nodejs12.x");
+	});
 });

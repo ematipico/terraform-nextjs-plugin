@@ -30,7 +30,7 @@ class LambdaProperties {
 				function_name: "${local.groupname}-" + cleanedId,
 				source_code_hash: "${data.archive_file.packLambda-" + cleanedId + ".output_base64sha256}",
 				handler: this.options.id + ".render",
-				runtime: "nodejs8.10",
+				runtime: this.config.getNodeVersion(),
 				memory_size: "1024",
 				timeout: "180",
 				role: "${local.lambda_iam_role}"

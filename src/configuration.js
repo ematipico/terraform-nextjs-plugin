@@ -148,6 +148,24 @@ class Configuration {
 	getNextAppDir() {
 		return this.properties.nextAppDir;
 	}
+
+	getNodeVersion() {
+		switch (this.properties.nodeVersion) {
+			case "8": {
+				return "nodejs8.10";
+			}
+			case "10": {
+				return "nodejs10.x";
+			}
+
+			case "12": {
+				return "nodejs12.x";
+			}
+
+			default:
+				return "nodejs8.10";
+		}
+	}
 }
 
 module.exports = Configuration;
