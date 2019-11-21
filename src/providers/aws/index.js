@@ -239,7 +239,7 @@ class AwsResources extends BaseProvider {
 					return lambdaResources;
 				}
 			})
-			.catch((error) => {
+			.catch(error => {
 				throw new FolderNotFoundError(serverlessBuildPath, error);
 			});
 	}
