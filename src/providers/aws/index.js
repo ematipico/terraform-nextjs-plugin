@@ -63,7 +63,7 @@ class AwsResources extends BaseProvider {
 			parentId: index > 0 ? generateUniqueName(parts.slice(0, index)) : undefined,
 			pathname: currentPathName,
 			isUrlParameter,
-			id: generateUniqueName(parts.slice(0, index)),
+			id: generateUniqueName(parts.slice(0, index + 1)),
 			params: urlParameters,
 			queryStringParams: queryStringParameters,
 			lambdaName
@@ -73,7 +73,7 @@ class AwsResources extends BaseProvider {
 
 		this.apiGatewayResource[gatewayResource.resource.uniqueId] = gatewayResource.resource.resource;
 		this.apiGatewayMethod[gatewayResource.method.uniqueId] = gatewayResource.method.resource;
-		this.apiGatewayIntegration[gatewayResource.method.uniqueId] = gatewayResource.method.resource;
+		this.apiGatewayIntegration[gatewayResource.integration.uniqueId] = gatewayResource.integration.resource;
 	}
 
 	/*
