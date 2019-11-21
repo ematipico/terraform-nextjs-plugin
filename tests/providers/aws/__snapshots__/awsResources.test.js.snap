@@ -4,53 +4,88 @@ exports[`AwsResources should generate the correct configuration 1`] = `
 Object {
   "resource": Object {
     "aws_api_gateway_integration": Object {
-      "CustomKey-": Object {
-        "authorization": "NONE",
-        "http_method": "GET",
-        "resource_id": "\${aws_api_gateway_resource.CustomKey-.id}",
-        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
-      },
       "CustomKey-blog": Object {
-        "authorization": "NONE",
         "http_method": "GET",
+        "integration_http_method": "POST",
         "request_parameters": Object {
-          "method.request.querystring.0": Object {
-            "mandatory": true,
-            "name": "page",
-          },
-          "method.request.querystring.1": Object {
-            "mandatory": false,
-            "name": "hideComments",
-          },
+          "integration.request.querystring.0": "method.request.querystring.0",
+          "integration.request.querystring.1": "method.request.querystring.1",
         },
         "resource_id": "\${aws_api_gateway_resource.CustomKey-blog.id}",
         "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+        "type": "AWS_PROXY",
+        "uri": "arn:aws:apigateway:\${local.aws_region}:lambda:path/2015-03-31/functions/\${aws_lambda_function.lambdaForCustomKey-blogPost.arn}/invocations",
       },
       "CustomKey-blog-detail": Object {
-        "authorization": "NONE",
         "http_method": "GET",
+        "integration_http_method": "POST",
         "request_parameters": Object {
-          "method.request.path.url": true,
-          "method.request.querystring.0": Object {
-            "mandatory": true,
-            "name": "page",
-          },
-          "method.request.querystring.1": Object {
-            "mandatory": false,
-            "name": "hideComments",
-          },
+          "integration.request.querystring.0": "method.request.querystring.0",
+          "integration.request.querystring.1": "method.request.querystring.1",
         },
         "resource_id": "\${aws_api_gateway_resource.CustomKey-blog-detail.id}",
         "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+        "type": "AWS_PROXY",
+        "uri": "arn:aws:apigateway:\${local.aws_region}:lambda:path/2015-03-31/functions/\${aws_lambda_function.lambdaForCustomKey-blogPost.arn}/invocations",
+      },
+      "CustomKey-blog-detail-url": Object {
+        "http_method": "GET",
+        "integration_http_method": "POST",
+        "request_parameters": Object {
+          "integration.request.path.url": "method.request.path.url",
+          "integration.request.querystring.0": "method.request.querystring.0",
+          "integration.request.querystring.1": "method.request.querystring.1",
+        },
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-blog-detail-url.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+        "type": "AWS_PROXY",
+        "uri": "arn:aws:apigateway:\${local.aws_region}:lambda:path/2015-03-31/functions/\${aws_lambda_function.lambdaForCustomKey-blogPost.arn}/invocations",
+      },
+      "CustomKey-blog-url": Object {
+        "http_method": "GET",
+        "integration_http_method": "POST",
+        "request_parameters": Object {
+          "integration.request.path.url": "method.request.path.url",
+        },
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-blog-url.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+        "type": "AWS_PROXY",
+        "uri": "arn:aws:apigateway:\${local.aws_region}:lambda:path/2015-03-31/functions/\${aws_lambda_function.lambdaForCustomKey-singleBlogPost.arn}/invocations",
+      },
+      "CustomKey-boar": Object {
+        "http_method": "GET",
+        "integration_http_method": "POST",
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-boar.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+        "type": "AWS_PROXY",
+        "uri": "arn:aws:apigateway:\${local.aws_region}:lambda:path/2015-03-31/functions/\${aws_lambda_function.lambdaForCustomKey-boar.arn}/invocations",
+      },
+      "CustomKey-contact-us": Object {
+        "http_method": "GET",
+        "integration_http_method": "POST",
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-contact-us.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+        "type": "AWS_PROXY",
+        "uri": "arn:aws:apigateway:\${local.aws_region}:lambda:path/2015-03-31/functions/\${aws_lambda_function.lambdaForCustomKey-contact-us.arn}/invocations",
+      },
+      "CustomKey-index": Object {
+        "http_method": "GET",
+        "integration_http_method": "POST",
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-index.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+        "type": "AWS_PROXY",
+        "uri": "arn:aws:apigateway:\${local.aws_region}:lambda:path/2015-03-31/functions/\${aws_lambda_function.lambdaForCustomKey-index.arn}/invocations",
+      },
+      "CustomKey-new-blog-post-amazing": Object {
+        "http_method": "GET",
+        "integration_http_method": "POST",
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-new-blog-post-amazing.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+        "type": "AWS_PROXY",
+        "uri": "arn:aws:apigateway:\${local.aws_region}:lambda:path/2015-03-31/functions/\${aws_lambda_function.lambdaForCustomKey-blog-post.arn}/invocations",
       },
     },
     "aws_api_gateway_method": Object {
-      "CustomKey-": Object {
-        "authorization": "NONE",
-        "http_method": "GET",
-        "resource_id": "\${aws_api_gateway_resource.CustomKey-.id}",
-        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
-      },
       "CustomKey-blog": Object {
         "authorization": "NONE",
         "http_method": "GET",
@@ -71,7 +106,6 @@ Object {
         "authorization": "NONE",
         "http_method": "GET",
         "request_parameters": Object {
-          "method.request.path.url": true,
           "method.request.querystring.0": Object {
             "mandatory": true,
             "name": "page",
@@ -82,23 +116,98 @@ Object {
           },
         },
         "resource_id": "\${aws_api_gateway_resource.CustomKey-blog-detail.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-blog-detail-url": Object {
+        "authorization": "NONE",
+        "http_method": "GET",
+        "request_parameters": Object {
+          "method.request.path.url": true,
+          "method.request.querystring.0": Object {
+            "mandatory": true,
+            "name": "page",
+          },
+          "method.request.querystring.1": Object {
+            "mandatory": false,
+            "name": "hideComments",
+          },
+        },
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-blog-detail-url.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-blog-url": Object {
+        "authorization": "NONE",
+        "http_method": "GET",
+        "request_parameters": Object {
+          "method.request.path.url": true,
+        },
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-blog-url.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-boar": Object {
+        "authorization": "NONE",
+        "http_method": "GET",
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-boar.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-contact-us": Object {
+        "authorization": "NONE",
+        "http_method": "GET",
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-contact-us.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-index": Object {
+        "authorization": "NONE",
+        "http_method": "GET",
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-index.id}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-new-blog-post-amazing": Object {
+        "authorization": "NONE",
+        "http_method": "GET",
+        "resource_id": "\${aws_api_gateway_resource.CustomKey-new-blog-post-amazing.id}",
         "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
       },
     },
     "aws_api_gateway_resource": Object {
-      "CustomKey-": Object {
+      "CustomKey-blog": Object {
+        "parent_id": "\${aws_api_gateway_rest_api.CustomKey.root_resource_id}",
+        "path_part": "blog",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-blog-detail": Object {
+        "parent_id": "\${aws_api_gateway_resource.CustomKey-blog.id}",
+        "path_part": "detail",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-blog-detail-url": Object {
+        "parent_id": "\${aws_api_gateway_resource.CustomKey-blog-detail.id}",
+        "path_part": "{url}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-blog-url": Object {
+        "parent_id": "\${aws_api_gateway_resource.CustomKey-blog.id}",
+        "path_part": "{url}",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-boar": Object {
+        "parent_id": "\${aws_api_gateway_rest_api.CustomKey.root_resource_id}",
+        "path_part": "boar",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-contact-us": Object {
+        "parent_id": "\${aws_api_gateway_rest_api.CustomKey.root_resource_id}",
+        "path_part": "contact-us",
+        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
+      },
+      "CustomKey-index": Object {
         "parent_id": "\${aws_api_gateway_rest_api.CustomKey.root_resource_id}",
         "path_part": "index",
         "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
       },
-      "CustomKey-blog": Object {
-        "parent_id": "\${aws_api_gateway_resource.blog.id}",
-        "path_part": "detail",
-        "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
-      },
-      "CustomKey-blog-detail": Object {
-        "parent_id": "\${aws_api_gateway_resource.blog-detail.id}",
-        "path_part": "{url}",
+      "CustomKey-new-blog-post-amazing": Object {
+        "parent_id": "\${aws_api_gateway_rest_api.CustomKey.root_resource_id}",
+        "path_part": "new-blog-post-amazing",
         "rest_api_id": "\${aws_api_gateway_rest_api.CustomKey.id}",
       },
     },
@@ -106,9 +215,14 @@ Object {
   "variable": Object {
     "integrationList": Object {
       "default": Array [
-        "aws_api_gateway_integration.CustomKey-",
+        "aws_api_gateway_integration.CustomKey-new-blog-post-amazing",
         "aws_api_gateway_integration.CustomKey-blog",
+        "aws_api_gateway_integration.CustomKey-blog-url",
         "aws_api_gateway_integration.CustomKey-blog-detail",
+        "aws_api_gateway_integration.CustomKey-blog-detail-url",
+        "aws_api_gateway_integration.CustomKey-boar",
+        "aws_api_gateway_integration.CustomKey-contact-us",
+        "aws_api_gateway_integration.CustomKey-index",
       ],
     },
   },

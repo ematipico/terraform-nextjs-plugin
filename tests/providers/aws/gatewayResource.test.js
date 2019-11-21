@@ -33,7 +33,7 @@ describe("Gateway integration", () => {
 		const method = new GatewayResource(c, {
 			id: "mySecondId",
 			pathname: "personal-page",
-			parentId: "CustomKey-myId",
+			parentId: "myId",
 			lambdaName: "mySecondId"
 		});
 
