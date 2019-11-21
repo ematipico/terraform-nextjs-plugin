@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v1.2.1...v1.3.0) (2019-11-21)
+
+
+### Features
+
+* Env vars and more configuration for lambdas ([#137](https://github.com/ematipico/terraform-nextjs-plugin/issues/137)) ([1439426](https://github.com/ematipico/terraform-nextjs-plugin/commit/1439426dee54a481ef96b8db6c5bc2aad42592e5))
+
+
+### Bug Fixes
+
+* **ci:** fixed command ([9fb5500](https://github.com/ematipico/terraform-nextjs-plugin/commit/9fb5500f6dbd5dcb377440ab54d4091213bad77a))
+
+
+### Docs
+
+* updated documentation ([e0edcdf](https://github.com/ematipico/terraform-nextjs-plugin/commit/e0edcdf363336addf18448cf8f5488f2410c0c79))
+
+
+### Chores
+
+* **deps:** [security] bump https-proxy-agent from 2.2.2 to 2.2.4 ([#131](https://github.com/ematipico/terraform-nextjs-plugin/issues/131)) ([3004c41](https://github.com/ematipico/terraform-nextjs-plugin/commit/3004c417c17068bac774e956dc1bbd6f89fdff66))
+
 ### [1.2.1](https://github.com/ematipico/terraform-nextjs-plugin/compare/v1.2.0...v1.2.1) (2019-11-13)
 
 
