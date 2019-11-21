@@ -21,14 +21,6 @@ class Gateway {
 		this.gatewayResource = new GatewayResource(config, options);
 	}
 
-	set setUniqueName(uniqueName) {
-		this.uniqueName = this.gatewayResource.generateUniqueId(uniqueName);
-	}
-
-	get getUniqueName() {
-		return this.uniqueName;
-	}
-
 	/**
 	 * @returns
 	 */
