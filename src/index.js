@@ -1,4 +1,4 @@
-const Configuration = require("./configuration");
+const AwsConfig = require("./providers/aws/awsConfig");
 // @ts-ignore
 const AwsResources = require("./providers/aws");
 // @ts-ignore
@@ -7,7 +7,7 @@ const { cosmiconfig } = require("cosmiconfig");
 const build = require("next/dist/build").default;
 
 /**
- * @typedef {import("./index").Configuration} GlobalConfiguration
+ * @typedef {import("./index").Configuration} Configuration
  * @typedef {import("./index").Result} Result
  */
 
@@ -20,24 +20,24 @@ const build = require("next/dist/build").default;
 async function terranext(configuration, write = false) {
 	try {
 		/**
-		 * @type {GlobalConfiguration}
+		 * @type {Configuration}
 		 */
 		const fileConfiguration = await retrieveConfiguration();
 		/**
 		 *
-		 * @type {GlobalConfiguration}
+		 * @type {Configuration}
 		 */
 		const finalConfiguration = {
 			...fileConfiguration,
 			...configuration
 		};
-		const config = new Configuration(finalConfiguration);
+		const config = new AwsConfig(finalConfiguration);
 		const nextConfig = config.getNextConfig();
 		// @ts-ignore
 		nextConfig.target = "serverless";
 		// @ts-ignore
 		await build(config.getNextAppDir(), nextConfig);
-		const aws = new AwsResources({ config });
+		const aws = new AwsResources(config);
 
 		if (write === true) {
 			await aws.generateGatewayResources(write);

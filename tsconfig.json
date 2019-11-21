@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "es2017",
-		"noEmit": false,
+		"noEmit": true,
 		"allowJs": true,
 		"checkJs": true,
 		"downlevelIteration": true,
@@ -9,6 +9,6 @@
 		"declarationDir": "./types",
 		"skipLibCheck": true
 	},
-	"include": ["./src"],
+	"include": ["./src", "./tests"],
 	"exclude": ["./src/compatLayer.js"]
 }

@@ -38,17 +38,21 @@ function generatePathFromFile(fileName, pathPart) {
  * @returns {Promise<string[]>}
  */
 async function getLambdaFiles(lambdaPath) {
-	const readDirectory = promisify(fs.readdir);
+	try {
+		const readDirectory = promisify(fs.readdir);
 
-	const files = await readDirectory(lambdaPath);
+		const files = await readDirectory(lambdaPath);
 
-	return files.map(file => {
-		const pathToFile = path.resolve(lambdaPath, file);
-		if (fs.existsSync(pathToFile) && fs.lstatSync(pathToFile).isDirectory()) {
-			return file + ".js";
-		}
-		return file;
-	});
+		return files.map(file => {
+			const pathToFile = path.resolve(lambdaPath, file);
+			if (fs.existsSync(pathToFile) && fs.lstatSync(pathToFile).isDirectory()) {
+				return file + ".js";
+			}
+			return file;
+		});
+	} catch (error) {
+		return [];
+	}
 }
 
 /**

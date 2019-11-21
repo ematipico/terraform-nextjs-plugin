@@ -60,3 +60,8 @@ export interface GenerateGatewayMethodPayload {
 	params?: Param[];
 	queryStringParams?: Param[];
 }
+
+export interface LambdaOptions {
+	id: string
+	directoryName: string
+}

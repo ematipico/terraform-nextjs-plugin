@@ -5,6 +5,9 @@ const GatewayResource = require("./gatewayResource");
 /** @typedef {import('../aws.declarations').AWS.GatewayIntegration} GatewayIntegrationObject */
 /** @typedef {import('../declarations').Param} Param */
 /** @typedef {import('../declarations').AwsGatewayOptions} AwsGatewayOptions */
+/**
+ * @typef {} AwsConfig
+ */
 
 class Gateway {
 	/**

@@ -1,9 +1,11 @@
 /** @typedef {import('../declarations').AwsGatewayOptions} AwsGatewayOptions */
-
+/**
+ * @typedef {import('../awsConfig')} AwsConfig
+ */
 class GatewayMethod {
 	/**
 	 *
-	 * @param config
+	 * @param {AwsConfig} config
 	 * @param {AwsGatewayOptions} options
 	 */
 	constructor(config, options) {
@@ -24,31 +26,24 @@ class GatewayMethod {
 	}
 
 	/**
-	 * @returns {string}
-	 */
-	getGatewayResourceId() {
-		return "${aws_api_gateway_rest_api." + this.config.etGatewayKey() + ".id}";
-	}
-
-	/**
 	 *
 	 * @param {string} resourceId
 	 */
 	generateResource(resourceId) {
 		const resource = {
-			rest_api_id: this.getGatewayResourceId(),
+			rest_api_id: this.config.getGatewayResourceId(),
 			resource_id: "${aws_api_gateway_resource." + resourceId + ".id}",
 			http_method: "GET",
 			authorization: "NONE"
 		};
-		if (this.options.params.length > 0) {
+		if (this.options.params && this.options.params.length > 0) {
 			resource.request_parameters = this.options.params.reduce((result, parameter) => {
 				result[`method.request.path.${parameter.name}`] = parameter.mandatory;
 
 				return result;
 			}, resource.request_parameters || {});
 		}
-		if (this.options.queryStringParams.length > 0) {
+		if (this.options.queryStringParams && this.options.queryStringParams.length > 0) {
 			resource.request_parameters = this.options.queryStringParams.reduce((result, parameter) => {
 				result[`method.request.querystring.${parameter.name}`] = parameter.mandatory;
 

@@ -1,22 +1,21 @@
-// @ts-nocheck
-const { generateGatewayIntegration } = require("../../../src/providers/aws/resources/gatewayIntegration");
-
-const { setConfiguration } = require("../../../src/configuration");
+const AwsConfig = require("../../../src/providers/aws/awsConfig");
+const GatewayIntegration = require("../../../src/providers/aws/resources/gatewayIntegration");
 
 describe("Gateway integration", () => {
 	it("should return the expected resource", () => {
-		setConfiguration({
+		const config = new AwsConfig({
 			gatewayKey: "CustomKey"
 		});
 
-		const resource = generateGatewayIntegration({
+		const resource = new GatewayIntegration(config, {
 			id: "index",
-			gatewayResourceId: "CustomKey-index",
 			lambdaName: "index"
 		});
 
-		expect(resource.uniqueId).toBe("CustomKey-index");
-		expect(resource.resource).toStrictEqual({
+		const result = resource.generateGatewayIntegration("CustomKey-index");
+
+		expect(result.uniqueId).toBe("CustomKey-index");
+		expect(result.resource).toStrictEqual({
 			rest_api_id: "${aws_api_gateway_rest_api.CustomKey.id}",
 			resource_id: "${aws_api_gateway_resource.CustomKey-index.id}",
 			http_method: "GET",

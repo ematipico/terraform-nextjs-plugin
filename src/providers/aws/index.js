@@ -9,8 +9,8 @@ const { FILE_NAMES, COMPAT_LAYER_PATH } = require("../../constants");
 const FolderNotFoundError = require("../../errors/folderNotFoundError");
 
 class AwsResources extends BaseProvider {
-	constructor({ config }) {
-		super({ config });
+	constructor(config) {
+		super(config);
 		this.terraformConfiguration = {};
 		this.apiGatewayResource = {};
 		this.apiGatewayMethod = {};
@@ -104,7 +104,7 @@ class AwsResources extends BaseProvider {
 
 	generateResources(routesObject) {
 		if (Array.isArray(routesObject)) {
-			routesObject.forEach(this.generateResourcesFromRoute);
+			routesObject.forEach(routeObject => this.generateResourcesFromRoute(routeObject));
 		} else {
 			this.generateResourcesFromRoute(routesObject);
 		}

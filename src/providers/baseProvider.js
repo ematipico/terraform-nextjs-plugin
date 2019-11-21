@@ -1,5 +1,5 @@
 class BaseProvider {
-	constructor({ config }) {
+	constructor(config) {
 		this.config = config;
 	}
 }

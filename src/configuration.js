@@ -19,18 +19,16 @@ class Configuration {
 	 * @param {GlobalConfiguration} config
 	 */
 	constructor(config) {
-		this.checkConfiguration(config);
+		Configuration.checkConfiguration(config);
 		const { gatewayKey, nextAppDir, routes, provider, buildPath } = config;
-		this.config = Object.assign(
-			{},
-			{
-				gatewayKey: gatewayKey || "Terranext",
-				buildPath: buildPath || ".next",
-				provider,
-				nextAppDir: nextAppDir ? path.resolve(process.cwd(), nextAppDir) : "./",
-				routes
-			}
-		);
+		this.properties = {
+			...config,
+			gatewayKey: gatewayKey || "Terranext",
+			buildPath: buildPath || ".next",
+			provider,
+			nextAppDir: nextAppDir ? path.resolve(process.cwd(), nextAppDir) : "./",
+			routes
+		};
 	}
 
 	/**
@@ -39,23 +37,23 @@ class Configuration {
 	 * @param {GlobalConfiguration} config
 	 * @returns {Boolean|ValidationError[]}
 	 */
-	checkConfiguration(config) {
+	static checkConfiguration(config) {
 		let errors = [];
 		if (!config) {
 			errors.push(new EmptyConfigurationError());
 			return errors;
 		}
-		const { gatewayKey, nextAppDir, routes, provider } = this.config;
+		const { gatewayKey, nextAppDir, routes, provider } = config;
 
 		if (!gatewayKey) errors.push(new MissingKeyError("gatewayKey"));
 		if (!nextAppDir) errors.push(new MissingKeyError("nextAppDir"));
 
 		if (routes) {
 			if (Array.isArray(routes)) {
-				const isInvalid = routes.some(r => this.checkRoutes(r) === false);
+				const isInvalid = routes.some(r => Configuration.checkRoutes(r) === false);
 				if (isInvalid === true) errors.push(new IncorrectRoutesError());
 			} else {
-				if (!this.checkRoutes(routes)) errors.push(new IncorrectRoutesError());
+				if (!Configuration.checkRoutes(routes)) errors.push(new IncorrectRoutesError());
 			}
 		}
 
@@ -71,10 +69,10 @@ class Configuration {
 	}
 
 	get getConfiguration() {
-		return this.config;
+		return this.properties;
 	}
 
-	checkRoutes(routes) {
+	static checkRoutes(routes) {
 		let valid = true;
 
 		if (typeof routes.prefix === "undefined" || typeof routes.mappings === "undefined") return false;
@@ -92,47 +90,55 @@ class Configuration {
 	 * @returns {string}
 	 */
 	getLambdaPath() {
-		return path.resolve(this.config.nextAppDir, this.config.buildPath, "lambdas");
+		return path.resolve(this.properties.nextAppDir, this.properties.buildPath, "lambdas");
 	}
 
 	/**
 	 * @returns {string}
 	 */
 	getServerlessPagesPath() {
-		return path.resolve(this.config.nextAppDir, this.config.buildPath, "serverless", "pages");
+		return path.resolve(this.properties.nextAppDir, this.properties.buildPath, "serverless", "pages");
 	}
 
 	/**
 	 * @returns {string}
 	 */
 	getGatewayKey() {
-		return this.config.gatewayKey;
+		return this.properties.gatewayKey;
 	}
 
 	/**
 	 *
-	 * @returns {Route[]|undefined}
+	 * @returns {Route[]}
 	 */
 	getRoutes() {
-		if (Array.isArray(this.config.routes)) {
-			return this.config.routes;
+		if (Array.isArray(this.properties.routes)) {
+			return this.properties.routes;
 		}
-		return [this.config.routes];
+		return [this.properties.routes];
 	}
 
 	/**
 	 * @returns {string}
 	 */
 	getBuildPath() {
-		return path.resolve(process.cwd(), this.config.buildPath);
+		return path.resolve(process.cwd(), this.properties.buildPath);
 	}
 
+	/**
+	 *
+	 * @returns {string}
+	 */
 	getServerlessBuildPath() {
-		return path.resolve(process.cwd(), this.config.buildPath, "serverless/pages");
+		return path.resolve(process.cwd(), this.properties.buildPath, "serverless/pages");
 	}
 
+	/**
+	 *
+	 * @returns {any}
+	 */
 	getNextConfig() {
-		const nextConfigFilePath = path.resolve(this.config.nextAppDir, NEXT_CONFIG);
+		const nextConfigFilePath = path.resolve(this.properties.nextAppDir, NEXT_CONFIG);
 		if (fs.existsSync(nextConfigFilePath)) {
 			return require(nextConfigFilePath);
 		}
@@ -140,7 +146,7 @@ class Configuration {
 	}
 
 	getNextAppDir() {
-		return this.config.nextAppDir;
+		return this.properties.nextAppDir;
 	}
 }
 

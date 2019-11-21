@@ -1,12 +1,12 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-// @ts-nocheck
-const { checkConfiguration, setConfiguration, getGatewayKey } = require("../src/configuration");
+
+const Configuration = require("../src/configuration");
+const AwsConfig = require("../src/providers/aws/awsConfig");
 const { PROVIDERS } = require("../src/constants");
-const { getGatewayResourceId } = require("../src/providers/aws/shared");
 
 describe("Configuration", () => {
 	it("should throw an error when configuration is empty", () => {
-		const errors = checkConfiguration();
+		const errors = Configuration.checkConfiguration();
 
 		expect(errors).toHaveLength(1);
 		const er = errors.find(error => error.type === "EmptyConfigurationError");
@@ -14,17 +14,17 @@ describe("Configuration", () => {
 	});
 
 	it("should throw an error when gatewayKey is not provided", () => {
-		const errors = checkConfiguration({});
+		const errors = Configuration.checkConfiguration({});
 		expect(errors.find(error => error.message === "gatewayKey is missing, it must be provided")).toBeDefined();
 	});
 
 	it("should throw an error when lambdaPath is not provided", () => {
-		const errors = checkConfiguration({});
+		const errors = Configuration.checkConfiguration({});
 		expect(errors.find(error => error.message === "nextAppDir is missing, it must be provided")).toBeDefined();
 	});
 
 	it("should throw an error when routes is are malformed", () => {
-		const errors = checkConfiguration({
+		const errors = Configuration.checkConfiguration({
 			gatewayKey: "myTest",
 			lambdaPath: "/path",
 			routes: {
@@ -39,7 +39,7 @@ describe("Configuration", () => {
 
 		expect(errors.find(error => error.message === "The object containing the routes is not correct")).toBeDefined();
 
-		const errors2 = checkConfiguration({
+		const errors2 = Configuration.checkConfiguration({
 			gatewayKey: "myTest",
 			lambdaPath: "/path",
 			routes: [
@@ -67,7 +67,7 @@ describe("Configuration", () => {
 
 	it("should return true when the configuration is correct", () => {
 		expect(
-			checkConfiguration({
+			Configuration.checkConfiguration({
 				gatewayKey: "myTest",
 				nextAppDir: "/path",
 				routes: {
@@ -84,7 +84,7 @@ describe("Configuration", () => {
 		).toBe(true);
 
 		expect(
-			checkConfiguration({
+			Configuration.checkConfiguration({
 				gatewayKey: "myTest",
 				nextAppDir: "/path",
 				routes: [
@@ -114,17 +114,17 @@ describe("Configuration", () => {
 	});
 
 	it("should return the gateway key", () => {
-		setConfiguration({ gatewayKey: "myTest", nextAppDir: "/path" });
-		expect(getGatewayResourceId()).toEqual("${aws_api_gateway_rest_api.myTest.id}");
+		const c = new AwsConfig({ gatewayKey: "myTest", nextAppDir: "/path" });
+		expect(c.getGatewayResourceId()).toEqual("${aws_api_gateway_rest_api.myTest.id}");
 	});
 
 	it("should return the gateway key", () => {
-		setConfiguration({ gatewayKey: "myTest", nextAppDir: "/path" });
-		expect(getGatewayKey()).toEqual("myTest");
+		const c = new AwsConfig({ gatewayKey: "myTest", nextAppDir: "/path" });
+		expect(c.getGatewayKey()).toEqual("myTest");
 	});
 
 	it("should throw an error when provider is not passed", () => {
-		const errors = checkConfiguration({
+		const errors = Configuration.checkConfiguration({
 			gatewayKey: "myTest",
 			nextAppDir: "/path",
 			routes: {
@@ -141,7 +141,7 @@ describe("Configuration", () => {
 	});
 
 	it("should throw an error when provider is not supported", () => {
-		const errors = checkConfiguration({
+		const errors = Configuration.checkConfiguration({
 			gatewayKey: "myTest",
 			nextAppDir: "/path",
 			routes: {

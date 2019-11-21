@@ -3,10 +3,15 @@ const LambdaZip = require("./lambdaZip");
 const LambdaProperties = require("./lambdaProperties");
 const fs = require("fs");
 const path = require("path");
+
+/**
+ * @typedef {import('../awsConfig')} AwsConfig
+ */
+
 class Lambda {
 	/**
 	 *
-	 * @param config
+	 * @param {AwsConfig} config
 	 * @param options
 	 */
 	constructor(config, options) {

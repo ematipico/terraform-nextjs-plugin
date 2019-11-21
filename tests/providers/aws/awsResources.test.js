@@ -1,10 +1,11 @@
-// @ts-nocheck
-const { setConfiguration } = require("../../../src/configuration");
+// @ts-ignore
+const AwsResources = require("../../../src/providers/aws");
+const AwsConfig = require("../../../src/providers/aws/awsConfig");
 const path = require("path");
 
-describe("generateTerraformConfiguration", () => {
+describe("AwsResources", () => {
 	it("should generate the correct configuration", async () => {
-		setConfiguration({
+		const config = new AwsConfig({
 			gatewayKey: "CustomKey",
 			// eslint-disable-next-line unicorn/prevent-abbreviations
 			nextAppDir: path.resolve(__dirname, "__fixtures__"),
@@ -32,7 +33,8 @@ describe("generateTerraformConfiguration", () => {
 			}
 		});
 
-		const result = await generateTerraformConfiguration();
+		const awsResources = new AwsResources(config);
+		const result = await awsResources.generateGatewayResources();
 
 		expect(result).toMatchSnapshot();
 	});

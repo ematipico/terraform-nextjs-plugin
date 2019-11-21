@@ -1,9 +1,19 @@
 const path = require("path");
-
+/**
+ * @typedef {import('../awsConfig')} AwsConfig
+ */
 /** @typedef {import('../aws.declarations').AWS.Data} Data */
 /** @typedef {{ uniqueId: string; resource: Data }} Result */
+/**
+ * @typedef {import('../declarations').LambdaOptions} LambdaOptions
+ */
 
 class LambdaZip {
+	/**
+	 *
+	 * @param {AwsConfig} config
+	 * @param {LambdaOptions} options
+	 */
 	constructor(config, options) {
 		this.config = config;
 		this.options = options;

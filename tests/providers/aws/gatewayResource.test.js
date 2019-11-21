@@ -1,18 +1,19 @@
-// @ts-nocheck
-const { generateGatewayResource } = require("../../../src/providers/aws/resources/gatewayResource");
-
-const { setConfiguration } = require("../../../src/configuration");
+const GatewayResource = require("../../../src/providers/aws/resources/gatewayResource");
+const AwsConfig = require("../../../src/providers/aws/awsConfig");
 
 describe("Gateway integration", () => {
 	it("should return the expected resource for a top level", () => {
-		setConfiguration({
+		const c = new AwsConfig({
 			gatewayKey: "CustomKey"
 		});
 
-		const result = generateGatewayResource({
+		const method = new GatewayResource(c, {
 			id: "myId",
-			pathname: "personal-page"
+			pathname: "personal-page",
+			lambdaName: "myId"
 		});
+
+		const result = method.generateGatewayResource();
 
 		expect(result.uniqueId).toBe("CustomKey-myId");
 		expect(result.resource).toStrictEqual({
@@ -23,15 +24,19 @@ describe("Gateway integration", () => {
 	});
 
 	it("should return the expected resource when it has a parent", () => {
-		setConfiguration({
+
+		const c = new AwsConfig({
 			gatewayKey: "CustomKey"
 		});
 
-		const result = generateGatewayResource({
+		const method = new GatewayResource(c, {
 			id: "mySecondId",
 			pathname: "personal-page",
-			parentId: "CustomKey-myId"
+			parentId: "CustomKey-myId",
+			lambdaName: "mySecondId"
 		});
+
+		const result = method.generateGatewayResource();
 
 		expect(result.uniqueId).toBe("CustomKey-mySecondId");
 		expect(result.resource).toStrictEqual({
