@@ -19,7 +19,7 @@ function generatePathFromFile(fileName, pathPart) {
 				.replace(".js", "")
 				.replace(":", "")
 				.replace(/\[/gm, "")
-				.replace(/\]/gm, "")
+				.replace(/]/gm, "")
 		);
 	}
 	return (
@@ -27,7 +27,7 @@ function generatePathFromFile(fileName, pathPart) {
 		fileName
 			.replace(".js", "")
 			.replace(/\[/gm, "")
-			.replace(/\]/gm, "")
+			.replace(/]/gm, "")
 	);
 }
 
@@ -115,13 +115,13 @@ function recursiveBuildMappings(directoryPath, mappings = [], pathPart = "") {
 }
 
 function isUrlPathname(string) {
-	return /^\[.*[a-zA-z0-9]\]$/gm.test(string);
+	return /^\[.*[\dA-z]]$/gm.test(string);
 }
 
 function fromNextPathToQueryPath(pathPart, file) {
 	const cleanedFile = file.replace(".js", "");
 	if (isUrlPathname(cleanedFile)) {
-		return `${pathPart}/${":" + cleanedFile.replace(/\[/gm, "").replace(/\]/gm, "")}`;
+		return `${pathPart}/${":" + cleanedFile.replace(/\[/gm, "").replace(/]/gm, "")}`;
 	} else {
 		return `${pathPart}/${cleanedFile}`;
 	}

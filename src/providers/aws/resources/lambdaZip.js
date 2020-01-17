@@ -24,7 +24,7 @@ class LambdaZip {
 	 * @returns {Result}
 	 */
 	generateZipResource() {
-		const cleanedId = this.options.id.replace(/\[|\]/g, "");
+		const cleanedId = this.options.id.replace(/\[|]/g, "");
 
 		return {
 			uniqueId: `packLambda-${cleanedId}`,
