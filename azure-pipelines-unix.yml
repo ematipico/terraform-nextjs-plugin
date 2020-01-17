@@ -1,11 +1,9 @@
-jobs: 
+jobs:
   - job: ${{ parameters.jobName }}
     pool:
       vmImage: ${{ parameters.vmImage }}
     strategy:
       matrix:
-        node_8_x:
-          node_version: 8.x
         node_10_x:
           node_version: 10.x
         node_12_x:
@@ -29,7 +27,7 @@ jobs:
       displayName: 'Use Terraform 0.11.11'
     - script: |
         npm run integration:build
-      displayName: "Build example app"  
+      displayName: "Build example app"
     - script: |
         cp ./integration/app/gateway.terraform.tf.json ./integration/aws;
         cp ./integration/app/lambdas.terraform.tf.json ./integration/aws;
@@ -43,11 +41,10 @@ jobs:
       displayName: 'terraform validate '
       inputs:
         command: validate
-        workingDirectory: integration/aws      
+        workingDirectory: integration/aws
     - task: PublishTestResults@2
       displayName: 'Publishing test results'
       inputs:
         testResultsFiles: '**junit*.xml'
         testRunTitle: TestRun for ${{ parameters.jobName }} $(node_version)
-        
-        
+

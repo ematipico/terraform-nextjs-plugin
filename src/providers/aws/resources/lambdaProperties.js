@@ -21,7 +21,7 @@ class LambdaProperties {
 	 * @returns {import('../declarations').GenerateLambdaResource}
 	 */
 	generateLambdaProperties() {
-		const cleanedId = this.options.id.replace(/\[|\]/g, "");
+		const cleanedId = this.options.id.replace(/\[|]/g, "");
 		const lambdaId = `${this.config.getLambdaPrefix()}-${cleanedId}`;
 		const resource = {
 			resourceUniqueId: lambdaId,

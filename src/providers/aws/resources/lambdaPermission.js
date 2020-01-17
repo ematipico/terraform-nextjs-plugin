@@ -22,7 +22,7 @@ class LambdaPermission {
 	 * @returns {import('../declarations').LambdaPermission}
 	 */
 	generateLambdaPermissions() {
-		const cleanedId = this.options.id.replace(/\[|\]/g, "");
+		const cleanedId = this.options.id.replace(/\[|]/g, "");
 		const lambdaId = `${this.config.getLambdaPrefix()}-${cleanedId}`;
 		return {
 			permissionUniqueId: lambdaId,
