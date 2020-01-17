@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [2.0.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v1.3.0...v2.0.0) (2020-01-17)
 
+* BREAKING CHANGE: dropped Node.js v8
+
 ## [1.3.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v1.2.1...v1.3.0) (2019-11-21)
 
 
