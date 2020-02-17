@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "cosmiconfig": "6.0.0",
-    "meow": "6.0.0"
+    "meow": "6.0.1"
   },
   "engines": {
     "node": ">= 10.x.x"
