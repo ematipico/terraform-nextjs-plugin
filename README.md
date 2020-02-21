@@ -127,7 +127,7 @@ It will be up to you to consume them in a proper way.
 | `nextDirApp`  | `string`                      | Must be provided  | This is the path where your Next.js project is. Usually you will run `terraform` CLI from a different project/folder. So you need to tell `terraform` where this folder is. The library will take care of the rest. _Default value: `"./"`_ |
 | `routes`      | `Array<Mapping>`, `Mapping`   | Optional          | This is the structure of the routes that describe your pages.                                                                                                                                                                               |
 | `env`         | `Array<Env>`                  | Optional          | Environments passed via CLI have to be split using `,`: `--env="KEY,VALUE"`. When using the API, you always have to pass an array of objects `{ key: "MyKeyName", "value": "MyKeyValue" }`. **_Environment variables are applied to all the lambdas_**                                                                                                                                                                               |
-| `nodeVersion` | `8` or `10` or `12`           | `8`               | Environments passed via CLI have to be split using `,`: `--env="KEY,VALUE"`. When using the API, you always have to pass an array of objects `{ key: "MyKeyName", "value": "MyKeyValue" }`. **_Environment variables are applied to all the lambdas_**                                                                                                                                                                               |
+| `nodeVersion` | `10` or `12`           | `10`               | Runtime to use
 
 ### Mapping explained
 

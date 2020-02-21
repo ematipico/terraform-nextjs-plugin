@@ -45,8 +45,8 @@ async function getLambdaFiles(lambdaPath) {
 
 		return files.map(file => {
 			const pathToFile = path.resolve(lambdaPath, file);
-			if (fs.existsSync(pathToFile) && fs.lstatSync(pathToFile).isDirectory()) {
-				return file + ".js";
+			if (fs.existsSync(pathToFile) && !fs.lstatSync(pathToFile).isDirectory()) {
+				return file;
 			}
 			return file;
 		});
