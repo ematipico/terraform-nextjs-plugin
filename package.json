@@ -52,7 +52,7 @@
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "standard-version": "7.0.1",
-    "typescript": "3.7.5"
+    "typescript": "3.8.2"
   },
   "dependencies": {
     "cosmiconfig": "6.0.0",
