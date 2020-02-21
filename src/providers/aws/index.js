@@ -180,41 +180,44 @@ class AwsResources extends BaseProvider {
 		return getLambdaFiles(serverlessBuildPath)
 			.then(files => {
 				files.forEach(file => {
-					/**
-					 * 1. create a folder with name of the file
-					 * 2. copy the next file with a suffix .original.js
-					 * 3. create the lambda from the template
-					 * 4. copy the compact layer
-					 * 5. generate the lambda resource
-					 * 6. generate the zip file resource
-					 */
-					// 1.
-					const lambdaName = file.replace(".js", "");
-					const lambdaPath = path.resolve(buildPath, "lambdas") + "/" + lambdaName;
-					fs.mkdirSync(lambdaPath);
+					const pathToFile = path.resolve(serverlessBuildPath, file);
+					if (!fs.lstatSync(pathToFile).isDirectory()) {
+						/**
+						 * 1. create a folder with name of the file
+						 * 2. copy the next file with a suffix .original.js
+						 * 3. create the lambda from the template
+						 * 4. copy the compact layer
+						 * 5. generate the lambda resource
+						 * 6. generate the zip file resource
+						 */
+						// 1.
+						const lambdaName = file.replace(".js", "");
+						const lambdaPath = path.resolve(buildPath, "lambdas") + "/" + lambdaName;
+						fs.mkdirSync(lambdaPath);
 
-					// 2.
-					const newFilename = file.replace(".js", ".original.js");
-					fs.copyFileSync(path.resolve(serverlessBuildPath, file), path.resolve(buildPath, "lambdas", lambdaName, newFilename));
+						// 2.
+						const newFilename = file.replace(".js", ".original.js");
+						fs.copyFileSync(pathToFile, path.resolve(buildPath, "lambdas", lambdaName, newFilename));
 
-					const lambda = new Lambda(this.config, {
-						id: lambdaName,
-						directoryName: lambdaName
-					});
-					// 3.
-					lambda.emitLambdaFile(lambdaName, buildPath);
+						const lambda = new Lambda(this.config, {
+							id: lambdaName,
+							directoryName: lambdaName
+						});
+						// 3.
+						lambda.emitLambdaFile(lambdaName, buildPath);
 
-					// 4.
-					fs.copyFileSync(
-						path.resolve(COMPAT_LAYER_PATH, "./compatLayer.js"),
-						path.resolve(buildPath, "lambdas", lambdaName, "compatLayer.js")
-					);
+						// 4.
+						fs.copyFileSync(
+							path.resolve(COMPAT_LAYER_PATH, "./compatLayer.js"),
+							path.resolve(buildPath, "lambdas", lambdaName, "compatLayer.js")
+						);
 
-					// 5.
-					const lambdaResource = lambda.generate();
-					this.lambdasResources[lambdaResource.properties.resourceUniqueId] = lambdaResource.properties.resource;
-					this.lambdasPermissions[lambdaResource.permissions.permissionUniqueId] = lambdaResource.permissions.resource;
-					this.lambdaZip[lambdaResource.zip.uniqueId] = lambdaResource.zip.resource;
+						// 5.
+						const lambdaResource = lambda.generate();
+						this.lambdasResources[lambdaResource.properties.resourceUniqueId] = lambdaResource.properties.resource;
+						this.lambdasPermissions[lambdaResource.permissions.permissionUniqueId] = lambdaResource.permissions.resource;
+						this.lambdaZip[lambdaResource.zip.uniqueId] = lambdaResource.zip.resource;
+					}
 				});
 				// it gets files that are inside the serverless folder created by next
 				fs.readdirSync(serverlessBuildPath);
