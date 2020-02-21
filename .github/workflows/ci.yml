@@ -31,10 +31,9 @@ jobs:
         env:
           CI: true
       - name: Install terraform
-        working-directory: /tmp
         run: |
           apt-get update && apt-get install -y jq
-          curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip &&  unzip terraform.zip && mv terraform /usr/bin
+          curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip &&  unzip terraform.zip && mv terraform ./integration/aws
       - name: Run integration and copy files
         run: |
           npm run integration:build
