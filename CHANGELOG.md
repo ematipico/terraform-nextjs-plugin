@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v2.0.0...v2.1.0) (2020-02-21)
+
+
+### Features
+
+* dropped Node.js v8 ([56dbea5](https://github.com/ematipico/terraform-nextjs-plugin/commit/56dbea5aca11ab16bdcdb066610540009d877ebb))
+
+
+### Bug Fixes
+
+* case where there's a generated folder by next.js ([e5a638e](https://github.com/ematipico/terraform-nextjs-plugin/commit/e5a638ee42c017335a2d4cf9cf38885f02b52627))
+* updated dependencies ([515d184](https://github.com/ematipico/terraform-nextjs-plugin/commit/515d1849f98ded668af03b99a0a5baeee5f8063e))
+
+
+### Chores
+
+* moving binary inside integration folder ([2f829a6](https://github.com/ematipico/terraform-nextjs-plugin/commit/2f829a68cbffeaf581d56ac3226c21b3a2bc2cd2))
+* removed azure pipelines ([d0c8b90](https://github.com/ematipico/terraform-nextjs-plugin/commit/d0c8b90b1c3d1a7b7983b6fdb4c77531aaa6f9dc))
+
 ## [2.0.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v1.3.0...v2.0.0) (2020-01-17)
 
 * BREAKING CHANGE: dropped Node.js v8
