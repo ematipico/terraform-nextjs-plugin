@@ -21,7 +21,7 @@ class GatewayMethod {
 	generateGatewayMethod(gatewayResourceId) {
 		return {
 			uniqueId: `${this.config.getGatewayKey()}-${this.options.id}`,
-			resource: this.generateResource(gatewayResourceId)
+			resource: this.generateResource(gatewayResourceId),
 		};
 	}
 
@@ -34,7 +34,7 @@ class GatewayMethod {
 			rest_api_id: this.config.getGatewayResourceId(),
 			resource_id: "${aws_api_gateway_resource." + resourceId + ".id}",
 			http_method: "GET",
-			authorization: "NONE"
+			authorization: "NONE",
 		};
 		if (this.options.params && this.options.params.length > 0) {
 			resource.request_parameters = this.options.params.reduce((result, parameter) => {

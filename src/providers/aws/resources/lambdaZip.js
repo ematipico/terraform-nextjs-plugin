@@ -32,8 +32,8 @@ class LambdaZip {
 				output_path: "files/${local.groupname}-" + this.options.id + ".zip",
 				type: "zip",
 				// eslint-disable-next-line unicorn/prevent-abbreviations
-				source_dir: path.join(this.config.getLambdaPath(), this.options.directoryName)
-			}
+				source_dir: path.join(this.config.getLambdaPath(), this.options.directoryName),
+			},
 		};
 	}
 }

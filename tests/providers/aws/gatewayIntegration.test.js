@@ -5,13 +5,13 @@ describe("Gateway integration", () => {
 	it("should return the expected resource", () => {
 		const config = new AwsConfig({
 			gatewayKey: "CustomKey",
-			provider: "AWS"
+			provider: "AWS",
 		});
 
 		const resource = new GatewayIntegration(config, {
 			id: "index",
 			lambdaName: "index",
-			pathname: "/"
+			pathname: "/",
 		});
 
 		const result = resource.generateGatewayIntegration("CustomKey-index");
@@ -24,7 +24,7 @@ describe("Gateway integration", () => {
 			integration_http_method: "POST",
 			type: "AWS_PROXY",
 			uri:
-				"arn:aws:apigateway:${local.aws_region}:lambda:path/2015-03-31/functions/${aws_lambda_function.lambdaForCustomKey-index.arn}/invocations"
+				"arn:aws:apigateway:${local.aws_region}:lambda:path/2015-03-31/functions/${aws_lambda_function.lambdaForCustomKey-index.arn}/invocations",
 		});
 	});
 });

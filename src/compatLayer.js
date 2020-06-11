@@ -12,7 +12,7 @@ const requestResponseMapper = (event, callback) => {
 		body: Buffer.from(""),
 		isBase64Encoded: base64Support,
 		statusCode: 200,
-		multiValueHeaders: {}
+		multiValueHeaders: {},
 	};
 
 	const request = new Stream.Readable();
@@ -54,7 +54,7 @@ const requestResponseMapper = (event, callback) => {
 		request.headers[key.toLowerCase()] = headers[key].toString();
 	}
 
-	request.getHeader = name => {
+	request.getHeader = (name) => {
 		return request.headers[name.toLowerCase()];
 	};
 	request.getHeaders = () => {
@@ -71,29 +71,29 @@ const requestResponseMapper = (event, callback) => {
 		},
 		set(statusCode) {
 			response.statusCode = statusCode;
-		}
+		},
 	});
 	res.headers = {};
 	res.writeHead = (status, headers) => {
 		response.statusCode = status;
 		if (headers) res.headers = Object.assign(res.headers, headers);
 	};
-	res.write = chunk => {
+	res.write = (chunk) => {
 		response.body = Buffer.concat([response.body, Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)]);
 	};
 	res.setHeader = (name, value) => {
 		res.headers[name] = value;
 	};
-	res.removeHeader = name => {
+	res.removeHeader = (name) => {
 		delete res.headers[name];
 	};
-	res.getHeader = name => {
+	res.getHeader = (name) => {
 		return res.headers[name.toLowerCase()];
 	};
 	res.getHeaders = () => {
 		return res.headers;
 	};
-	res.end = text => {
+	res.end = (text) => {
 		if (text) res.write(text);
 		response.body = Buffer.from(response.body).toString(base64Support ? "base64" : undefined);
 		response.multiValueHeaders = res.headers;

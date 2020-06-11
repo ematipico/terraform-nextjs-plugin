@@ -33,7 +33,7 @@ exports.render = (event, context, callback) => {
 }`;
 
 		fs.writeFileSync(path.resolve(thePath, "lambdas", filename, filename + ".js"), lambdaTemplate, {
-			encoding: "utf-8"
+			encoding: "utf-8",
 		});
 	}
 
@@ -45,7 +45,7 @@ exports.render = (event, context, callback) => {
 		return {
 			properties,
 			zip,
-			permissions
+			permissions,
 		};
 	}
 }

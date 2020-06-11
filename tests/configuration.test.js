@@ -10,18 +10,18 @@ describe("Configuration", () => {
 		const errors = Configuration.checkConfiguration();
 
 		expect(errors).toHaveLength(1);
-		const er = errors.find(error => error.type === "EmptyConfigurationError");
+		const er = errors.find((error) => error.type === "EmptyConfigurationError");
 		expect(er.message).toBe("Empty configuration, cannot proceed.");
 	});
 
 	it("should throw an error when gatewayKey is not provided", () => {
 		const errors = Configuration.checkConfiguration({});
-		expect(errors.find(error => error.message === "gatewayKey is missing, it must be provided")).toBeDefined();
+		expect(errors.find((error) => error.message === "gatewayKey is missing, it must be provided")).toBeDefined();
 	});
 
 	it("should throw an error when lambdaPath is not provided", () => {
 		const errors = Configuration.checkConfiguration({});
-		expect(errors.find(error => error.message === "nextAppDir is missing, it must be provided")).toBeDefined();
+		expect(errors.find((error) => error.message === "nextAppDir is missing, it must be provided")).toBeDefined();
 	});
 
 	it("should throw an error when routes is are malformed", () => {
@@ -32,13 +32,13 @@ describe("Configuration", () => {
 				prefix: "",
 				mappings: [
 					{
-						page: "/"
-					}
-				]
-			}
+						page: "/",
+					},
+				],
+			},
 		});
 
-		expect(errors.find(error => error.message === "The object containing the routes is not correct")).toBeDefined();
+		expect(errors.find((error) => error.message === "The object containing the routes is not correct")).toBeDefined();
 
 		const errors2 = Configuration.checkConfiguration({
 			gatewayKey: "myTest",
@@ -49,21 +49,21 @@ describe("Configuration", () => {
 					mappings: [
 						{
 							page: "/content",
-							route: "ehy"
-						}
-					]
+							route: "ehy",
+						},
+					],
 				},
 				{
 					prefix: "blog",
 					mappings: [
 						{
-							route: "ehy"
-						}
-					]
-				}
-			]
+							route: "ehy",
+						},
+					],
+				},
+			],
 		});
-		expect(errors2.find(error => error.message === "The object containing the routes is not correct")).toBeDefined();
+		expect(errors2.find((error) => error.message === "The object containing the routes is not correct")).toBeDefined();
 	});
 
 	it("should return true when the configuration is correct", () => {
@@ -76,11 +76,11 @@ describe("Configuration", () => {
 					mappings: [
 						{
 							page: "/content",
-							route: "ehy"
-						}
-					]
+							route: "ehy",
+						},
+					],
 				},
-				provider: "AWS"
+				provider: "AWS",
 			})
 		).toBe(true);
 
@@ -94,22 +94,22 @@ describe("Configuration", () => {
 						mappings: [
 							{
 								page: "/content",
-								route: "ehy"
-							}
-						]
+								route: "ehy",
+							},
+						],
 					},
 					{
 						prefix: "blog",
 						mappings: [
 							{
 								page: "/content",
-								route: "ehy"
-							}
-						]
-					}
+								route: "ehy",
+							},
+						],
+					},
 				],
 
-				provider: "AWS"
+				provider: "AWS",
 			})
 		).toBe(true);
 	});
@@ -133,12 +133,12 @@ describe("Configuration", () => {
 				mappings: [
 					{
 						page: "/content",
-						route: "ehy"
-					}
-				]
-			}
+						route: "ehy",
+					},
+				],
+			},
 		});
-		expect(errors.find(error => error.message === "provider is missing, it must be provided")).toBeDefined();
+		expect(errors.find((error) => error.message === "provider is missing, it must be provided")).toBeDefined();
 	});
 
 	it("should throw an error when provider is not supported", () => {
@@ -150,16 +150,16 @@ describe("Configuration", () => {
 				mappings: [
 					{
 						page: "/content",
-						route: "ehy"
-					}
-				]
+						route: "ehy",
+					},
+				],
 			},
 			// @ts-ignore
-			provider: "Azure"
+			provider: "Azure",
 		});
 
 		expect(
-			errors.find(error => error.message === "Azure provider is not supported. Choose between: " + Object.keys(PROVIDERS).join(", "))
+			errors.find((error) => error.message === "Azure provider is not supported. Choose between: " + Object.keys(PROVIDERS).join(", "))
 		).toBeDefined();
 	});
 });

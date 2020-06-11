@@ -11,17 +11,17 @@ describe("shared.js", () => {
 				mappings: [
 					{
 						page: "/file",
-						route: "/file"
+						route: "/file",
 					},
 					{
 						page: "/file2",
-						route: "/file2"
+						route: "/file2",
 					},
 					{
 						page: "/boar",
-						route: "/boar"
-					}
-				]
+						route: "/boar",
+					},
+				],
 			});
 		});
 	});
@@ -35,17 +35,17 @@ describe("shared.js", () => {
 			mappings: [
 				{
 					page: "/boar",
-					route: "/boar"
+					route: "/boar",
 				},
 				{
 					page: "/contact-us",
-					route: "/contact-us"
+					route: "/contact-us",
 				},
 				{
 					page: "/index",
-					route: "/index"
-				}
-			]
+					route: "/index",
+				},
+			],
 		});
 	});
 
@@ -58,21 +58,21 @@ describe("shared.js", () => {
 			mappings: [
 				{
 					page: "/deep",
-					route: "/:foo/:deep"
+					route: "/:foo/:deep",
 				},
 				{
 					page: "/query",
-					route: "/:foo/:query"
+					route: "/:foo/:query",
 				},
 				{
 					page: "/bar",
-					route: "/:foo/bar"
+					route: "/:foo/bar",
 				},
 				{
 					page: "/fixed",
-					route: "/:foo/fixed"
-				}
-			]
+					route: "/:foo/fixed",
+				},
+			],
 		});
 	});
 });

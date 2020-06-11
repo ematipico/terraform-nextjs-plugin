@@ -7,13 +7,13 @@
  * @param {string[]} pathParts
  * @returns {string}
  */
-const generateUniqueName = pathParts => {
+const generateUniqueName = (pathParts) => {
 	return pathParts
 		.filter(Boolean)
-		.map(p => p.replace(":", "").replace("?", ""))
+		.map((p) => p.replace(":", "").replace("?", ""))
 		.join("-");
 };
 
 module.exports = {
-	generateUniqueName
+	generateUniqueName,
 };

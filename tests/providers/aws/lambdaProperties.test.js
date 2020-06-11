@@ -5,12 +5,12 @@ describe("terraFormLambda", () => {
 	it("should create the correct resource", () => {
 		const c = new AwsConfig({
 			gatewayKey: "CustomKey",
-			provider: "AWS"
+			provider: "AWS",
 		});
 
 		const properties = new LambdaProperties(c, {
 			id: "index",
-			directoryName: "/test"
+			directoryName: "/test",
 		});
 
 		const result = properties.generateLambdaProperties();
@@ -24,7 +24,7 @@ describe("terraFormLambda", () => {
 			runtime: "nodejs8.10",
 			memory_size: "1024",
 			timeout: "180",
-			role: "${local.lambda_iam_role}"
+			role: "${local.lambda_iam_role}",
 		});
 	});
 
@@ -32,12 +32,12 @@ describe("terraFormLambda", () => {
 		const c = new AwsConfig({
 			gatewayKey: "CustomKey",
 			nodeVersion: "10",
-			provider: "AWS"
+			provider: "AWS",
 		});
 
 		const properties = new LambdaProperties(c, {
 			id: "index",
-			directoryName: "/test"
+			directoryName: "/test",
 		});
 
 		const result = properties.generateLambdaProperties();
@@ -50,12 +50,12 @@ describe("terraFormLambda", () => {
 		const c = new AwsConfig({
 			gatewayKey: "CustomKey",
 			nodeVersion: "12",
-			provider: "AWS"
+			provider: "AWS",
 		});
 
 		const properties = new LambdaProperties(c, {
 			id: "index",
-			directoryName: "/test"
+			directoryName: "/test",
 		});
 
 		const result = properties.generateLambdaProperties();
@@ -72,14 +72,14 @@ describe("terraFormLambda", () => {
 			env: [
 				{
 					key: "PROD_KEY",
-					value: "230402"
-				}
-			]
+					value: "230402",
+				},
+			],
 		});
 
 		const properties = new LambdaProperties(c, {
 			id: "index",
-			directoryName: "/test"
+			directoryName: "/test",
 		});
 
 		const result = properties.generateLambdaProperties();
@@ -88,8 +88,8 @@ describe("terraFormLambda", () => {
 		expect(result.resource.environment).toBeTruthy();
 		expect(result.resource.environment).toStrictEqual({
 			variables: {
-				PROD_KEY: "230402"
-			}
+				PROD_KEY: "230402",
+			},
 		});
 	});
 });

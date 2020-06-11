@@ -57,7 +57,7 @@ class Gateway {
 		return {
 			resource,
 			method,
-			integration
+			integration,
 		};
 	}
 }

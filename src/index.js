@@ -29,7 +29,7 @@ async function terranext(configuration, write = false) {
 		 */
 		const finalConfiguration = {
 			...fileConfiguration,
-			...configuration
+			...configuration,
 		};
 		const config = new AwsConfig(finalConfiguration);
 		const nextConfig = config.getNextConfig();
@@ -47,7 +47,7 @@ async function terranext(configuration, write = false) {
 			const gateway = await aws.generateGatewayResources();
 			return {
 				gateway,
-				lambdas
+				lambdas,
 			};
 		}
 	} catch (error) {

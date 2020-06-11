@@ -5,12 +5,12 @@ describe("terraFormZip", () => {
 	it("should create the correct resource", () => {
 		const config = new AwsConfig({
 			gatewayKey: "Test",
-			provider: "AWS"
+			provider: "AWS",
 		});
 
 		const zip = new LambdaZip(config, {
 			id: "index",
-			directoryName: "index"
+			directoryName: "index",
 		});
 
 		const result = zip.generateZipResource();

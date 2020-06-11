@@ -29,27 +29,27 @@ Examples
 			gatewayKey: {
 				type: "string",
 				default: "Terranext",
-				alias: "g"
+				alias: "g",
 			},
 			// eslint-disable-next-line unicorn/prevent-abbreviations
 			nextAppDir: {
 				type: "string",
 				alias: "d",
-				default: "./"
+				default: "./",
 			},
 			provider: {
-				type: "string"
+				type: "string",
 			},
 			env: {
-				type: "string"
-			}
-		}
+				type: "string",
+			},
+		},
 	}
 );
 
 explorer
 	.search()
-	.then(async result => {
+	.then(async (result) => {
 		const { gatewayKey, nextAppDir, provider, env } = cli.flags;
 		let parsedEnvs;
 		if (env) {
@@ -61,11 +61,11 @@ explorer
 			gatewayKey,
 			nextAppDir,
 			provider,
-			env: parsedEnvs
+			env: parsedEnvs,
 		};
 		await generateResources(options, true);
 	})
-	.catch(error => {
+	.catch((error) => {
 		// eslint-disable-next-line no-console
 		console.error(error);
 		process.exit(1);
@@ -74,11 +74,11 @@ explorer
 
 function parseEnv(unparsedEnv) {
 	if (Array.isArray(unparsedEnv)) {
-		return unparsedEnv.map(env => {
+		return unparsedEnv.map((env) => {
 			const splitEnv = env.split(",");
 			return {
 				key: splitEnv[0],
-				value: splitEnv[1]
+				value: splitEnv[1],
 			};
 		});
 	}
@@ -88,7 +88,7 @@ function parseEnv(unparsedEnv) {
 	return [
 		{
 			key: splitEnv[0],
-			value: splitEnv[1]
-		}
+			value: splitEnv[1],
+		},
 	];
 }

@@ -21,10 +21,10 @@ class AwsResources extends BaseProvider {
 	}
 
 	parseParameters(parameters) {
-		return Object.keys(parameters).map(parameterKey => {
+		return Object.keys(parameters).map((parameterKey) => {
 			return {
 				name: parameterKey,
-				mandatory: parameters[parameterKey]
+				mandatory: parameters[parameterKey],
 			};
 		});
 	}
@@ -32,11 +32,11 @@ class AwsResources extends BaseProvider {
 	getParametersFromPath(pathname) {
 		return pathname
 			.split("/")
-			.map(pathPart => {
+			.map((pathPart) => {
 				if (pathPart.includes(":")) {
 					return {
 						name: pathPart.replace(":", ""),
-						mandatory: true
+						mandatory: true,
 					};
 				}
 				return undefined;
@@ -66,7 +66,7 @@ class AwsResources extends BaseProvider {
 			id: generateUniqueName(parts.slice(0, index + 1)),
 			params: urlParameters,
 			queryStringParams: queryStringParameters,
-			lambdaName
+			lambdaName,
 		});
 
 		const gatewayResource = gateway.generate();
@@ -81,7 +81,7 @@ class AwsResources extends BaseProvider {
 	 * @param {Route} routeObject
 	 */
 	generateResourcesFromRoute(routeObject) {
-		routeObject.mappings.forEach(currentRoute => {
+		routeObject.mappings.forEach((currentRoute) => {
 			const { params, page, route } = currentRoute;
 			const prefix = routeObject.prefix ? routeObject.prefix : "";
 			const pathname = prefix + route;
@@ -96,7 +96,7 @@ class AwsResources extends BaseProvider {
 						parts,
 						pathname,
 						lambdaName,
-						params
+						params,
 					});
 				});
 		});
@@ -104,7 +104,7 @@ class AwsResources extends BaseProvider {
 
 	generateResources(routesObject) {
 		if (Array.isArray(routesObject)) {
-			routesObject.forEach(routeObject => this.generateResourcesFromRoute(routeObject));
+			routesObject.forEach((routeObject) => this.generateResourcesFromRoute(routeObject));
 		} else {
 			this.generateResourcesFromRoute(routesObject);
 		}
@@ -112,7 +112,7 @@ class AwsResources extends BaseProvider {
 
 	deleteDir(pathToDelete) {
 		if (fs.existsSync(pathToDelete)) {
-			fs.readdirSync(pathToDelete).forEach(file => {
+			fs.readdirSync(pathToDelete).forEach((file) => {
 				const curPath = path.join(pathToDelete, file);
 				if (fs.lstatSync(curPath).isDirectory()) {
 					// recurse
@@ -144,20 +144,20 @@ class AwsResources extends BaseProvider {
 				resource: {
 					aws_api_gateway_resource: this.apiGatewayResource,
 					aws_api_gateway_method: this.apiGatewayMethod,
-					aws_api_gateway_integration: this.apiGatewayIntegration
+					aws_api_gateway_integration: this.apiGatewayIntegration,
 				},
 				variable: {
 					integrationList: {
-						default: Object.keys(this.apiGatewayIntegration).map(key => `aws_api_gateway_integration.${key}`)
-					}
-				}
+						default: Object.keys(this.apiGatewayIntegration).map((key) => `aws_api_gateway_integration.${key}`),
+					},
+				},
 			};
 
 			if (write) {
 				// eslint-disable-next-line no-console
 				console.log(`Generating file ${FILE_NAMES.GATEWAY}`);
 				fs.writeFileSync(path.join(process.cwd(), FILE_NAMES.GATEWAY), JSON.stringify(this.terraformConfiguration, null, 4), {
-					encoding: "utf-8"
+					encoding: "utf-8",
 				});
 			} else {
 				return this.terraformConfiguration;
@@ -178,8 +178,8 @@ class AwsResources extends BaseProvider {
 		fs.mkdirSync(buildPath + "/lambdas");
 
 		return getLambdaFiles(serverlessBuildPath)
-			.then(files => {
-				files.forEach(file => {
+			.then((files) => {
+				files.forEach((file) => {
 					const pathToFile = path.resolve(serverlessBuildPath, file);
 					if (!fs.lstatSync(pathToFile).isDirectory()) {
 						/**
@@ -201,7 +201,7 @@ class AwsResources extends BaseProvider {
 
 						const lambda = new Lambda(this.config, {
 							id: lambdaName,
-							directoryName: lambdaName
+							directoryName: lambdaName,
 						});
 						// 3.
 						lambda.emitLambdaFile(lambdaName, buildPath);
@@ -225,24 +225,24 @@ class AwsResources extends BaseProvider {
 				let lambdaResources = {
 					resource: {
 						aws_lambda_function: this.lambdasResources,
-						aws_lambda_permission: this.lambdasPermissions
+						aws_lambda_permission: this.lambdasPermissions,
 					},
 					data: {
-						archive_file: this.lambdaZip
-					}
+						archive_file: this.lambdaZip,
+					},
 				};
 
 				if (write === true) {
 					// eslint-disable-next-line no-console
 					console.log(`Generating file ${FILE_NAMES.LAMBDAS}`);
 					fs.writeFileSync(path.join(process.cwd(), FILE_NAMES.LAMBDAS), JSON.stringify(lambdaResources, null, 4), {
-						encoding: "utf-8"
+						encoding: "utf-8",
 					});
 				} else {
 					return lambdaResources;
 				}
 			})
-			.catch(error => {
+			.catch((error) => {
 				throw new FolderNotFoundError(serverlessBuildPath, error);
 			});
 	}

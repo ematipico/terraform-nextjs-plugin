@@ -13,22 +13,9 @@ const { promisify } = require("util");
 function generatePathFromFile(fileName, pathPart) {
 	if (fileName.includes("index") && pathPart) {
 		const parts = pathPart.split("/");
-		return (
-			"/" +
-			parts[parts.length - 1]
-				.replace(".js", "")
-				.replace(":", "")
-				.replace(/\[/gm, "")
-				.replace(/]/gm, "")
-		);
+		return "/" + parts[parts.length - 1].replace(".js", "").replace(":", "").replace(/\[/gm, "").replace(/]/gm, "");
 	}
-	return (
-		"/" +
-		fileName
-			.replace(".js", "")
-			.replace(/\[/gm, "")
-			.replace(/]/gm, "")
-	);
+	return "/" + fileName.replace(".js", "").replace(/\[/gm, "").replace(/]/gm, "");
 }
 
 /**
@@ -43,7 +30,7 @@ async function getLambdaFiles(lambdaPath) {
 
 		const files = await readDirectory(lambdaPath);
 
-		return files.map(file => {
+		return files.map((file) => {
 			const pathToFile = path.resolve(lambdaPath, file);
 			if (fs.existsSync(pathToFile) && !fs.lstatSync(pathToFile).isDirectory()) {
 				return file;
@@ -66,7 +53,7 @@ function generateMappingsFromFiles(files) {
 		const path = generatePathFromFile(file);
 		mappings.push({
 			route: path,
-			page: path
+			page: path,
 		});
 
 		return mappings;
@@ -74,7 +61,7 @@ function generateMappingsFromFiles(files) {
 
 	return {
 		prefix: "",
-		mappings
+		mappings,
 	};
 }
 
@@ -90,14 +77,14 @@ function generateMappingsFromPagesFolder(pathToPagesFolder) {
 
 	return {
 		prefix: "",
-		mappings
+		mappings,
 	};
 }
 
 function recursiveBuildMappings(directoryPath, mappings = [], pathPart = "") {
 	// it starts by reading files inside the given folder
 	const files = fs.readdirSync(directoryPath);
-	files.forEach(file => {
+	files.forEach((file) => {
 		const absoluteFilePath = path.join(directoryPath, file);
 		const newPathPart = fromNextPathToQueryPath(pathPart, file);
 		const hasIndex = directoryContainsIndexFile(absoluteFilePath);
@@ -106,7 +93,7 @@ function recursiveBuildMappings(directoryPath, mappings = [], pathPart = "") {
 		} else {
 			const mapping = {
 				route: newPathPart,
-				page: generatePathFromFile(file, newPathPart)
+				page: generatePathFromFile(file, newPathPart),
 			};
 			// if ()
 			mappings.push(mapping);
@@ -142,5 +129,5 @@ function directoryContainsIndexFile(absoluteFilePath) {
 module.exports = {
 	getLambdaFiles,
 	generateMappingsFromFiles,
-	generateMappingsFromPagesFolder
+	generateMappingsFromPagesFolder,
 };

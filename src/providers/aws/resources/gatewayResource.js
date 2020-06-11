@@ -21,7 +21,7 @@ class GatewayResource {
 	generateGatewayResource() {
 		return {
 			uniqueId: this.generateUniqueId(),
-			resource: this.generateResource()
+			resource: this.generateResource(),
 		};
 	}
 
@@ -49,7 +49,7 @@ class GatewayResource {
 		return {
 			rest_api_id: this.config.getGatewayResourceId(),
 			parent_id: this.options.parentId ? "${aws_api_gateway_resource." + this.parentResourceName + ".id}" : this.config.getRootResource(),
-			path_part: this.options.isUrlParameter ? `{${this.options.pathname}}` : this.options.pathname
+			path_part: this.options.isUrlParameter ? `{${this.options.pathname}}` : this.options.pathname,
 		};
 	}
 }

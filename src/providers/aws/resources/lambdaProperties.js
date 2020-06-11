@@ -33,12 +33,12 @@ class LambdaProperties {
 				runtime: this.config.getNodeVersion(),
 				memory_size: "1024",
 				timeout: "180",
-				role: "${local.lambda_iam_role}"
-			}
+				role: "${local.lambda_iam_role}",
+			},
 		};
 		if (this.config.hasEnvs()) {
 			resource.resource.environment = {
-				variables: this.config.getEnvs()
+				variables: this.config.getEnvs(),
 			};
 		}
 

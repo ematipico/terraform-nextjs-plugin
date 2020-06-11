@@ -15,11 +15,11 @@ describe("AwsResources", () => {
 				mappings: [
 					{
 						page: "/blog-post",
-						route: "/new-blog-post-amazing"
+						route: "/new-blog-post-amazing",
 					},
 					{
 						page: "/singleBlogPost",
-						route: "/blog/:url"
+						route: "/blog/:url",
 					},
 					{
 						page: "/blogPost",
@@ -27,16 +27,16 @@ describe("AwsResources", () => {
 						params: [
 							{
 								name: "page",
-								mandatory: true
+								mandatory: true,
 							},
 							{
 								name: "hideComments",
-								mandatory: false
-							}
-						]
-					}
-				]
-			}
+								mandatory: false,
+							},
+						],
+					},
+				],
+			},
 		});
 
 		const awsResources = new AwsResources(config);

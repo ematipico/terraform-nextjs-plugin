@@ -24,7 +24,7 @@ class GatewayIntegration {
 	generateGatewayIntegration(gatewayResourceId) {
 		return {
 			uniqueId: `${this.config.getGatewayKey()}-${this.options.id}`,
-			resource: this.generateResource(gatewayResourceId)
+			resource: this.generateResource(gatewayResourceId),
 		};
 	}
 
@@ -46,7 +46,7 @@ class GatewayIntegration {
 				this.config.getLambdaPrefix() +
 				"-" +
 				this.options.lambdaName +
-				".arn}/invocations"
+				".arn}/invocations",
 		};
 
 		if (this.options.params && this.options.params.length > 0) {

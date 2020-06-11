@@ -27,7 +27,7 @@ class Configuration {
 			buildPath: buildPath || ".next",
 			provider,
 			nextAppDir: nextAppDir ? path.resolve(process.cwd(), nextAppDir) : "./",
-			routes
+			routes,
 		};
 	}
 
@@ -50,7 +50,7 @@ class Configuration {
 
 		if (routes) {
 			if (Array.isArray(routes)) {
-				const isInvalid = routes.some(r => Configuration.checkRoutes(r) === false);
+				const isInvalid = routes.some((r) => Configuration.checkRoutes(r) === false);
 				if (isInvalid === true) errors.push(new IncorrectRoutesError());
 			} else {
 				if (!Configuration.checkRoutes(routes)) errors.push(new IncorrectRoutesError());
@@ -79,7 +79,7 @@ class Configuration {
 
 		if (typeof routes.prefix !== "string") return false;
 
-		valid = routes.mappings.every(mapping => {
+		valid = routes.mappings.every((mapping) => {
 			return !!mapping.route && !!mapping.page;
 		});
 
