@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v2.0.0...v3.0.0) (2020-06-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* minimum version of Next.js is now 9.3.2
+
+### Features
+
+* dropped Node.js v8 ([56dbea5](https://github.com/ematipico/terraform-nextjs-plugin/commit/56dbea5aca11ab16bdcdb066610540009d877ebb))
+
+
+### Bug Fixes
+
+* updated dependencies ([#199](https://github.com/ematipico/terraform-nextjs-plugin/issues/199)) ([2bd8e66](https://github.com/ematipico/terraform-nextjs-plugin/commit/2bd8e669b323dfa3cf562afa38525fc3b0b8abb5))
+* updated libs to fix security problems ([9cc3c96](https://github.com/ematipico/terraform-nextjs-plugin/commit/9cc3c968b9f9ec1e22ba53a7c9910bd30bc35081))
+
+
+### Chores
+
+* **release:** 2.1.0 ([801797a](https://github.com/ematipico/terraform-nextjs-plugin/commit/801797a2624a0c713334fb61e90ce0dd8baff2fe))
+
 ## [2.1.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v2.0.0...v2.1.0) (2020-02-21)
 
 

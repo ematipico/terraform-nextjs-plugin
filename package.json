@@ -1,6 +1,6 @@
 {
   "name": "@ematipico/terraform-nextjs-plugin",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "A nextjs plugin to generate cloud providers configuration for Terraform",
   "main": "src/index.js",
   "bin": "bin/terranext.js",
