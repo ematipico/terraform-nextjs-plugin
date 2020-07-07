@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/ematipico/terraform-nextjs-plugin#readme",
   "devDependencies": {
-    "@types/jest": "26.0.0",
+    "@types/jest": "26.0.4",
     "@types/node": "14.0.13",
     "babel-eslint": "10.1.0",
     "codecov": "3.7.0",
