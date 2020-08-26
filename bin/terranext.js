@@ -15,14 +15,14 @@ Options
 	--gateway-key, -g   The API Gateway key of the project. Default is "Terranext"
 	--next-app-dir, -d  The path that Terraform CLI has to follow to reach the nextjs project.
 	--provider          The Cloud provider to use when exporting the configuration
-	--env								A way for passing environment variables to the lambdas
+	--env               A way for passing environment variables to the lambdas
 		
 Examples
 	$ terranext 
 	$ terranext --gateway-key=CustomKey --next-app-dir=../../nextjs-project/
 	$ terranext --provider=AWS --next-app-dir=../../nextjs-project/
 	$ terranext -g=CustomKey -d=../../nextjs-project/
-	$ terranext --env="DEBUG,express:*"
+	$ terranext --env="DEBUG,express:*" --env="API_KEY,1234"
 `,
 	{
 		flags: {
@@ -42,6 +42,7 @@ Examples
 			},
 			env: {
 				type: "string",
+				isMultiple: true,
 			},
 		},
 	}
@@ -55,7 +56,6 @@ explorer
 		if (env) {
 			parsedEnvs = parseEnv(env, {});
 		}
-		console.log(parsedEnvs);
 		const options = {
 			...result.config,
 			gatewayKey,
