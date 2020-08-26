@@ -86,7 +86,7 @@ Examples
   $ terranext --gateway-key=CustomKey --next-app-dir=../../nextjs-project/
   $ terranext --provider=AWS --next-app-dir=../../nextjs-project/
   $ terranext -g=CustomKey -d=../../nextjs-project/
-  $ terranext --env="DEBUG,express:*"
+  $ terranext --env="DEBUG,express:*" --env="API_KEY,1234"
 ```
 
 ### Via API
