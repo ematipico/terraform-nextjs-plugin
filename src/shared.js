@@ -37,7 +37,7 @@ async function getLambdaFiles(lambdaPath) {
 			}
 			return file;
 		});
-	} catch (error) {
+	} catch {
 		return [];
 	}
 }

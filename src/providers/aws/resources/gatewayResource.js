@@ -38,7 +38,7 @@ class GatewayResource {
 	 * @returns string
 	 */
 	createUniqueId(id) {
-		if (!id) return undefined;
+		if (!id) return;
 		return `${this.config.getGatewayKey()}-${id}`;
 	}
 

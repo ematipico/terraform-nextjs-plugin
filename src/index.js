@@ -62,8 +62,8 @@ async function retrieveConfiguration() {
 	try {
 		const result = await explorer.search();
 		return result.config;
-	} catch (error) {
-		return undefined;
+	} catch {
+		return;
 	}
 }
 

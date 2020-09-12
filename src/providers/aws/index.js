@@ -39,7 +39,7 @@ class AwsResources extends BaseProvider {
 						mandatory: true,
 					};
 				}
-				return undefined;
+				return;
 			})
 			.filter(Boolean);
 	}
@@ -156,7 +156,7 @@ class AwsResources extends BaseProvider {
 			if (write) {
 				// eslint-disable-next-line no-console
 				console.log(`Generating file ${FILE_NAMES.GATEWAY}`);
-				fs.writeFileSync(path.join(process.cwd(), FILE_NAMES.GATEWAY), JSON.stringify(this.terraformConfiguration, null, 4), {
+				fs.writeFileSync(path.join(process.cwd(), FILE_NAMES.GATEWAY), JSON.stringify(this.terraformConfiguration, undefined, 4), {
 					encoding: "utf-8",
 				});
 			} else {
@@ -235,7 +235,7 @@ class AwsResources extends BaseProvider {
 				if (write === true) {
 					// eslint-disable-next-line no-console
 					console.log(`Generating file ${FILE_NAMES.LAMBDAS}`);
-					fs.writeFileSync(path.join(process.cwd(), FILE_NAMES.LAMBDAS), JSON.stringify(lambdaResources, null, 4), {
+					fs.writeFileSync(path.join(process.cwd(), FILE_NAMES.LAMBDAS), JSON.stringify(lambdaResources, undefined, 4), {
 						encoding: "utf-8",
 					});
 				} else {

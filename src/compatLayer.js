@@ -99,11 +99,11 @@ const requestResponseMapper = (event, callback) => {
 		response.multiValueHeaders = res.headers;
 		res.writeHead(response.statusCode);
 		fixApiGatewayMultipleHeaders();
-		callback(null, response);
+		callback(undefined, response);
 	};
 	if (event.body) {
 		request.push(event.body, event.isBase64Encoded ? "base64" : undefined);
-		request.push(null);
+		request.push();
 	}
 
 	// eslint-disable-next-line unicorn/consistent-function-scoping

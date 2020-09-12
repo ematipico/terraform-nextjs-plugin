@@ -23,6 +23,7 @@
 		}],
 		"unicorn/no-process-exit": "off",
 		"no-process-exit": "off",
-		"strict": ["error", "global"]
+		"strict": ["error", "global"],
+		"unicorn/no-reduce": "off"
 	}
 }
