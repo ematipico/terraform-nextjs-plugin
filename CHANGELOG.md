@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v3.0.0...v4.0.0) (2020-09-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* min node version is 12
+
+### Features
+
+* updated to node 12 ([12834e4](https://github.com/ematipico/terraform-nextjs-plugin/commit/12834e455e2fdf6f0f263f27ed4a8fee9ff1dcac))
+
+
+### Bug Fixes
+
+* typo (nextDirApp => nextAppDir) ([#295](https://github.com/ematipico/terraform-nextjs-plugin/issues/295)) ([97c4709](https://github.com/ematipico/terraform-nextjs-plugin/commit/97c47096fdbe89b311938b5e29b1338251fde2fb))
+
+
+### Chores
+
+* updated various dev dependencies ([76369bf](https://github.com/ematipico/terraform-nextjs-plugin/commit/76369bfd850a73d5ee2d80a253881898223789e7))
+* **deps-dev:** bump standard-version from 8.0.0 to 8.0.1 ([#293](https://github.com/ematipico/terraform-nextjs-plugin/issues/293)) ([f95bcd5](https://github.com/ematipico/terraform-nextjs-plugin/commit/f95bcd515fc66563fb17e7d9fd6726beae1992b4))
+* fixed prettier warnings ([6e8c34b](https://github.com/ematipico/terraform-nextjs-plugin/commit/6e8c34bf42551d79939c658580da9fb927ddf544))
+
 ## [3.0.0](https://github.com/ematipico/terraform-nextjs-plugin/compare/v2.0.0...v3.0.0) (2020-06-11)
 
 
