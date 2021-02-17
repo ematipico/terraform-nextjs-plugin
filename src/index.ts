@@ -1,41 +1,31 @@
-const AwsConfig = require("./providers/aws/awsConfig");
-// @ts-ignore
-const AwsResources = require("./providers/aws");
-// @ts-ignore
+import AwsConfig from "./providers/aws/awsConfig";
+import AwsResources, { AllLambdas, GatewayResources } from "./providers/aws";
+
 const { cosmiconfig } = require("cosmiconfig");
-// @ts-ignore
 const build = require("next/dist/build").default;
 
-/**
- * @typedef {import("./index").Configuration} Configuration
- * @typedef {import("./index").Result} Result
- */
+export type TerranextValidLambdas = | AllLambdas;
+export type TerranextValidGateways = | GatewayResources;
 
-/**
- *
- * @param {Configuration} configuration The configuration needed to generate the resources
- * @param {boolean} [write=false]
- * @returns {Promise<Result>}
- */
-async function terranext(configuration, write = false) {
+export interface Terranext {
+	gateway: TerranextValidGateways;
+	lambdas: TerranextValidLambdas;
+}
+
+export default async function terranext(
+	configuration,
+	write = false
+): Promise<void | Terranext> {
 	try {
-		/**
-		 * @type {Configuration}
-		 */
 		const fileConfiguration = await retrieveConfiguration();
-		/**
-		 *
-		 * @type {Configuration}
-		 */
 		const finalConfiguration = {
 			...fileConfiguration,
 			...configuration,
 		};
+		// TODO: refactor generation and make it more abstract
 		const config = new AwsConfig(finalConfiguration);
 		const nextConfig = config.getNextConfig();
-		// @ts-ignore
 		nextConfig.target = "serverless";
-		// @ts-ignore
 		await build(config.getNextAppDir(), nextConfig);
 		const aws = new AwsResources(config);
 
@@ -43,7 +33,7 @@ async function terranext(configuration, write = false) {
 			await aws.generateGatewayResources(write);
 			await aws.generateLambdaResources(write);
 		} else {
-			const lambdas = aws.generateLambdaResources();
+			const lambdas = await aws.generateLambdaResources();
 			const gateway = await aws.generateGatewayResources();
 			return {
 				gateway,
@@ -66,5 +56,3 @@ async function retrieveConfiguration() {
 		return;
 	}
 }
-
-module.exports = terranext;

@@ -3,9 +3,9 @@
   "env": {
     "browser": true
   },
-  "parser": "babel-eslint",
   "parserOptions": {
     "allowImportExportEverywhere": true,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaVersion": 2021
   }
 }

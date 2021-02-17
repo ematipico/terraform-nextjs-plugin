@@ -5,25 +5,42 @@
 		"node": true,
 		"jest": true
 	},
-	"extends": ["eslint:recommended", "plugin:node/recommended", "plugin:unicorn/recommended", "prettier", "prettier/unicorn"],
+	"parser": "@typescript-eslint/parser",
+	"extends": [
+		"eslint:recommended",
+		"plugin:node/recommended",
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"prettier",
+		"prettier/@typescript-eslint"
+	],
 	"globals": {
 		"Atomics": "readonly",
 		"SharedArrayBuffer": "readonly"
 	},
-	"plugins": ["node", "unicorn", "prettier", "node"],
+	"plugins": ["node", "prettier", "@typescript-eslint"],
 	"parserOptions": {
-		"ecmaVersion": 2019
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 2021,
+		"sourceType": "module"
 	},
 	"rules": {
 		"unicorn/filename-case": ["error", { "case": "camelCase" }],
 		"unicorn/prevent-abbreviations": "off",
 		"prettier/prettier": "error",
-		"indent": ["error", "tab", {
-			"SwitchCase": 1
-		}],
+		"indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
 		"unicorn/no-process-exit": "off",
 		"no-process-exit": "off",
 		"strict": ["error", "global"],
-		"unicorn/no-reduce": "off"
+		"unicorn/no-reduce": "off",
+		"node/no-unsupported-features/es-syntax": "off"
 	}
 }

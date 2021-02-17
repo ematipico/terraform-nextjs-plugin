@@ -1,29 +1,41 @@
-/**
- * @typedef {import('../awsConfig')} AwsConfig
- */
-/**
- * @typedef {import('../declarations').LambdaOptions} LambdaOptions
- */
-class LambdaProperties {
-	/**
-	 *
-	 * @param {AwsConfig} config
-	 * @param {LambdaOptions} options
-	 */
+import AwsConfig from "../awsConfig";
+import { LambdaOptions } from "./lambda";
+
+interface Environment {
+	variables: {
+		[key: string]: string
+	}
+}
+export interface LambdaFunctionResourceSpec {
+	filename: string;
+	function_name: string;
+	source_code_hash: string;
+	handler: string;
+	runtime: string;
+	memory_size: string;
+	timeout: string;
+	role: string;
+	environment?: Environment;
+}
+
+export interface GenerateLambdaResource {
+	resourceUniqueId: string;
+	resource: LambdaFunctionResourceSpec;
+}
+
+export default class LambdaProperties {
+	private config: AwsConfig;
+	private options: LambdaOptions;
+
 	constructor(config, options) {
 		this.config = config;
 		this.options = options;
 	}
 
-	/**
-	 * It generates the Lambda resource
-	 *
-	 * @returns {import('../declarations').GenerateLambdaResource}
-	 */
-	generateLambdaProperties() {
+	generateLambdaProperties(): GenerateLambdaResource {
 		const cleanedId = this.options.id.replace(/\[|]/g, "");
 		const lambdaId = `${this.config.getLambdaPrefix()}-${cleanedId}`;
-		const resource = {
+		const resource: GenerateLambdaResource = {
 			resourceUniqueId: lambdaId,
 			resource: {
 				filename: "${data.archive_file.packLambda-" + cleanedId + ".output_path}",
@@ -46,4 +58,3 @@ class LambdaProperties {
 	}
 }
 
-module.exports = LambdaProperties;

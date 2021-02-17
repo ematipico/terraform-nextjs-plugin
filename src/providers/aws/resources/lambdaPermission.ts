@@ -1,27 +1,29 @@
-/**
- * @typedef {import('../awsConfig')} AwsConfig
- */
-/**
- * @typedef {import('../declarations').LambdaOptions} LambdaOptions
- */
+import AwsConfig from "../awsConfig";
+import { LambdaOptions } from "./lambda";
 
-class LambdaPermission {
-	/**
-	 *
-	 * @param {AwsConfig} config
-	 * @param {LambdaOptions} options
-	 */
+export interface LambdaPermissionResourceSpec {
+	statement_id: string;
+	action: string;
+	function_name: string;
+	principal: string;
+	source_arn: string;
+}
+
+export interface LambdaPermissionResources {
+	permissionUniqueId: string;
+	resource: LambdaPermissionResourceSpec;
+}
+
+export default class LambdaPermission {
+	readonly config: AwsConfig;
+	readonly options: LambdaOptions;
+
 	constructor(config, options) {
 		this.config = config;
 		this.options = options;
 	}
 
-	/**
-	 * It generates the Lambda resource
-	 *
-	 * @returns {import('../declarations').LambdaPermission}
-	 */
-	generateLambdaPermissions() {
+	generateLambdaPermissions(): LambdaPermissionResources {
 		const cleanedId = this.options.id.replace(/\[|]/g, "");
 		const lambdaId = `${this.config.getLambdaPrefix()}-${cleanedId}`;
 		return {
@@ -37,4 +39,3 @@ class LambdaPermission {
 	}
 }
 
-module.exports = LambdaPermission;

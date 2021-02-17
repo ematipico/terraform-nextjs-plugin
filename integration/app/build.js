@@ -1,4 +1,4 @@
-const generateResources = require("../../src");
+const generateResources = require("../../lib");
 const routes = require("./routes");
 generateResources(
 	{

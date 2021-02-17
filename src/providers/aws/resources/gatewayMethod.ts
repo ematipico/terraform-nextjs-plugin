@@ -1,14 +1,24 @@
-/** @typedef {import('../declarations').AwsGatewayOptions} AwsGatewayOptions */
-/**
- * @typedef {import('../awsConfig')} AwsConfig
- */
-class GatewayMethod {
-	/**
-	 *
-	 * @param {AwsConfig} config
-	 * @param {AwsGatewayOptions} options
-	 */
-	constructor(config, options) {
+import AwsConfig from "../awsConfig";
+import { AwsGatewayOptions } from "./gateway";
+
+export interface GatewayMethodResourceSpec {
+	rest_api_id: string;
+	resource_id: string;
+	http_method: string;
+	authorization: string;
+	request_parameters?: Record<string, boolean>;
+}
+
+export interface GatewayMethodResource {
+	uniqueId: string;
+	resource: GatewayMethodResourceSpec
+}
+
+export default class GatewayMethod {
+	readonly config: AwsConfig;
+	readonly options: AwsGatewayOptions;
+
+	constructor(config: AwsConfig, options: AwsGatewayOptions) {
 		this.config = config;
 		this.options = options;
 	}
@@ -18,7 +28,7 @@ class GatewayMethod {
 	 *
 	 * @returns
 	 */
-	generateGatewayMethod(gatewayResourceId) {
+	generateGatewayMethod(gatewayResourceId: string): GatewayMethodResource {
 		return {
 			uniqueId: `${this.config.getGatewayKey()}-${this.options.id}`,
 			resource: this.generateResource(gatewayResourceId),
@@ -29,8 +39,8 @@ class GatewayMethod {
 	 *
 	 * @param {string} resourceId
 	 */
-	generateResource(resourceId) {
-		const resource = {
+	generateResource(resourceId): GatewayMethodResourceSpec {
+		const resource: GatewayMethodResourceSpec = {
 			rest_api_id: this.config.getGatewayResourceId(),
 			resource_id: "${aws_api_gateway_resource." + resourceId + ".id}",
 			http_method: "GET",
@@ -53,5 +63,3 @@ class GatewayMethod {
 		return resource;
 	}
 }
-
-module.exports = GatewayMethod;

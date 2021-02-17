@@ -1,25 +1,29 @@
-const LambdaPermission = require("./lambdaPermission");
-const LambdaZip = require("./lambdaZip");
-const LambdaProperties = require("./lambdaProperties");
+import AwsConfig from "../awsConfig";
+import LambdaProperties from "./lambdaProperties";
+import LambdaZip from "./lambdaZip";
+import LambdaPermission from "./lambdaPermission";
 const fs = require("fs");
 const path = require("path");
 
-/**
- * @typedef {import('../awsConfig')} AwsConfig
- */
+export interface LambdaOptions {
+	id: string
+	directoryName: string
+}
 
-class Lambda {
-	/**
-	 *
-	 * @param {AwsConfig} config
-	 * @param options
-	 */
-	constructor(config, options) {
+export default class Lambda {
+
+	readonly config: AwsConfig;
+	readonly options: LambdaOptions;
+	readonly properties: LambdaProperties;
+	readonly zip: LambdaZip;
+	readonly permissions: LambdaPermission;
+
+	constructor(config: AwsConfig, options: LambdaOptions) {
 		this.config = config;
 		this.options = options;
 		this.properties = new LambdaProperties(this.config, this.options);
 		this.zip = new LambdaZip(this.config, this.options);
-		this.permisssions = new LambdaPermission(this.config, this.options);
+		this.permissions = new LambdaPermission(this.config, this.options);
 	}
 
 	emitLambdaFile(filename, thePath) {
@@ -40,7 +44,7 @@ exports.render = (event, context, callback) => {
 	generate() {
 		const properties = this.properties.generateLambdaProperties();
 		const zip = this.zip.generateZipResource();
-		const permissions = this.permisssions.generateLambdaPermissions();
+		const permissions = this.permissions.generateLambdaPermissions();
 
 		return {
 			properties,
@@ -49,4 +53,3 @@ exports.render = (event, context, callback) => {
 		};
 	}
 }
-module.exports = Lambda;

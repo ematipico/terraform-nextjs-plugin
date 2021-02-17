@@ -1,17 +1,56 @@
-const Lambda = require("./resources/lambda");
-const BaseProvider = require("../baseProvider");
+import { BaseProvider } from "../baseProvider";
+import Lambda from "./resources/lambda";
+import AwsConfig from "./awsConfig";
+import Gateway from "./resources/gateway";
+import { generateUniqueName } from "../../utils";
+import { generateMappingsFromFiles, getLambdaFiles } from "../../shared";
+import { COMPAT_LAYER_PATH, FILE_NAMES } from "../../constants";
+import { AWS } from "./aws.declarations";
+import { GatewayResourceSpec } from "./resources/gatewayResource";
+import { GatewayMethodResourceSpec } from "./resources/gatewayMethod";
+import { GatewayIntegrationResourceSpec } from "./resources/gatewayIntegration";
+import { LambdaPermissionResourceSpec } from "./resources/lambdaPermission";
+import { LambdaZipResourceSpec } from "./resources/lambdaZip";
+import { LambdaFunctionResourceSpec } from "./resources/lambdaProperties";
+import FolderNotFoundError from "../../errors/folderNotFoundError";
+
 const fs = require("fs");
 const path = require("path");
-const { generateMappingsFromFiles, getLambdaFiles } = require("../../shared");
-const Gateway = require("./resources/gateway");
-const { generateUniqueName } = require("../../utils");
-const { FILE_NAMES, COMPAT_LAYER_PATH } = require("../../constants");
-const FolderNotFoundError = require("../../errors/folderNotFoundError");
 
-class AwsResources extends BaseProvider {
-	constructor(config) {
+export interface GatewayResources {
+	resource: {
+		aws_api_gateway_resource: AWS.Resource;
+		aws_api_gateway_method: AWS.Method;
+		aws_api_gateway_integration: AWS.Integration;
+	};
+	variable: {
+		integrationList: {
+			default: string[];
+		};
+	};
+}
+
+export interface AllLambdas {
+	resource: {
+		aws_lambda_function: Record<string, LambdaFunctionResourceSpec>,
+		aws_lambda_permission: Record<string, LambdaPermissionResourceSpec>
+	},
+	data: {
+		archive_file:  Record<string, LambdaZipResourceSpec>
+	},
+}
+
+export default class AwsResources extends BaseProvider<AwsConfig> {
+	private terraformConfiguration: GatewayResources;
+	private apiGatewayResource: Record<string, GatewayResourceSpec>;
+	private apiGatewayMethod: Record<string, GatewayMethodResourceSpec>;
+	private apiGatewayIntegration: Record<string, GatewayIntegrationResourceSpec>;
+	private lambdasResources: Record<string, LambdaFunctionResourceSpec>;
+	private lambdasPermissions: Record<string, LambdaPermissionResourceSpec>;
+	private lambdaZip: Record<string, LambdaZipResourceSpec>;
+	constructor(config: AwsConfig) {
 		super(config);
-		this.terraformConfiguration = {};
+		// this.terraformConfiguration = {};
 		this.apiGatewayResource = {};
 		this.apiGatewayMethod = {};
 		this.apiGatewayIntegration = {};
@@ -167,7 +206,7 @@ class AwsResources extends BaseProvider {
 		}
 	}
 
-	generateLambdaResources(write = false) {
+	async generateLambdaResources(write = false) {
 		const buildPath = this.config.getBuildPath();
 		const serverlessBuildPath = this.config.getServerlessBuildPath();
 
@@ -247,5 +286,3 @@ class AwsResources extends BaseProvider {
 			});
 	}
 }
-
-module.exports = AwsResources;

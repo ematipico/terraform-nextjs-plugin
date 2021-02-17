@@ -1,4 +1,6 @@
 /* eslint-disable unicorn/prevent-abbreviations */
+import { EnvParam, Route } from "./index";
+
 const MissingKeyError = require("./errors/missingKeyError");
 const ProviderNotSupported = require("./errors/providerNotSupported");
 const IncorrectRoutesError = require("./errors/incorretRoutesError");
@@ -7,13 +9,18 @@ const { PROVIDERS, NEXT_CONFIG } = require("./constants");
 const path = require("path");
 const fs = require("fs");
 
-/**
- * @typedef {import('./errors/errors').ValidationError} ValidationError
- * @typedef {import('./index').Route} Route
- * @typedef {import('./index').Configuration} GlobalConfiguration
- */
+export interface Properties {
+	gatewayKey?: string;
+	nextAppDir?: string;
+	routes?: Route[] | Route;
+	buildPath?: string;
+	provider: "AWS";
+	nodeVersion?: "8" | "10" | "12";
+	env?: EnvParam[];
+}
 
-class Configuration {
+export default class Configuration {
+	private readonly properties: Properties;
 	/**
 	 *
 	 * @param {GlobalConfiguration} config
@@ -178,5 +185,3 @@ class Configuration {
 		}, {});
 	}
 }
-
-module.exports = Configuration;
