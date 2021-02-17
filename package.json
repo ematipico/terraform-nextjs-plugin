@@ -2,7 +2,8 @@
   "name": "@ematipico/terraform-nextjs-plugin",
   "version": "4.0.0",
   "description": "A nextjs plugin to generate cloud providers configuration for Terraform",
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "bin": "bin/terranext.js",
   "scripts": {
     "test": "jest --watch",
@@ -13,7 +14,8 @@
     "lint:files": "eslint --ext js ./src ./bin ./tests",
     "lint:fix": "pnpm run lint:files -- --fix",
     "lint:types": "tsc",
-    "integration:build": "cd ./integration/app; node ./build.js"
+    "integration:build": "pnpm run build && cd ./integration/app; node ./build.js",
+    "build": "tsc"
   },
   "typings": "./src/index.d.ts",
   "repository": {
@@ -38,6 +40,8 @@
   "devDependencies": {
     "@types/jest": "26.0.20",
     "@types/node": "14.14.28",
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
     "codecov": "3.8.1",
     "eslint": "7.20.0",
     "eslint-config-prettier": "7.2.0",

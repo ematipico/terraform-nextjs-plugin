@@ -1,13 +1,6 @@
-const Configuration = require("../../configuration");
+import Configuration from "../../configuration";
 
-/**
- * @typedef {import('../../index').Configuration} GlobalConfiguration
- */
-class AwsConfig extends Configuration {
-	/**
-	 *
-	 * @param {GlobalConfiguration} configuration
-	 */
+export default class AwsConfig extends Configuration {
 	constructor(configuration) {
 		super(configuration);
 	}
@@ -34,4 +27,3 @@ class AwsConfig extends Configuration {
 	}
 }
 
-module.exports = AwsConfig;

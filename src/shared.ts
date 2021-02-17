@@ -2,7 +2,24 @@ const fs = require("fs");
 const path = require("path");
 const { promisify } = require("util");
 
-/** @typedef {import('./index').Route} Route */
+export interface Param {
+	name: string;
+	mandatory?: boolean;
+}
+
+export interface Mapping {
+	page: string;
+
+	route: string;
+
+	params?: Param[];
+}
+
+export interface Route {
+	prefix?: string;
+
+	mappings: Mapping[];
+}
 
 /**
  *
@@ -10,7 +27,7 @@ const { promisify } = require("util");
  * @param {string} [pathPart]
  * @returns {string}
  */
-function generatePathFromFile(fileName, pathPart) {
+function generatePathFromFile(fileName: string, pathPart?: string) {
 	if (fileName.includes("index") && pathPart) {
 		const parts = pathPart.split("/");
 		return "/" + parts[parts.length - 1].replace(".js", "").replace(":", "").replace(/\[/gm, "").replace(/]/gm, "");
@@ -24,7 +41,7 @@ function generatePathFromFile(fileName, pathPart) {
  * @param {string} lambdaPath The Path to the lambdas
  * @returns {Promise<string[]>}
  */
-async function getLambdaFiles(lambdaPath) {
+async function getLambdaFiles(lambdaPath: string) {
 	try {
 		const readDirectory = promisify(fs.readdir);
 
@@ -48,7 +65,7 @@ async function getLambdaFiles(lambdaPath) {
  * @param {string[]} files An array of file names
  * @returns {Route}
  */
-function generateMappingsFromFiles(files) {
+function generateMappingsFromFiles(files: string[]) {
 	const mappings = files.reduce((mappings, file) => {
 		const path = generatePathFromFile(file);
 		mappings.push({
@@ -70,7 +87,7 @@ function generateMappingsFromFiles(files) {
  * @param {string} pathToPagesFolder
  * @returns {Route}
  */
-function generateMappingsFromPagesFolder(pathToPagesFolder) {
+function generateMappingsFromPagesFolder(pathToPagesFolder: string) {
 	const mappings = [];
 
 	recursiveBuildMappings(pathToPagesFolder, mappings);
@@ -81,7 +98,7 @@ function generateMappingsFromPagesFolder(pathToPagesFolder) {
 	};
 }
 
-function recursiveBuildMappings(directoryPath, mappings = [], pathPart = "") {
+function recursiveBuildMappings(directoryPath: string, mappings: Mapping[] = [], pathPart = "") {
 	// it starts by reading files inside the given folder
 	const files = fs.readdirSync(directoryPath);
 	files.forEach((file) => {
@@ -101,11 +118,11 @@ function recursiveBuildMappings(directoryPath, mappings = [], pathPart = "") {
 	});
 }
 
-function isUrlPathname(string) {
+function isUrlPathname(string: string) {
 	return /^\[.*[\dA-z]]$/gm.test(string);
 }
 
-function fromNextPathToQueryPath(pathPart, file) {
+function fromNextPathToQueryPath(pathPart: string, file: string) {
 	const cleanedFile = file.replace(".js", "");
 	if (isUrlPathname(cleanedFile)) {
 		return `${pathPart}/${":" + cleanedFile.replace(/\[/gm, "").replace(/]/gm, "")}`;
@@ -126,8 +143,4 @@ function directoryContainsIndexFile(absoluteFilePath) {
 	return false;
 }
 
-module.exports = {
-	getLambdaFiles,
-	generateMappingsFromFiles,
-	generateMappingsFromPagesFolder,
-};
+export { getLambdaFiles, generateMappingsFromFiles, generateMappingsFromPagesFolder };

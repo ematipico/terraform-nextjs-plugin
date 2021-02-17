@@ -1,17 +1,28 @@
-/** @typedef {import('../aws.declarations').AWS.GatewayIntegration} GatewayIntegrationObject */
-/** @typedef {import('../declarations').Param} Param */
-/** @typedef {import('../declarations').AwsGatewayOptions} AwsGatewayOptions */
-/**
- * @typedef {import('../awsConfig')} AwsConfig
- */
+import AwsConfig from "../awsConfig";
+import { AwsGatewayOptions } from "./gateway";
 
-class GatewayIntegration {
-	/**
-	 *
-	 * @param {AwsConfig} config
-	 * @param {AwsGatewayOptions} options
-	 */
-	constructor(config, options) {
+
+export interface GatewayIntegrationResourceSpec {
+	rest_api_id: string;
+	resource_id:string;
+	http_method: string;
+	integration_http_method: string;
+	type: string;
+	uri: string;
+	request_parameters?: Record<string, string>
+}
+
+export interface GatewayIntegrationResource {
+	uniqueId: string;
+	resource: GatewayIntegrationResourceSpec
+}
+
+export default class GatewayIntegration {
+
+	readonly config: AwsConfig;
+	readonly options: AwsGatewayOptions;
+
+	constructor(config: AwsConfig, options: AwsGatewayOptions) {
 		this.config = config;
 		this.options = options;
 	}
@@ -19,9 +30,8 @@ class GatewayIntegration {
 	 * It generates the integration resource
 	 *
 	 * @param {string} gatewayResourceId
-	 * @returns {{ uniqueId: string, resource: GatewayIntegrationObject }}
 	 */
-	generateGatewayIntegration(gatewayResourceId) {
+	generateGatewayIntegration(gatewayResourceId): GatewayIntegrationResource {
 		return {
 			uniqueId: `${this.config.getGatewayKey()}-${this.options.id}`,
 			resource: this.generateResource(gatewayResourceId),
@@ -32,10 +42,9 @@ class GatewayIntegration {
 	 *
 	 *
 	 * @param {string} gatewayResourceId
-	 * @returns {GatewayIntegrationObject}
 	 */
-	generateResource(gatewayResourceId) {
-		const resource = {
+	generateResource(gatewayResourceId): GatewayIntegrationResourceSpec {
+		const resource: GatewayIntegrationResourceSpec = {
 			rest_api_id: "${aws_api_gateway_rest_api." + this.config.getGatewayKey() + ".id}",
 			resource_id: "${aws_api_gateway_resource." + gatewayResourceId + ".id}",
 			http_method: "GET",
@@ -69,4 +78,3 @@ class GatewayIntegration {
 	}
 }
 
-module.exports = GatewayIntegration;

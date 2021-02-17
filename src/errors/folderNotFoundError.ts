@@ -1,4 +1,4 @@
-class FolderNotFoundError extends Error {
+export default class FolderNotFoundError extends Error {
 	constructor(folderName, error) {
 		super();
 		this.name = "FolderNotFoundError";
@@ -7,4 +7,3 @@ class FolderNotFoundError extends Error {
 	}
 }
 
-module.exports = FolderNotFoundError;

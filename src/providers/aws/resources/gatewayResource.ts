@@ -1,13 +1,22 @@
-/** @typedef {import('../declarations').AwsGatewayOptions} AwsGatewayOptions */
-/**
- * @typedef {import('../awsConfig')} AwsConfig
- */
-class GatewayResource {
-	/**
-	 *
-	 * @param {AwsConfig} config
-	 * @param {AwsGatewayOptions} options
-	 */
+import AwsConfig from "../awsConfig";
+import { AwsGatewayOptions } from "./gateway";
+
+export interface GatewayResourceSpec {
+	rest_api_id: string;
+	parent_id: string;
+	path_part: string;
+}
+
+export interface GenerateGatewayResource {
+	uniqueId: string;
+	resource: GatewayResourceSpec;
+}
+
+export default class GatewayResource {
+	private readonly config: AwsConfig;
+	private readonly options: AwsGatewayOptions;
+	private readonly parentResourceName: string;
+
 	constructor(config, options) {
 		this.config = config;
 		this.options = options;
@@ -18,7 +27,7 @@ class GatewayResource {
 	 * It generates the ApiGateway resource
 	 * @returns
 	 */
-	generateGatewayResource() {
+	generateGatewayResource(): GenerateGatewayResource {
 		return {
 			uniqueId: this.generateUniqueId(),
 			resource: this.generateResource(),
@@ -45,7 +54,7 @@ class GatewayResource {
 	/**
 	 * It generates the single resource
 	 */
-	generateResource() {
+	generateResource(): GatewayResourceSpec {
 		return {
 			rest_api_id: this.config.getGatewayResourceId(),
 			parent_id: this.options.parentId ? "${aws_api_gateway_resource." + this.parentResourceName + ".id}" : this.config.getRootResource(),
@@ -53,5 +62,3 @@ class GatewayResource {
 		};
 	}
 }
-
-module.exports = GatewayResource;

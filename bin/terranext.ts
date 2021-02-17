@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const { cosmiconfig } = require("cosmiconfig");
-const meow = require("meow");
-const generateResources = require("../src");
+import { cosmiconfig } from "cosmiconfig";
+import meow from "meow";
+import terranext from "../src/index";
 
 const explorer = cosmiconfig("terranext");
 
@@ -54,7 +54,7 @@ explorer
 		const { gatewayKey, nextAppDir, provider, env } = cli.flags;
 		let parsedEnvs;
 		if (env) {
-			parsedEnvs = parseEnv(env, {});
+			parsedEnvs = parseEnv(env);
 		}
 		const options = {
 			...result.config,
@@ -63,7 +63,7 @@ explorer
 			provider,
 			env: parsedEnvs,
 		};
-		await generateResources(options, true);
+		await terranext(options, true);
 	})
 	.catch((error) => {
 		// eslint-disable-next-line no-console

@@ -12,7 +12,7 @@ const FILE_NAMES = {
 const NEXT_CONFIG = "next.config.js";
 const COMPAT_LAYER_PATH = path.resolve(__dirname);
 
-module.exports = {
+export {
 	PROVIDERS,
 	FILE_NAMES,
 	NEXT_CONFIG,

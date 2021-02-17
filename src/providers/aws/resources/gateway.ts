@@ -1,21 +1,29 @@
-const GatewayIntegration = require("./gatewayIntegration");
-const GatewayMethod = require("./gatewayMethod");
-const GatewayResource = require("./gatewayResource");
+import GatewayIntegration, { GatewayIntegrationResource } from "./gatewayIntegration";
+import GatewayResource, { GenerateGatewayResource } from "./gatewayResource";
+import GatewayMethod, { GatewayMethodResource } from "./gatewayMethod";
+import AwsConfig from "../awsConfig";
 
-/** @typedef {import('../aws.declarations').AWS.GatewayIntegration} GatewayIntegrationObject */
-/** @typedef {import('../declarations').Param} Param */
-/** @typedef {import('../declarations').AwsGatewayOptions} AwsGatewayOptions */
-/**
- * @typef {} AwsConfig
- */
+export interface Param {
+	name: string;
+	mandatory?: boolean;
+}
 
-class Gateway {
-	/**
-	 *
-	 * @param config
-	 * @param {AwsGatewayOptions} options
-	 */
-	constructor(config, options) {
+export interface AwsGatewayOptions {
+	parentId?: string;
+	id: string;
+	isUrlParameter?: boolean;
+	pathname: string;
+	params?: Param[];
+	queryStringParams?: Param[];
+	lambdaName: string;
+}
+
+export default class Gateway {
+	readonly gatewayIntegration: GatewayIntegration;
+	readonly gatewayMethod: GatewayMethod;
+	readonly gatewayResource: GatewayResource;
+
+	constructor(config: AwsConfig, options: AwsGatewayOptions) {
 		this.gatewayIntegration = new GatewayIntegration(config, options);
 		this.gatewayMethod = new GatewayMethod(config, options);
 		this.gatewayResource = new GatewayResource(config, options);
@@ -24,7 +32,7 @@ class Gateway {
 	/**
 	 * @returns
 	 */
-	getResource() {
+	getResource(): GenerateGatewayResource {
 		return this.gatewayResource.generateGatewayResource();
 	}
 
@@ -33,16 +41,15 @@ class Gateway {
 	 * @param {string} gatewayResourceId
 	 * @returns {{resource: {authorization: string, rest_api_id: *, http_method: string, resource_id: string}, uniqueId: string}}
 	 */
-	getMethod(gatewayResourceId) {
+	getMethod(gatewayResourceId): GatewayMethodResource {
 		return this.gatewayMethod.generateGatewayMethod(gatewayResourceId);
 	}
 
 	/**
 	 *
 	 * @param {string} gatewayResourceId
-	 * @returns {{uniqueId: string, resource: GatewayIntegrationObject}}
 	 */
-	getIntegration(gatewayResourceId) {
+	getIntegration(gatewayResourceId): GatewayIntegrationResource {
 		return this.gatewayIntegration.generateGatewayIntegration(gatewayResourceId);
 	}
 
