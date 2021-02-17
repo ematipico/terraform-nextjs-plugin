@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [14.x, 12.x]
 
     steps:
       - uses: actions/checkout@v1
@@ -22,12 +22,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: npm install
-        run: npm install
+      - name: Install pnpm
+        run: curl -L https://pnpm.js.org/pnpm.js | node - add --global pnpm
+      - name: pnpm install
+        run: pnpm install
       - name: Linting
-        run: npm run lint
+        run: pnpm run lint
       - name: Unit Test
-        run: npm run test:ci-unix
+        run: pnpm run test:ci-unix
         env:
           CI: true
       - name: Install terraform
@@ -36,7 +38,7 @@ jobs:
           curl -o terraform.zip https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip &&  unzip terraform.zip && mv terraform ./integration/aws
       - name: Run integration and copy files
         run: |
-          npm run integration:build
+          pnpm run integration:build
           cp ./integration/app/gateway.terraform.tf.json ./integration/aws;
           cp ./integration/app/lambdas.terraform.tf.json ./integration/aws;
       - name: Validate resources
