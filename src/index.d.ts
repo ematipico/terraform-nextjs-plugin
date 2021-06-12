@@ -7,6 +7,8 @@ import { Param } from "./providers/aws/declarations";
 		routes?: Route[] | Route;
 		buildPath?: string;
 		provider: "AWS";
+		memorySize?: string;
+		timeout?: string;
 		nodeVersion?: "8" | "10" | "12";
 		env?: EnvParam[];
 	}

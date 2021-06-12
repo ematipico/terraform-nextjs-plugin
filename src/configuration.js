@@ -3,6 +3,8 @@ const MissingKeyError = require("./errors/missingKeyError");
 const ProviderNotSupported = require("./errors/providerNotSupported");
 const IncorrectRoutesError = require("./errors/incorretRoutesError");
 const EmptyConfigurationError = require("./errors/emptyConfigurationError");
+const InvalidMemorySize = require("./errors/invalidMemorySize");
+const InvalidTimeout = require("./errors/invalidTimeout");
 const { PROVIDERS, NEXT_CONFIG } = require("./constants");
 const path = require("path");
 const fs = require("fs");
@@ -43,7 +45,7 @@ class Configuration {
 			errors.push(new EmptyConfigurationError());
 			return errors;
 		}
-		const { gatewayKey, nextAppDir, routes, provider } = config;
+		const { gatewayKey, nextAppDir, routes, provider, memorySize, timeout } = config;
 
 		if (!gatewayKey) errors.push(new MissingKeyError("gatewayKey"));
 		if (!nextAppDir) errors.push(new MissingKeyError("nextAppDir"));
@@ -61,6 +63,14 @@ class Configuration {
 
 		if (!Object.keys(PROVIDERS).includes(provider)) {
 			errors.push(new ProviderNotSupported(provider));
+		}
+
+		if (memorySize) {
+			Number.isNaN(Number(memorySize)) && errors.push(new InvalidMemorySize());
+		}
+
+		if (timeout) {
+			Number.isNaN(Number(timeout)) && errors.push(new InvalidTimeout());
 		}
 
 		if (errors.length > 0) return errors;
@@ -165,6 +175,14 @@ class Configuration {
 			default:
 				return "nodejs8.10";
 		}
+	}
+
+	getMemorySize() {
+		return this.properties.memorySize || "1024";
+	}
+
+	getTimeout() {
+		return this.properties.timeout || "180";
 	}
 
 	hasEnvs() {

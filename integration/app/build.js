@@ -9,9 +9,11 @@ generateResources(
 		env: [
 			{
 				key: "DEBUG",
-				value: "express:*"
-			}
-		]
+				value: "express:*",
+			},
+		],
+		memorySize: "1024",
+		timeout: "180",
 	},
 	true
 );

@@ -31,8 +31,8 @@ class LambdaProperties {
 				source_code_hash: "${data.archive_file.packLambda-" + cleanedId + ".output_base64sha256}",
 				handler: this.options.id + ".render",
 				runtime: this.config.getNodeVersion(),
-				memory_size: "1024",
-				timeout: "180",
+				memory_size: this.config.getMemorySize(),
+				timeout: this.config.getTimeout(),
 				role: "${local.lambda_iam_role}",
 			},
 		};
