@@ -64,6 +64,42 @@ describe("terraFormLambda", () => {
 		expect(result.resource.runtime).toEqual("nodejs12.x");
 	});
 
+	it("return the provided memorySize value", () => {
+		const c = new AwsConfig({
+			gatewayKey: "CustomKey",
+			provider: "AWS",
+			memorySize: "2048",
+		});
+
+		const properties = new LambdaProperties(c, {
+			id: "index",
+			directoryName: "/test",
+		});
+
+		const result = properties.generateLambdaProperties();
+
+		expect(result.resourceUniqueId).toBe("lambdaForCustomKey-index");
+		expect(result.resource.memory_size).toEqual("2048");
+	});
+
+	it("return the provided timeout value", () => {
+		const c = new AwsConfig({
+			gatewayKey: "CustomKey",
+			provider: "AWS",
+			timeout: "120",
+		});
+
+		const properties = new LambdaProperties(c, {
+			id: "index",
+			directoryName: "/test",
+		});
+
+		const result = properties.generateLambdaProperties();
+
+		expect(result.resourceUniqueId).toBe("lambdaForCustomKey-index");
+		expect(result.resource.timeout).toEqual("120");
+	});
+
 	it("should return the environment variables", () => {
 		const c = new AwsConfig({
 			gatewayKey: "CustomKey",

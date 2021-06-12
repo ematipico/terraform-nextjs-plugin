@@ -66,6 +66,33 @@ describe("Configuration", () => {
 		expect(errors2.find((error) => error.message === "The object containing the routes is not correct")).toBeDefined();
 	});
 
+	it("should throw an error when memorySize value is invalid", () => {
+		const errors = Configuration.checkConfiguration({
+			gatewayKey: "myTest",
+			lambdaPath: "/path",
+			memorySize: "abcd",
+		});
+		expect(
+			errors.find(
+				(error) =>
+					error.message === "memorySize value is invalid, if it is provided, it must be a string containing a number between 128 and 10240"
+			)
+		).toBeDefined();
+	});
+
+	it("should throw an error when timeout value is invalid", () => {
+		const errors = Configuration.checkConfiguration({
+			gatewayKey: "myTest",
+			lambdaPath: "/path",
+			timeout: "abcd",
+		});
+		expect(
+			errors.find(
+				(error) => error.message === "timeout value is invalid, if it is provided, it must be a string containing a number smaller than 900"
+			)
+		).toBeDefined();
+	});
+
 	it("should return true when the configuration is correct", () => {
 		expect(
 			Configuration.checkConfiguration({
