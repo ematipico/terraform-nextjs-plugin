@@ -187,7 +187,7 @@ describe("Configuration", () => {
 		});
 
 		expect(
-			errors.find((error) => error.message === "Azure provider is not supported. Choose between: " + Object.keys(PROVIDERS).join(", ")),
+			errors.find((error) => error.message === `Azure provider is not supported. Choose between: ${Object.keys(PROVIDERS).join(", ")}`),
 		).toBeDefined();
 	});
 });

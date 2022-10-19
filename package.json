@@ -9,6 +9,7 @@
     "test:ci-unix": "CI=true jest --colors --coverage --maxWorkers=4 --reporters=default --reporters=jest-junit && codecov -t 260305d4-6357-42d2-a73c-4c9b255d278a",
     "test:ci-win": "jest --colors --coverage --maxWorkers=4 --reporters=default --reporters=jest-junit",
     "release": "standard-version",
+    "ci": "rome ci . && pnpm run lint:types",
     "lint": "pnpm run lint:files && pnpm run lint:types",
     "lint:files": "rome check ./src ./bin ./tests",
     "lint:fix": "pnpm run lint:files -- --apply-suggested",

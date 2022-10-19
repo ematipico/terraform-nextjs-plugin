@@ -171,11 +171,11 @@ class AwsResources extends BaseProvider {
 		const buildPath = this.config.getBuildPath();
 		const serverlessBuildPath = this.config.getServerlessBuildPath();
 
-		if (fs.existsSync(buildPath + "/lambdas")) {
-			this.deleteDir(buildPath + "/lambdas");
+		if (fs.existsSync(`${buildPath}/lambdas`)) {
+			this.deleteDir(`${buildPath}/lambdas`);
 		}
 		// it creates the folder that will contain the lambdas
-		fs.mkdirSync(buildPath + "/lambdas");
+		fs.mkdirSync(`${buildPath}/lambdas`);
 
 		return getLambdaFiles(serverlessBuildPath)
 			.then((files) => {
@@ -192,7 +192,7 @@ class AwsResources extends BaseProvider {
 						 */
 						// 1.
 						const lambdaName = file.replace(".js", "");
-						const lambdaPath = path.resolve(buildPath, "lambdas") + "/" + lambdaName;
+						const lambdaPath = `${path.resolve(buildPath, "lambdas")}/${lambdaName}`;
 						fs.mkdirSync(lambdaPath);
 
 						// 2.

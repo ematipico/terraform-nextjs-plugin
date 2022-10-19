@@ -13,9 +13,9 @@ const { promisify } = require("util");
 function generatePathFromFile(fileName, pathPart) {
 	if (fileName.includes("index") && pathPart) {
 		const parts = pathPart.split("/");
-		return "/" + parts[parts.length - 1].replace(".js", "").replace(":", "").replace(/\[/gm, "").replace(/]/gm, "");
+		return `/${parts[parts.length - 1].replace(".js", "").replace(":", "").replace(/\[/gm, "").replace(/]/gm, "")}`;
 	}
-	return "/" + fileName.replace(".js", "").replace(/\[/gm, "").replace(/]/gm, "");
+	return `/${fileName.replace(".js", "").replace(/\[/gm, "").replace(/]/gm, "")}`;
 }
 
 /**
@@ -108,7 +108,7 @@ function isUrlPathname(string) {
 function fromNextPathToQueryPath(pathPart, file) {
 	const cleanedFile = file.replace(".js", "");
 	if (isUrlPathname(cleanedFile)) {
-		return `${pathPart}/${":" + cleanedFile.replace(/\[/gm, "").replace(/]/gm, "")}`;
+		return `${pathPart}/${`:${cleanedFile.replace(/\[/gm, "").replace(/]/gm, "")}`}`;
 	} else {
 		return `${pathPart}/${cleanedFile}`;
 	}

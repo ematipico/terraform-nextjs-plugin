@@ -91,7 +91,7 @@ class Configuration {
 	}
 
 	get getConfiguration() {
-		return this.properties;
+		return Boolean(this.properties);
 	}
 
 	static checkRoutes(routes) {

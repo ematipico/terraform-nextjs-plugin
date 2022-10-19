@@ -38,7 +38,9 @@ class GatewayResource {
 	 * @returns string
 	 */
 	createUniqueId(id) {
-		if (!id) return;
+		if (!id) {
+			return;
+		}
 		return `${this.config.getGatewayKey()}-${id}`;
 	}
 
@@ -48,7 +50,7 @@ class GatewayResource {
 	generateResource() {
 		return {
 			rest_api_id: this.config.getGatewayResourceId(),
-			parent_id: this.options.parentId ? "${aws_api_gateway_resource." + this.parentResourceName + ".id}" : this.config.getRootResource(),
+			parent_id: this.options.parentId ? `\${aws_api_gateway_resource.${this.parentResourceName}.id}` : this.config.getRootResource(),
 			path_part: this.options.isUrlParameter ? `{${this.options.pathname}}` : this.options.pathname,
 		};
 	}

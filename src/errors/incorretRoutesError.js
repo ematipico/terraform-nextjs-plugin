@@ -4,7 +4,7 @@ class IncorrectRoutesError extends ValidationError {
 	constructor() {
 		super();
 		this.type = "IncorrectRoutesError";
-		this.message = `The object containing the routes is not correct`;
+		this.message = "The object containing the routes is not correct";
 	}
 }
 

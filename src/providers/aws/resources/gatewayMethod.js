@@ -32,7 +32,7 @@ class GatewayMethod {
 	generateResource(resourceId) {
 		const resource = {
 			rest_api_id: this.config.getGatewayResourceId(),
-			resource_id: "${aws_api_gateway_resource." + resourceId + ".id}",
+			resource_id: `\${aws_api_gateway_resource.${resourceId}.id}`,
 			http_method: "GET",
 			authorization: "NONE",
 		};
