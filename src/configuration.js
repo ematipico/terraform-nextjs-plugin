@@ -47,19 +47,29 @@ class Configuration {
 		}
 		const { gatewayKey, nextAppDir, routes, provider, memorySize, timeout } = config;
 
-		if (!gatewayKey) errors.push(new MissingKeyError("gatewayKey"));
-		if (!nextAppDir) errors.push(new MissingKeyError("nextAppDir"));
+		if (!gatewayKey) {
+			errors.push(new MissingKeyError("gatewayKey"));
+		}
+		if (!nextAppDir) {
+			errors.push(new MissingKeyError("nextAppDir"));
+		}
 
 		if (routes) {
 			if (Array.isArray(routes)) {
 				const isInvalid = routes.some((r) => Configuration.checkRoutes(r) === false);
-				if (isInvalid === true) errors.push(new IncorrectRoutesError());
+				if (isInvalid === true) {
+					errors.push(new IncorrectRoutesError());
+				}
 			} else {
-				if (!Configuration.checkRoutes(routes)) errors.push(new IncorrectRoutesError());
+				if (!Configuration.checkRoutes(routes)) {
+					errors.push(new IncorrectRoutesError());
+				}
 			}
 		}
 
-		if (!provider) errors.push(new MissingKeyError("provider"));
+		if (!provider) {
+			errors.push(new MissingKeyError("provider"));
+		}
 
 		if (!Object.keys(PROVIDERS).includes(provider)) {
 			errors.push(new ProviderNotSupported(provider));
@@ -73,7 +83,9 @@ class Configuration {
 			Number.isNaN(Number(timeout)) && errors.push(new InvalidTimeout());
 		}
 
-		if (errors.length > 0) return errors;
+		if (errors.length > 0) {
+			return errors;
+		}
 
 		return true;
 	}
@@ -85,12 +97,16 @@ class Configuration {
 	static checkRoutes(routes) {
 		let valid = true;
 
-		if (typeof routes.prefix === "undefined" || typeof routes.mappings === "undefined") return false;
+		if (typeof routes.prefix === "undefined" || typeof routes.mappings === "undefined") {
+			return false;
+		}
 
-		if (typeof routes.prefix !== "string") return false;
+		if (typeof routes.prefix !== "string") {
+			return false;
+		}
 
 		valid = routes.mappings.every((mapping) => {
-			return !!mapping.route && !!mapping.page;
+			return mapping.route && mapping.page;
 		});
 
 		return valid;
@@ -152,7 +168,7 @@ class Configuration {
 		if (fs.existsSync(nextConfigFilePath)) {
 			return require(nextConfigFilePath);
 		}
-		throw new Error("Missing config file inside the Next.js folder: " + nextConfigFilePath);
+		throw new Error(`Missing config file inside the Next.js folder: ${nextConfigFilePath}`);
 	}
 
 	getNextAppDir() {
@@ -186,7 +202,7 @@ class Configuration {
 	}
 
 	hasEnvs() {
-		return !!this.properties.env;
+		return this.properties.env;
 	}
 
 	getEnvs() {
