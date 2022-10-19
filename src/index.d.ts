@@ -1,54 +1,54 @@
 import { AWS } from "./providers/aws/aws.declarations";
 import { Param } from "./providers/aws/declarations";
 
-	export interface Configuration {
-		gatewayKey?: string;
-		nextAppDir?: string;
-		routes?: Route[] | Route;
-		buildPath?: string;
-		provider: "AWS";
-		memorySize?: string;
-		timeout?: string;
-		nodeVersion?: "8" | "10" | "12";
-		env?: EnvParam[];
-	}
+export interface Configuration {
+	gatewayKey?: string;
+	nextAppDir?: string;
+	routes?: Route[] | Route;
+	buildPath?: string;
+	provider: "AWS";
+	memorySize?: string;
+	timeout?: string;
+	nodeVersion?: "8" | "10" | "12";
+	env?: EnvParam[];
+}
 
-	export interface EnvParam {
-		key: string;
-		value: string;
-	}
+export interface EnvParam {
+	key: string;
+	value: string;
+}
 
-	export interface Result<G, L> {
-		gateway: G;
-		lambdas: L;
-	}
+export interface Result<G, L> {
+	gateway: G;
+	lambdas: L;
+}
 
-	export interface Route {
-		prefix?: string;
+export interface Route {
+	prefix?: string;
 
-		mappings: Mapping[];
-	}
+	mappings: Mapping[];
+}
 
-	export interface Mapping {
-		page: string;
+export interface Mapping {
+	page: string;
 
-		route: string;
+	route: string;
 
-		params?: Param[];
-	}
+	params?: Param[];
+}
 
-	export interface GatewayResources {
-		resource: {
-			aws_api_gateway_resource: AWS.Resource;
-			aws_api_gateway_method: AWS.Method;
-			aws_api_gateway_integration: AWS.Integration;
+export interface GatewayResources {
+	resource: {
+		aws_api_gateway_resource: AWS.Resource;
+		aws_api_gateway_method: AWS.Method;
+		aws_api_gateway_integration: AWS.Integration;
+	};
+	variable: {
+		integrationList: {
+			default: string[];
 		};
-		variable: {
-			integrationList: {
-				default: string[];
-			};
-		};
-	}
+	};
+}
 
 declare function terranext<G, L>(configuration: Configuration, write: boolean): Promise<void>;
 declare function terranext<G, L>(configuration: Configuration): Promise<Result<G, L>>;

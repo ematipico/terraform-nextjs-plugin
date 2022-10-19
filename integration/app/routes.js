@@ -3,11 +3,11 @@ module.exports = {
 	mappings: [
 		{
 			page: "/blogPost",
-			route: "/blog/:url"
+			route: "/blog/:url",
 		},
 		{
 			page: "/contact",
-			route: "/contact-us"
-		}
-	]
+			route: "/contact-us",
+		},
+	],
 };

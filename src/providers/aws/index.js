@@ -209,7 +209,7 @@ class AwsResources extends BaseProvider {
 						// 4.
 						fs.copyFileSync(
 							path.resolve(COMPAT_LAYER_PATH, "./compatLayer.js"),
-							path.resolve(buildPath, "lambdas", lambdaName, "compatLayer.js")
+							path.resolve(buildPath, "lambdas", lambdaName, "compatLayer.js"),
 						);
 
 						// 5.

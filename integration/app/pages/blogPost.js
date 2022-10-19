@@ -4,8 +4,8 @@ export default function BlogPost() {
 	return <h1>Blog post page</h1>;
 }
 
-BlogPost.getInitialProps = function() {
+BlogPost.getInitialProps = function () {
 	return {
-		name: "foo"
+		name: "foo",
 	};
 };
