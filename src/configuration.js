@@ -91,7 +91,7 @@ class Configuration {
 	}
 
 	get getConfiguration() {
-		return Boolean(this.properties);
+		return this.properties;
 	}
 
 	static checkRoutes(routes) {
@@ -202,7 +202,7 @@ class Configuration {
 	}
 
 	hasEnvs() {
-		return this.properties.env;
+		return Boolean(this.properties.env);
 	}
 
 	getEnvs() {
