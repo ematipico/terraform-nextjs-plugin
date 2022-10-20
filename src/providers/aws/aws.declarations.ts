@@ -72,8 +72,8 @@ export declare namespace AWS {
 
 	interface Environment {
 		variables: {
-			[key: string]: string
-		}
+			[key: string]: string;
+		};
 	}
 
 	interface LambdaPermission {

@@ -75,8 +75,8 @@ describe("Configuration", () => {
 		expect(
 			errors.find(
 				(error) =>
-					error.message === "memorySize value is invalid, if it is provided, it must be a string containing a number between 128 and 10240"
-			)
+					error.message === "memorySize value is invalid, if it is provided, it must be a string containing a number between 128 and 10240",
+			),
 		).toBeDefined();
 	});
 
@@ -88,8 +88,9 @@ describe("Configuration", () => {
 		});
 		expect(
 			errors.find(
-				(error) => error.message === "timeout value is invalid, if it is provided, it must be a string containing a number smaller than 900"
-			)
+				(error) =>
+					error.message === "timeout value is invalid, if it is provided, it must be a string containing a number smaller than 900",
+			),
 		).toBeDefined();
 	});
 
@@ -108,7 +109,7 @@ describe("Configuration", () => {
 					],
 				},
 				provider: "AWS",
-			})
+			}),
 		).toBe(true);
 
 		expect(
@@ -137,7 +138,7 @@ describe("Configuration", () => {
 				],
 
 				provider: "AWS",
-			})
+			}),
 		).toBe(true);
 	});
 
@@ -186,7 +187,7 @@ describe("Configuration", () => {
 		});
 
 		expect(
-			errors.find((error) => error.message === "Azure provider is not supported. Choose between: " + Object.keys(PROVIDERS).join(", "))
+			errors.find((error) => error.message === `Azure provider is not supported. Choose between: ${Object.keys(PROVIDERS).join(", ")}`),
 		).toBeDefined();
 	});
 });

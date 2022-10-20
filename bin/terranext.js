@@ -45,7 +45,7 @@ Examples
 				isMultiple: true,
 			},
 		},
-	}
+	},
 );
 
 explorer

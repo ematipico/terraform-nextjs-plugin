@@ -4,7 +4,7 @@ class EmptyConfigurationError extends ValidationError {
 	constructor() {
 		super();
 		this.type = "EmptyConfigurationError";
-		this.message = `Empty configuration, cannot proceed.`;
+		this.message = "Empty configuration, cannot proceed.";
 	}
 }
 

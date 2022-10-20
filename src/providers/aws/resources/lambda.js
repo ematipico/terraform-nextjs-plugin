@@ -32,7 +32,7 @@ exports.render = (event, context, callback) => {
 	page.render(req, res);
 }`;
 
-		fs.writeFileSync(path.resolve(thePath, "lambdas", filename, filename + ".js"), lambdaTemplate, {
+		fs.writeFileSync(path.resolve(thePath, "lambdas", filename, `${filename}.js`), lambdaTemplate, {
 			encoding: "utf-8",
 		});
 	}

@@ -62,6 +62,6 @@ export interface GenerateGatewayMethodPayload {
 }
 
 export interface LambdaOptions {
-	id: string
-	directoryName: string
+	id: string;
+	directoryName: string;
 }

@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 12.x]
+        node-version: [16.x, 14.x]
 
     steps:
       - uses: actions/checkout@v1
@@ -27,7 +27,7 @@ jobs:
       - name: pnpm install
         run: pnpm install
       - name: Linting
-        run: pnpm run lint
+        run: pnpm run ci
       - name: Unit Test
         run: pnpm run test:ci-unix
         env:

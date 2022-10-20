@@ -1,0 +1,17 @@
+{
+  "linter": {
+    "enabled": true,
+    "ignore": [
+      "integration/app/.next"
+    ],
+    "rules": {
+      "recommended": true
+    }
+  },
+  "formatter": {
+    "lineWidth": 140,
+    "ignore": [
+      "integration/app/.next"
+    ]
+  }
+}

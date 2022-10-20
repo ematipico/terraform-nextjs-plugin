@@ -26,10 +26,10 @@ class LambdaProperties {
 		const resource = {
 			resourceUniqueId: lambdaId,
 			resource: {
-				filename: "${data.archive_file.packLambda-" + cleanedId + ".output_path}",
-				function_name: "${local.groupname}-" + cleanedId,
-				source_code_hash: "${data.archive_file.packLambda-" + cleanedId + ".output_base64sha256}",
-				handler: this.options.id + ".render",
+				filename: `\${data.archive_file.packLambda-${cleanedId}.output_path}`,
+				function_name: `\${local.groupname}-${cleanedId}`,
+				source_code_hash: `\${data.archive_file.packLambda-${cleanedId}.output_base64sha256}`,
+				handler: `${this.options.id}.render`,
 				runtime: this.config.getNodeVersion(),
 				memory_size: this.config.getMemorySize(),
 				timeout: this.config.getTimeout(),

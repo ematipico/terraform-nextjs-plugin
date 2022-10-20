@@ -15,5 +15,5 @@ generateResources(
 		memorySize: "1024",
 		timeout: "180",
 	},
-	true
+	true,
 );

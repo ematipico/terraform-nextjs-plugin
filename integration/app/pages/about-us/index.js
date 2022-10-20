@@ -4,8 +4,8 @@ export default function AboutUs() {
 	return <h1>Contacts page</h1>;
 }
 
-AboutUs.getInitialProps = function() {
+AboutUs.getInitialProps = function () {
 	return {
-		name: "foo"
+		name: "foo",
 	};
 };
